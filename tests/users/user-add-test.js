@@ -16,10 +16,11 @@ describe('save user prueba', () => {
         }
         
         var save = sinon.stub(useCaseSaveUser, 'handle');
-        save.withArgs(user);
+        //save.withArgs(user);
         //save.returns({id: 1, name: "Daniel Oseguera", email: "prueba@prueba.com", username: "prueba", password: "prueba"});
         await useCaseSaveUser.handle(user);
-        expect(1).to.equal(1);
+        useCaseSaveUser.restore();
+        //expect(1).to.equal(1);
         done();
         //expect(useCaseSaveUser);
         //let saveUser = useCaseSaveUser.handle(user);
