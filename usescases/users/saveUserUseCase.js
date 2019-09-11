@@ -1,10 +1,12 @@
-const User = require('../../models').User;
-const UserRepository = require('../../repositories/UserRepository');
+class SaveUserUseCase {
+    constructor(repository) {
+        this.repository = repository;
+    }
 
-let userRepository = new UserRepository(User);
-
-module.exports = {
-    handle: (data) => {
-        return userRepository.create(data);
+    handle($data) {
+        return this.repository.create($data);
     }
 }
+
+//module.exports = new SaveUserUseCase(repository);
+export default SaveUserUseCase;

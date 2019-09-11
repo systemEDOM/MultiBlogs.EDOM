@@ -4,7 +4,7 @@
   "description": "API for blogs edom and packages blog",
   "main": "server.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec 'tests/**/*.js'",
+    "test": "./node_modules/.bin/mocha --reporter spec 'tests/**/*.test.js'",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
