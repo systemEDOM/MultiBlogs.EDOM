@@ -9,4 +9,4 @@ class SaveUserUseCase {
 }
 
 //module.exports = new SaveUserUseCase(repository);
-export default SaveUserUseCase;
+//export default SaveUserUseCase;

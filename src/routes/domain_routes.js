@@ -1,5 +1,4 @@
-const express = require('express');
-const DomainController = require('../controllers/domain.controller');
+import DomainController from '../controllers/domain.controller';
 
 let router = express.Router();
 
@@ -11,4 +10,4 @@ router.route('/domains/:id').get(DomainController.show)
                             .delete(DomainController.destroy);
 
 
-module.exports = router;
+export {router};
