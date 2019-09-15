@@ -13,4 +13,4 @@ router.route('/users/:id').get(UserController.show)
 router.route('/users/by/:username').get(UserController.showByUsername);
 
 
-module.exports = router;
+export default router;

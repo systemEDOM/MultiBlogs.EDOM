@@ -1,4 +1,6 @@
-import DomainController from '../controllers/domain.controller';
+import * as express from "express";
+import {DomainController} from '../controllers/domain.controller';
+
 
 let router = express.Router();
 
@@ -9,5 +11,4 @@ router.route('/domains/:id').get(DomainController.show)
                             .put(DomainController.update)
                             .delete(DomainController.destroy);
 
-
-export {router};
+export default router;
