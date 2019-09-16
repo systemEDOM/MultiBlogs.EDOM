@@ -1,30 +1,26 @@
-const slug = require('slug');
-const sinon = require('sinon');
-const assert = require('assert');
+import sinon from 'sinon';
+import {assert} from 'chai';
+import slugify from 'slugify';
+import { UserRepositoryInterface } from '../../repository/User/UserRepositoryInterface';
 
-
-//imports of dependencies
-const addUserUseCase = require('../../usescases/users/addUserUseCase');
-const UserRepository = require('../../repositories/UserRepository');
 
 let data ={
     name: "Daniel Oseguera",
     email: "prueba@prueba.com",
-    username: slug("prueba jaja"),
+    username: slugify("prueba jaja"),
 };
 
 let resultData ={
     name: "Daniel Oseguera",
     email: "prueba@prueba.com",
-    username: slug("prueba jaja"),
+    username: slugify("prueba jaja"),
 };
 
-let UserRepo;
 
 describe('save user prueba', () => {
 
     before(() => {
-        UserRepo = new UserRepository()
+        userRepository: UserRepositoryInterface
         sinon.stub(UserRepo, 'create').withArgs(data).returns(resultData);
     });
 

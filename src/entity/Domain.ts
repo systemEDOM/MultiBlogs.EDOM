@@ -1,10 +1,10 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, BaseEntity} from "typeorm";
 import slugify from 'slugify';
 
 export interface DomainDTO {
     id?: number;
     name: string;
-    slug: string;
+    slug?: string;
     url?: string;
     createdAt: Date;
     updatedAt: Date;
@@ -12,18 +12,18 @@ export interface DomainDTO {
 
 
 @Entity({name: "domains"})
-export class Domain implements DomainDTO {
+export class Domain extends BaseEntity implements DomainDTO {
 
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({length: 100})
+    @Column({length: 100, nullable: false})
     name: string;
 
-    @Column({length: 150})
-    slug: string;
+    @Column({length: 150, nullable: false})
+    slug?: string;
 
-    @Column({length: 150})
+    @Column({length: 150, nullable: false})
     url: string;
 
     @CreateDateColumn({type: "timestamp"})
@@ -33,12 +33,8 @@ export class Domain implements DomainDTO {
     updatedAt: Date;
 
     @BeforeInsert()
-    public beforeInsert(): void {
-        this.slug = slugify(this.name);
-    }
-
     @BeforeUpdate()
-    public beforeUpdate(): void {
+    public beforeUpdate() {
         this.slug = slugify(this.name);
     }
 }

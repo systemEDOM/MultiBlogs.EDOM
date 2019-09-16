@@ -1,4 +1,4 @@
-import {EntityRepository, Repository} from "typeorm";
+import {EntityRepository, Repository, BaseEntity} from "typeorm";
 import { Domain } from "../entity/Domain";
 
 export interface RepositoryInterface {
@@ -6,8 +6,8 @@ export interface RepositoryInterface {
      * Here i can add more methods for general use
      */
     findAll();
-    create(domain: Domain);
+    create(entity: BaseEntity);
     findById(id: number);
-    update(id: number, domain: Domain);
+    update(id: number, entity: BaseEntity);
     delete(id: number);
 }

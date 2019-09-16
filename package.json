@@ -4,7 +4,7 @@
    "description": "API for blogs edom and packages blog",
    "main": "dist/app.js",
    "scripts": {
-      "test": "./node_modules/.bin/mocha --reporter spec 'tests/**/*.test.js'",
+      "test": "./node_modules/.bin/mocha --reporter spec 'src/tests/**/*.test.ts'",
       "start": "ts-node src/app.ts",
       "start:watch": "nodemon",
       "build": "tsc"
@@ -30,6 +30,7 @@
       "typescript": "3.3.3333"
    },
    "dependencies": {
+      "bcryptjs": "^2.4.3",
       "body-parser": "^1.19.0",
       "express": "^4.17.1",
       "inversify": "^5.0.1",

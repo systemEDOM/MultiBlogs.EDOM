@@ -1,7 +1,7 @@
 import { DomainRepositoryInterface } from "../../repository/Domain/DomainRepositoryInterface";
 import TYPES from "../../types";
 import { inject, injectable } from "inversify";
-import { CreateDomainsUseCaseInterface } from "./contracts/CreateDomansUseCaseInterface";
+import { CreateDomainsUseCaseInterface } from "./contracts/CreateDomainsUseCaseInterface";
 import { Domain } from "../../entity/Domain";
 
 @injectable()

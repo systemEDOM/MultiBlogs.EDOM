@@ -1,12 +1,11 @@
 import * as express from 'express';
 import { injectable, inject } from 'inversify';
 import { interfaces, Controller, Get, Post, Request, Response, Put, Delete } from "inversify-express-utils";
-import {DomainRepositoryImpl} from '../repository/Domain/DomainRepositoryImpl';
-import { RepositoryInterface } from '../repository/RepositoryInterface';
 import { DomainRepositoryInterface } from '../repository/Domain/DomainRepositoryInterface';
 import TYPES from '../types';
+
 import { GetDomainsUseCaseInterface } from '../usescases/domains/contracts/GetDomainsUseCaseInterface';
-import { CreateDomainsUseCaseInterface } from '../usescases/domains/contracts/CreateDomansUseCaseInterface';
+import { CreateDomainsUseCaseInterface } from '../usescases/domains/contracts/CreateDomainsUseCaseInterface';
 import { FindByIdDomainsUseCaseInterface } from '../usescases/domains/contracts/FindByIdDomainsUseCaseInterface';
 import { UpdateDomainsUseCaseInterface } from '../usescases/domains/contracts/UpdateDomainsUseCaseInterface';
 import { DeleteDomainsUseCaseInterface } from '../usescases/domains/contracts/DeleteDomainsUseCaseInterface';
@@ -17,19 +16,19 @@ export class DomainController implements interfaces.Controller {
     private domainRepository: DomainRepositoryInterface;
 
     @inject(TYPES.GetDomainsUseCaseInterface)
-    getDomainsUseCase: GetDomainsUseCaseInterface
+    getDomainsUseCase: GetDomainsUseCaseInterface;
 
     @inject(TYPES.CreateDomainsUseCaseInterface)
-    createDomainsUseCase: CreateDomainsUseCaseInterface
+    createDomainsUseCase: CreateDomainsUseCaseInterface;
 
     @inject(TYPES.FindByIdDomainsUseCaseInterface)
-    findByIdDomainsUseCase: FindByIdDomainsUseCaseInterface
+    findByIdDomainsUseCase: FindByIdDomainsUseCaseInterface;
 
     @inject(TYPES.UpdateDomainsUseCaseInterface)
-    updateDomainsUseCase: UpdateDomainsUseCaseInterface
+    updateDomainsUseCase: UpdateDomainsUseCaseInterface;
 
     @inject(TYPES.DeleteDomainsUseCaseInterface)
-    deleteDomainsUseCase: DeleteDomainsUseCaseInterface
+    deleteDomainsUseCase: DeleteDomainsUseCaseInterface;
 
     constructor(@inject(TYPES.DomainRepositoryInterface) domainRepository: DomainRepositoryInterface) {
         this.domainRepository = domainRepository;

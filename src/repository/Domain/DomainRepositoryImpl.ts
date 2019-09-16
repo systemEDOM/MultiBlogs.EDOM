@@ -1,7 +1,6 @@
 import {EntityRepository, Repository, EntityManager, createConnection, Connection, ConnectionOptions, getRepository} from "typeorm";
 import {Domain} from "../../entity/Domain";
 import { DomainRepositoryInterface } from "./DomainRepositoryInterface";
-import { Service } from "typedi";
 import { injectable } from "inversify";
 
 @EntityRepository(Domain)
@@ -23,11 +22,15 @@ export class DomainRepositoryImpl implements DomainRepositoryInterface {
     }
 
     findById(id: number) {
-        return this.domainRepository.findOne(id);
+        return this.domainRepository.findOneOrFail(id);
     }
 
     update(id: number, domain: Domain) {
-        return this.domainRepository.update(id, domain);
+        return this.domainRepository.findOne(id).then(res => {
+            res.name = domain.name;
+            res.url = domain.url;
+            return this.domainRepository.save(res);
+        });
     }
 
     delete(id: number) {
