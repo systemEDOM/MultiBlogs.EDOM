@@ -2,18 +2,19 @@ import "reflect-metadata";
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as methodOverride from 'method-override';
-import {createConnection} from "typeorm";
-import routes from './routes/index';
+import {createConnection, useContainer} from "typeorm";
+import container from "./inversify.config";
+import { InversifyExpressServer } from "inversify-express-utils";
 
 createConnection().then(async connection => {
-    const app = express();
+    let server = new InversifyExpressServer(container);
+    
+    server.setConfig((app) => {
+        app.use(bodyParser.urlencoded({ extended: true }));
+        app.use(bodyParser.json());
+        app.use(methodOverride('_method'));
+    });
 
-    app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(bodyParser.json());
-    app.use(methodOverride('_method'));
-
-    //use routes
-    app.use('/api', routes);
-
-    let server = app.listen(process.env.PORT || 3000, () => `App running on ${server.address().port}`);
+    let app = server.build();
+    let serve = app.listen(process.env.PORT || 3000, () => `App running on ${serve.address().port}`);
 }).catch(error => console.log(error));
