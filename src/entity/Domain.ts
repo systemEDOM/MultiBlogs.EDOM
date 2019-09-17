@@ -12,7 +12,7 @@ export interface DomainDTO {
 
 
 @Entity({name: "domains"})
-export class Domain extends BaseEntity implements DomainDTO {
+export class Domain implements DomainDTO {
 
     @PrimaryGeneratedColumn()
     id: number;

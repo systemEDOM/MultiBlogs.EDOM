@@ -15,7 +15,7 @@ export interface UserDTO {
 
 @Entity({name: "users"})
 @Unique(["username", "email"])
-export class User extends BaseEntity implements UserDTO {
+export class User implements UserDTO {
 
     @PrimaryGeneratedColumn()
     id: number;
