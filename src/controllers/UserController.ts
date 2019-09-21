@@ -3,14 +3,14 @@ import { injectable, inject } from 'inversify';
 import { interfaces, Controller, Get, Post, Request, Response, Put, Delete } from "inversify-express-utils";
 import TYPES from '../types';
 
-import { GetUsersUseCaseInterface } from '../usescases/users/contracts/GetUsersUseCaseInterface';
-import { CreateUsersUseCaseInterface } from '../usescases/users/contracts/CreateUsersUseCaseInterface';
-import { FindByIdUsersUseCaseInterface } from '../usescases/users/contracts/FindByIdUsersUseCaseInterface';
-import { UpdateUsersUseCaseInterface } from '../usescases/users/contracts/UpdateUsersUseCaseInterface';
-import { DeleteUsersUseCaseInterface } from '../usescases/users/contracts/DeleteUsersUseCaseInterface';
+import { GetUsersUseCaseInterface } from '../usecases/users/contracts/GetUsersUseCaseInterface';
+import { CreateUsersUseCaseInterface } from '../usecases/users/contracts/CreateUsersUseCaseInterface';
+import { FindByIdUsersUseCaseInterface } from '../usecases/users/contracts/FindByIdUsersUseCaseInterface';
+import { UpdateUsersUseCaseInterface } from '../usecases/users/contracts/UpdateUsersUseCaseInterface';
+import { DeleteUsersUseCaseInterface } from '../usecases/users/contracts/DeleteUsersUseCaseInterface';
 
 import { UserRepositoryInterface } from '../repository/User/UserRepositoryInterface';
-import { FindByUsernameUsersUseCaseInterface } from '../usescases/users/contracts/FindByUsernameUsersUseCaseInterface';
+import { FindByUsernameUsersUseCaseInterface } from '../usecases/users/contracts/FindByUsernameUsersUseCaseInterface';
 
 @injectable()
 @Controller("/api/users")

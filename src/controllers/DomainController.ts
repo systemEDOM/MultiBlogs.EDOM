@@ -4,11 +4,11 @@ import { interfaces, Controller, Get, Post, Request, Response, Put, Delete } fro
 import { DomainRepositoryInterface } from '../repository/Domain/DomainRepositoryInterface';
 import TYPES from '../types';
 
-import { GetDomainsUseCaseInterface } from '../usescases/domains/contracts/GetDomainsUseCaseInterface';
-import { CreateDomainsUseCaseInterface } from '../usescases/domains/contracts/CreateDomainsUseCaseInterface';
-import { FindByIdDomainsUseCaseInterface } from '../usescases/domains/contracts/FindByIdDomainsUseCaseInterface';
-import { UpdateDomainsUseCaseInterface } from '../usescases/domains/contracts/UpdateDomainsUseCaseInterface';
-import { DeleteDomainsUseCaseInterface } from '../usescases/domains/contracts/DeleteDomainsUseCaseInterface';
+import { GetDomainsUseCaseInterface } from '../usecases/domains/contracts/GetDomainsUseCaseInterface';
+import { CreateDomainsUseCaseInterface } from '../usecases/domains/contracts/CreateDomainsUseCaseInterface';
+import { FindByIdDomainsUseCaseInterface } from '../usecases/domains/contracts/FindByIdDomainsUseCaseInterface';
+import { UpdateDomainsUseCaseInterface } from '../usecases/domains/contracts/UpdateDomainsUseCaseInterface';
+import { DeleteDomainsUseCaseInterface } from '../usecases/domains/contracts/DeleteDomainsUseCaseInterface';
 
 @injectable()
 @Controller("/api/domains")
