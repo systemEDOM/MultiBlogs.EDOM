@@ -1,12 +1,11 @@
 import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, BaseEntity, Unique} from "typeorm";
-import slugify from 'slugify';
-import * as bcrypt from 'bcryptjs';
 
 export interface UserDTO {
     id?: number;
     name: string;
     username?: string;
     email: string;
+    photo: string;
     password?: string;
     createdAt: Date;
     updatedAt: Date;
@@ -29,6 +28,9 @@ export class User implements UserDTO {
     @Column({length: 150, nullable: false})
     email: string;
 
+    @Column({length: 200, nullable: false})
+    photo: string;
+
     @Column({length: 150, nullable: false})
     password: string;
 
@@ -37,11 +39,4 @@ export class User implements UserDTO {
 
     @UpdateDateColumn({type: "timestamp"})
     updatedAt: Date;
-
-    @BeforeInsert()
-    @BeforeUpdate()
-    public beforeUpdate() {
-        this.username = slugify(this.username);
-        this.password = bcrypt.hashSync(this.password, 10);
-    }
 }

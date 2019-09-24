@@ -33,17 +33,32 @@ import { DeleteUsersUseCaseImpl } from './usecases/users/DeleteUsersUseCaseImpl'
 import { FindByUsernameUsersUseCaseImpl } from './usecases/users/FindByUsernameUsersUseCaseImpl';
 import { FindByUsernameUsersUseCaseInterface } from './usecases/users/contracts/FindByUsernameUsersUseCaseInterface';
 import { FindByIdUsersUseCaseImpl } from './usecases/users/FindByIdUsersUseCaseImpl';
+import { PostRepositoryInterface } from './repository/Post/PostRepositoryInterface';
+import { PostRepositoryImpl } from './repository/Post/PostRepositoryImpl';
+import { GetPostsUseCaseInterface } from './usecases/posts/contracts/GetPostsUseCaseInterface';
+import { CreatePostsUseCaseInterface } from './usecases/posts/contracts/CreatePostsUseCaseInterface';
+import { FindByIdPostsUseCaseInterface } from './usecases/posts/contracts/FindByIdPostsUseCaseInterface';
+import { UpdatePostsUseCaseInterface } from './usecases/posts/contracts/UpdatePostsUseCaseInterface';
+import { DeletePostsUseCaseInterface } from './usecases/posts/contracts/DeletePostsUseCaseInterface';
+import { GetPostsUseCaseImpl } from './usecases/posts/GetPostsUseCaseImpl';
+import { CreatePostsUseCaseImpl } from './usecases/posts/CreatePostsUseCaseImpl';
+import { FindByIdPostsUseCaseImpl } from './usecases/posts/FIndByIdPostsUseCaseImpl';
+import { UpdatePostsUseCaseImpl } from './usecases/posts/UpdatePostsUseCaseImpl';
+import { DeletePostsUseCaseImpl } from './usecases/posts/DeletePostsUseCaseImpl';
+import { PostController } from './controllers/PostController';
 
 const container = new Container();
 
 //controllers
 container.bind<interfaces.Controller>(TYPE.Controller).to(DomainController).inSingletonScope().whenTargetNamed('DomainController'); 
 container.bind<interfaces.Controller>(TYPE.Controller).to(UserController).inSingletonScope().whenTargetNamed('UserController'); 
+container.bind<interfaces.Controller>(TYPE.Controller).to(PostController).inSingletonScope().whenTargetNamed('PostController'); 
 
 //Repositories
 //Domain
 container.bind<DomainRepositoryInterface>(TYPES.DomainRepositoryInterface).to(DomainRepositoryImpl).inSingletonScope();
 container.bind<UserRepositoryInterface>(TYPES.UserRepositoryInterface).to(UserRepositoryImpl).inSingletonScope();
+container.bind<PostRepositoryInterface>(TYPES.PostRepositoryInterface).to(PostRepositoryImpl).inSingletonScope();
 
 
 
@@ -62,5 +77,12 @@ container.bind<FindByIdUsersUseCaseInterface>(TYPES.FindByIdUsersUseCaseInterfac
 container.bind<FindByUsernameUsersUseCaseInterface>(TYPES.FindByUsernameUsersUseCaseInterface).to(FindByUsernameUsersUseCaseImpl).inSingletonScope();
 container.bind<UpdateUsersUseCaseInterface>(TYPES.UpdateUsersUseCaseInterface).to(UpdateUsersUseCaseImpl).inSingletonScope();
 container.bind<DeleteUsersUseCaseInterface>(TYPES.DeleteUsersUseCaseInterface).to(DeleteUsersUseCaseImpl).inSingletonScope();
+
+//Posts
+container.bind<GetPostsUseCaseInterface>(TYPES.GetPostsUseCaseInterface).to(GetPostsUseCaseImpl).inSingletonScope();
+container.bind<CreatePostsUseCaseInterface>(TYPES.CreatePostsUseCaseInterface).to(CreatePostsUseCaseImpl).inSingletonScope();
+container.bind<FindByIdPostsUseCaseInterface>(TYPES.FindByIdPostsUseCaseInterface).to(FindByIdPostsUseCaseImpl).inSingletonScope();
+container.bind<UpdatePostsUseCaseInterface>(TYPES.UpdatePostsUseCaseInterface).to(UpdatePostsUseCaseImpl).inSingletonScope();
+container.bind<DeletePostsUseCaseInterface>(TYPES.DeletePostsUseCaseInterface).to(DeletePostsUseCaseImpl).inSingletonScope();
 
 export default container;

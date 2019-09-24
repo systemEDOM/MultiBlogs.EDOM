@@ -1,17 +1,19 @@
 import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, BaseEntity} from "typeorm";
 
-export interface DomainDTO {
+export interface PostDTO {
     id?: number;
     name: string;
     slug?: string;
-    url?: string;
+    image: string;
+    description?: string;
+    content?: string;
     createdAt: Date;
     updatedAt: Date;
 }
 
 
-@Entity({name: "domains"})
-export class Domain implements DomainDTO {
+@Entity({name: "posts"})
+export class Post implements PostDTO {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -23,7 +25,13 @@ export class Domain implements DomainDTO {
     slug?: string;
 
     @Column({length: 150, nullable: false})
-    url: string;
+    image: string;
+
+    @Column({length: 150, nullable: false})
+    description?: string;
+
+    @Column({type: "text", nullable: false})
+    content?: string;
 
     @CreateDateColumn({type: "timestamp"})
     createdAt: Date;

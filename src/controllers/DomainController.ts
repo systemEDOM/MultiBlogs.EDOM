@@ -11,7 +11,7 @@ import { UpdateDomainsUseCaseInterface } from '../usecases/domains/contracts/Upd
 import { DeleteDomainsUseCaseInterface } from '../usecases/domains/contracts/DeleteDomainsUseCaseInterface';
 
 @injectable()
-@Controller("/api/domains")
+@Controller("/domains")
 export class DomainController implements interfaces.Controller {
     private domainRepository: DomainRepositoryInterface;
 

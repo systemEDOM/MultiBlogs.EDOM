@@ -1,7 +1,9 @@
-import {EntityRepository, Repository, EntityManager, createConnection, Connection, ConnectionOptions, getRepository} from "typeorm";
+import {EntityRepository, Repository, EntityManager, createConnection, Connection, ConnectionOptions, getRepository, getManager} from "typeorm";
 import { UserRepositoryInterface } from "./UserRepositoryInterface";
 import { injectable } from "inversify";
 import { User } from "../../entity/User";
+import slugify from "slugify";
+import * as bcrypt from 'bcryptjs';
 
 @EntityRepository(User)
 @injectable()
@@ -16,7 +18,9 @@ export class UserRepositoryImpl implements UserRepositoryInterface {
         return this.userRepository.find();
     }
 
-    create(user: User) {
+    async create(user: User) {
+        user.username = slugify(user.username);
+        user.password = await bcrypt.hash(user.password, 10);
         const userObj = this.userRepository.create(user);
         return this.userRepository.save(userObj);
     }
@@ -29,14 +33,10 @@ export class UserRepositoryImpl implements UserRepositoryInterface {
         return this.userRepository.findOneOrFail({username});
     }
 
-    update(id: number, user: User) {
-        return this.userRepository.findOne(id).then(res => {
-            res.name = user.name;
-            res.username = user.username;
-            res.email = user.email;
-            res.password = user.password;
-            return this.userRepository.save(res);
-        });
+    async update(id: number, user: User) {
+        user.username = slugify(user.username);
+        user.password = await bcrypt.hash(user.password, 10);
+        return this.userRepository.update(id, user);
     }
 
     delete(id: number) {

@@ -1,7 +1,8 @@
-import {EntityRepository, Repository, EntityManager, createConnection, Connection, ConnectionOptions, getRepository} from "typeorm";
+import {EntityRepository, Repository, EntityManager, createConnection, Connection, ConnectionOptions, getRepository, getManager, getConnection} from "typeorm";
 import {Domain} from "../../entity/Domain";
 import { DomainRepositoryInterface } from "./DomainRepositoryInterface";
 import { injectable } from "inversify";
+import slugify from "slugify";
 
 @EntityRepository(Domain)
 @injectable()
@@ -17,6 +18,7 @@ export class DomainRepositoryImpl implements DomainRepositoryInterface {
     }
 
     create(domain: Domain) {
+        domain.name = slugify(domain.name);
         const domainObj = this.domainRepository.create(domain);
         return this.domainRepository.save(domainObj);
     }
@@ -26,11 +28,8 @@ export class DomainRepositoryImpl implements DomainRepositoryInterface {
     }
 
     update(id: number, domain: Domain) {
-        return this.domainRepository.findOne(id).then(res => {
-            res.name = domain.name;
-            res.url = domain.url;
-            return this.domainRepository.save(res);
-        });
+        domain.name = slugify(domain.name);
+        return this.domainRepository.update(id, domain);
     }
 
     delete(id: number) {

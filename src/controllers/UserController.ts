@@ -13,7 +13,7 @@ import { UserRepositoryInterface } from '../repository/User/UserRepositoryInterf
 import { FindByUsernameUsersUseCaseInterface } from '../usecases/users/contracts/FindByUsernameUsersUseCaseInterface';
 
 @injectable()
-@Controller("/api/users")
+@Controller("/users")
 export class UserController implements interfaces.Controller {
     private domainRepository: UserRepositoryInterface;
 
