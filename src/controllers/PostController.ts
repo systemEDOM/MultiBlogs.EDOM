@@ -47,15 +47,27 @@ export class PostController implements interfaces.Controller {
 
     @Post("/")
     public async store (@Request() req: express.Request, @Response() res: express.Response) {
-        
-            //const post = await this.createPostsUseCase.handle(req.body, req);
-            //res.status(200).send(post);
-            const multerSingle = multer().single('avatar');
-            multerSingle(req, undefined, async (error) => {
-                res.send(req.body);
-                //req.body.image = this.getFullnameImage(req.body.image);
-                //return this.postRepository.create(req.body);
-            });
+        var storage = multer.diskStorage({
+            destination: function (req, file, cb) {
+              cb(null, '../../public/assets/img/blog/')
+            },
+            filename: function (req, file, cb) {
+              cb(null, file.fieldname + '-' + Date.now())
+            }
+        })
+        //const post = await this.createPostsUseCase.handle(req.body, req);
+        //res.status(200).send(post);
+        let upload = multer({storage: storage});
+        const multerSingle = upload.single('image');
+        multerSingle(req, res, async (error) => {
+            if (error) {
+                res.send("error carnal");
+            }
+            res.send(req.body.image);
+            //res.send("subida we");
+            //req.body.image = this.getFullnameImage(req.body.image);
+            //return this.postRepository.create(req.body);
+        });
     }
 
     @Get("/:id")
