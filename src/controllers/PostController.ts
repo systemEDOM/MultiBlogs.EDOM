@@ -3,6 +3,7 @@ import { injectable, inject } from 'inversify';
 import { interfaces, Controller, Get, Post, Request, Response, Put, Delete, RequestBody } from "inversify-express-utils";
 import { PostRepositoryInterface } from '../repository/Post/PostRepositoryInterface';
 import TYPES from '../types';
+import * as multer from 'multer';
 
 import { GetPostsUseCaseInterface } from '../usecases/posts/contracts/GetPostsUseCaseInterface';
 import { CreatePostsUseCaseInterface } from '../usecases/posts/contracts/CreatePostsUseCaseInterface';
@@ -46,13 +47,15 @@ export class PostController implements interfaces.Controller {
 
     @Post("/")
     public async store (@Request() req: express.Request, @Response() res: express.Response) {
-        try {
-            const post = await this.createPostsUseCase.handle(req.body);
-            res.send(req.body);
-            res.status(200).send(post);
-        } catch(error) {
-            res.status(400).json(error);
-        }
+        
+            //const post = await this.createPostsUseCase.handle(req.body, req);
+            //res.status(200).send(post);
+            const multerSingle = multer().single('avatar');
+            multerSingle(req, undefined, async (error) => {
+                res.send(req.body);
+                //req.body.image = this.getFullnameImage(req.body.image);
+                //return this.postRepository.create(req.body);
+            });
     }
 
     @Get("/:id")

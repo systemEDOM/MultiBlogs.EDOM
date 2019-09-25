@@ -19,7 +19,7 @@ export class PostRepositoryImpl implements PostRepositoryInterface {
     }
 
     async create(post: Post) {
-        post.name = slugify(post.name);
+        post.slug = slugify(post.name);
         const postObj = this.postRepository.create(post);
         return this.postRepository.save(postObj);
     }

@@ -13,24 +13,7 @@ const upload = multer({ dest: 'public/assets/img/blog/' }).single('avatar');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded());
 
-
-app.post('/prueba', function (req, res) {
-    upload(req, res, function (err) {
-      if (err instanceof multer.MulterError) {
-        // A Multer error occurred when uploading.
-      } else if (err) {
-        // An unknown error occurred when uploading.
-      }
-  
-      // Everything went fine.
-      res.send(req.body );
-    })
-  })
-
-
-let router = express.Router();
-
-let server =  new InversifyExpressServer(container, router, { rootPath: "/api" }, app);
+let server =  new InversifyExpressServer(container, null, { rootPath: "/api" }, app);
 
 createConnection().then(async connection => {
     console.log("Connected to DB");
