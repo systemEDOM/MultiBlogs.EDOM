@@ -31,6 +31,8 @@ export class PostController implements interfaces.Controller {
     @inject(TYPES.DeletePostsUseCaseInterface)
     deletePostsUseCase: DeletePostsUseCaseInterface;
 
+    prueba: multer;
+
     constructor(@inject(TYPES.PostRepositoryInterface) postRepository: PostRepositoryInterface) {
         this.postRepository = postRepository;
     }
@@ -45,29 +47,21 @@ export class PostController implements interfaces.Controller {
         }
     }
 
-    @Post("/")
-    public async store (@Request() req: express.Request, @Response() res: express.Response) {
-        var storage = multer.diskStorage({
+    @Post("/", multer({
+        storage: multer.diskStorage({
             destination: function (req, file, cb) {
-              cb(null, '../../public/assets/img/blog/')
+                cb(null, './public/assets/img/blog/')
             },
             filename: function (req, file, cb) {
-              cb(null, file.fieldname + '-' + Date.now())
+                this.prueba = file;
+                cb(null, file.originalname + '-' + Date.now())
             }
         })
-        //const post = await this.createPostsUseCase.handle(req.body, req);
-        //res.status(200).send(post);
-        let upload = multer({storage: storage});
-        const multerSingle = upload.single('image');
-        multerSingle(req, res, async (error) => {
-            if (error) {
-                res.send("error carnal");
-            }
-            res.send(req.body.image);
-            //res.send("subida we");
-            //req.body.image = this.getFullnameImage(req.body.image);
-            //return this.postRepository.create(req.body);
-        });
+    }).single("image"))
+    public async store (@Request() req: express.Request, @Response() res: express.Response) {
+        //var imagePath = req.files.file.image.path.replace(/^public\//, '');
+        return res.send(this.prueba.filename);
+        
     }
 
     @Get("/:id")
