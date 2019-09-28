@@ -36,7 +36,14 @@ export class UserRepositoryImpl implements UserRepositoryInterface {
     async update(id: number, user: User) {
         user.username = slugify(user.username);
         user.password = await bcrypt.hash(user.password, 10);
-        return this.userRepository.update(id, user);
+        return this.userRepository.findOneOrFail(id).then(userResult => {
+            userResult.name = user.name;
+            userResult.email = user.email;
+            userResult.username = user.username;
+            userResult.password = user.password;
+            userResult.photo = user.photo;
+            return this.userRepository.save(userResult);
+        })
     }
 
     delete(id: number) {

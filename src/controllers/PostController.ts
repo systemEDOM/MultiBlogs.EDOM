@@ -1,15 +1,17 @@
 import * as express from 'express';
+import * as fs from 'fs';
 import { injectable, inject } from 'inversify';
 import { interfaces, Controller, Get, Post, Request, Response, Put, Delete, RequestBody } from "inversify-express-utils";
-import { PostRepositoryInterface } from '../repository/Post/PostRepositoryInterface';
 import TYPES from '../types';
-import * as multer from 'multer';
 
+
+import { PostRepositoryInterface } from '../repository/Post/PostRepositoryInterface';
 import { GetPostsUseCaseInterface } from '../usecases/posts/contracts/GetPostsUseCaseInterface';
 import { CreatePostsUseCaseInterface } from '../usecases/posts/contracts/CreatePostsUseCaseInterface';
 import { FindByIdPostsUseCaseInterface } from '../usecases/posts/contracts/FindByIdPostsUseCaseInterface';
 import { UpdatePostsUseCaseInterface } from '../usecases/posts/contracts/UpdatePostsUseCaseInterface';
 import { DeletePostsUseCaseInterface } from '../usecases/posts/contracts/DeletePostsUseCaseInterface';
+import { UploadSingleFile } from '../util/UploadSingleFile';
 
 @injectable()
 @Controller("/posts")
@@ -31,7 +33,7 @@ export class PostController implements interfaces.Controller {
     @inject(TYPES.DeletePostsUseCaseInterface)
     deletePostsUseCase: DeletePostsUseCaseInterface;
 
-    prueba: multer;
+    static fileName: string;
 
     constructor(@inject(TYPES.PostRepositoryInterface) postRepository: PostRepositoryInterface) {
         this.postRepository = postRepository;
@@ -47,21 +49,16 @@ export class PostController implements interfaces.Controller {
         }
     }
 
-    @Post("/", multer({
-        storage: multer.diskStorage({
-            destination: function (req, file, cb) {
-                cb(null, './public/assets/img/blog/')
-            },
-            filename: function (req, file, cb) {
-                this.prueba = file;
-                cb(null, file.originalname + '-' + Date.now())
-            }
-        })
-    }).single("image"))
+    @Post("/", UploadSingleFile.getInstance().uploadFile(PostController, './public/assets/img/blog/', 'image'))
     public async store (@Request() req: express.Request, @Response() res: express.Response) {
-        //var imagePath = req.files.file.image.path.replace(/^public\//, '');
-        return res.send(this.prueba.filename);
-        
+        try {
+            req.body.image = PostController.fileName;
+            const post = await this.createPostsUseCase.handle(req.body);
+            res.status(200).send(post);
+        } catch(error) {
+            fs.unlinkSync('./public/assets/img/blog/'+req.body.image);
+            res.status(400).json(error);
+        }
     }
 
     @Get("/:id")
@@ -74,12 +71,14 @@ export class PostController implements interfaces.Controller {
         }
     }
 
-    @Put("/:id")
+    @Put("/:id", UploadSingleFile.getInstance().uploadFile(PostController, './public/assets/img/blog/', 'image'))
     public async update (@Request() req: express.Request, @Response() res: express.Response) {
         try {
+            req.body.image = PostController.fileName;
             const post = await this.updatePostsUseCase.handle(Number(req.params.id), req.body)
             res.status(200).send(post);
         } catch(error) {
+            fs.unlinkSync('./public/assets/img/blog/'+req.body.image);
             res.status(400).json(error);
         }
     }

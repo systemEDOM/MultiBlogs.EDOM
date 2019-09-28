@@ -4,6 +4,8 @@ import { UpdatePostsUseCaseInterface } from "./contracts/UpdatePostsUseCaseInter
 import { PostRepositoryInterface } from "../../repository/Post/PostRepositoryInterface";
 import { Post } from "../../entity/Post";
 
+import * as fs from 'fs';
+
 @injectable()
 export class UpdatePostsUseCaseImpl implements UpdatePostsUseCaseInterface {
     private postRepository: PostRepositoryInterface;
@@ -13,6 +15,10 @@ export class UpdatePostsUseCaseImpl implements UpdatePostsUseCaseInterface {
     }
     
     public handle(id: number, post: Post) {
+        this.postRepository.findById(id).then(post => {
+            if (post.image !== null)
+                fs.unlinkSync('./public/assets/img/blog/'+post.image);
+        });
         return this.postRepository.update(id, post);
     }
 }

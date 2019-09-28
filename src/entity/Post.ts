@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, BaseEntity, Unique, ManyToOne} from "typeorm";
+import { User } from "./User";
 
 export interface PostDTO {
     id?: number;
@@ -7,12 +8,14 @@ export interface PostDTO {
     image: string;
     description?: string;
     content?: string;
+    user: User;
     createdAt: Date;
     updatedAt: Date;
 }
 
 
 @Entity({name: "posts"})
+@Unique(["name", "slug"])
 export class Post implements PostDTO {
 
     @PrimaryGeneratedColumn()
@@ -32,6 +35,12 @@ export class Post implements PostDTO {
 
     @Column({type: "text", nullable: false})
     content?: string;
+
+    @ManyToOne(type => User, user => user.posts, {
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+    })
+    user: User;
 
     @CreateDateColumn({type: "timestamp"})
     createdAt: Date;

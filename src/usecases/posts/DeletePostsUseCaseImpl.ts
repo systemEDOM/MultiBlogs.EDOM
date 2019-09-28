@@ -3,6 +3,8 @@ import { inject, injectable } from "inversify";
 import { DeletePostsUseCaseInterface } from "./contracts/DeletePostsUseCaseInterface";
 import { PostRepositoryInterface } from "../../repository/post/PostRepositoryInterface";
 
+import * as fs from 'fs';
+
 @injectable()
 export class DeletePostsUseCaseImpl implements DeletePostsUseCaseInterface {
     private postRepository: PostRepositoryInterface;
@@ -12,6 +14,10 @@ export class DeletePostsUseCaseImpl implements DeletePostsUseCaseInterface {
     }
     
     public handle(id: number) {
+        this.postRepository.findById(id).then(post => {
+            if (post.image !== null)
+                fs.unlinkSync('./public/assets/img/blog/'+post.image);
+        });
         return this.postRepository.delete(id);
     }
 }

@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, BaseEntity, Unique} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, BaseEntity, Unique, OneToMany} from "typeorm";
+import { Post } from "./Post";
 
 export interface UserDTO {
     id?: number;
@@ -7,6 +8,7 @@ export interface UserDTO {
     email: string;
     photo: string;
     password?: string;
+    posts: Post[];
     createdAt: Date;
     updatedAt: Date;
 }
@@ -33,6 +35,11 @@ export class User implements UserDTO {
 
     @Column({length: 150, nullable: false})
     password: string;
+
+    @OneToMany(type => Post, post => post.user, {
+        cascade: true,
+    })
+    posts: Post[];
 
     @CreateDateColumn({type: "timestamp"})
     createdAt: Date;

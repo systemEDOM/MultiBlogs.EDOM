@@ -29,8 +29,15 @@ export class PostRepositoryImpl implements PostRepositoryInterface {
     }
 
     async update(id: number, post: Post) {
-        post.name = slugify(post.name);
-        return this.postRepository.update(id, post);
+        post.slug = slugify(post.name);
+        return this.postRepository.findOneOrFail(id).then(postResult => {
+            postResult.name = post.name;
+            postResult.slug = post.slug;
+            postResult.image = post.image;
+            postResult.description = post.description;
+            postResult.content = post.content;
+            return this.postRepository.save(postResult);
+        })
     }
 
     delete(id: number) {

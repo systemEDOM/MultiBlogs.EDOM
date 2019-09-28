@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as fs from 'fs';
 import { injectable, inject } from 'inversify';
 import { interfaces, Controller, Get, Post, Request, Response, Put, Delete } from "inversify-express-utils";
 import TYPES from '../types';
@@ -11,6 +12,7 @@ import { DeleteUsersUseCaseInterface } from '../usecases/users/contracts/DeleteU
 
 import { UserRepositoryInterface } from '../repository/User/UserRepositoryInterface';
 import { FindByUsernameUsersUseCaseInterface } from '../usecases/users/contracts/FindByUsernameUsersUseCaseInterface';
+import { UploadSingleFile } from '../util/UploadSingleFile';
 
 @injectable()
 @Controller("/users")
@@ -35,6 +37,8 @@ export class UserController implements interfaces.Controller {
     @inject(TYPES.DeleteUsersUseCaseInterface)
     deleteUsersUseCase: DeleteUsersUseCaseInterface;
 
+    static fileName: string;
+
     constructor(@inject(TYPES.DomainRepositoryInterface) domainRepository: UserRepositoryInterface) {
         this.domainRepository = domainRepository;
     }
@@ -49,12 +53,14 @@ export class UserController implements interfaces.Controller {
         }
     }
 
-    @Post("/")
+    @Post("/", UploadSingleFile.getInstance().uploadFile(UserController, './public/assets/img/avatars/', 'photo'))
     public async store (@Request() req: express.Request, @Response() res: express.Response) {
         try {
+            req.body.photo = UserController.fileName;
             const domain = await this.createUsersUseCase.handle(req.body);
             res.status(200).send(domain);
         } catch(error) {
+            fs.unlinkSync('./public/assets/img/avatars/'+req.body.photo);
             res.status(400).json(error);
         }
     }
@@ -79,12 +85,14 @@ export class UserController implements interfaces.Controller {
         }
     }
 
-    @Put("/:id")
+    @Put("/:id", UploadSingleFile.getInstance().uploadFile(UserController, './public/assets/img/avatars/', 'photo'))
     public async update (@Request() req: express.Request, @Response() res: express.Response) {
         try {
+            req.body.photo = UserController.fileName;
             const domain = await this.updateUsersUseCase.handle(Number(req.params.id), req.body)
             res.status(200).send(domain);
         } catch(error) {
+            fs.unlinkSync('./public/assets/img/avatars/'+req.body.photo);
             res.status(400).json(error);
         }
     }
