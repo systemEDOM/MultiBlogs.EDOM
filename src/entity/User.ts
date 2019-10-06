@@ -38,6 +38,7 @@ export class User implements UserDTO {
 
     @OneToMany(type => Post, post => post.user, {
         cascade: true,
+        eager: true,
     })
     posts: Post[];
 
