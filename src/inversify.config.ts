@@ -6,7 +6,6 @@ import { interfaces, TYPE } from 'inversify-express-utils';
 import { DomainRepositoryImpl } from './repository/Domain/DomainRepositoryImpl';
 import { DomainRepositoryInterface } from './repository/Domain/DomainRepositoryInterface';
 
-import { DomainController } from './controllers/DomainController';
 import { GetDomainsUseCaseInterface } from './usecases/domains/contracts/GetDomainsUseCaseInterface';
 import { GetDomainsUseCaseImpl } from './usecases/domains/GetDomainsUseCaseImpl';
 import { CreateDomainsUseCaseImpl } from './usecases/domains/CreateDomainsUseCaseImpl';
@@ -18,7 +17,6 @@ import { FindByIdDomainsUseCaseImpl } from './usecases/domains/FindByIdDomainsUs
 import { UpdateDomainsUseCaseImpl } from './usecases/domains/UpdateDomainsUseCaseImpl';
 import { DeleteDomainsUseCaseImpl } from './usecases/domains/DeleteDomainsUseCaseImpl';
 
-import { UserController } from './controllers/UserController';
 import { UserRepositoryImpl } from './repository/User/UserRepositoryImpl';
 import { UserRepositoryInterface } from './repository/User/UserRepositoryInterface';
 import { GetUsersUseCaseInterface } from './usecases/users/contracts/GetUsersUseCaseInterface';
@@ -45,16 +43,13 @@ import { CreatePostsUseCaseImpl } from './usecases/posts/CreatePostsUseCaseImpl'
 import { FindByIdPostsUseCaseImpl } from './usecases/posts/FIndByIdPostsUseCaseImpl';
 import { UpdatePostsUseCaseImpl } from './usecases/posts/UpdatePostsUseCaseImpl';
 import { DeletePostsUseCaseImpl } from './usecases/posts/DeletePostsUseCaseImpl';
-import { PostController } from './controllers/PostController';
-import { LoginController } from './controllers/LoginController';
+
+import { AuthMiddleware } from './middlewares/AuthMiddleware';
+
+import { AuthService } from './services/AuthService/AuthService';
+import { AuthServiceImpl } from './services/AuthService/AuthServiceImpl';
 
 const container = new Container();
-
-//controllers
-container.bind<interfaces.Controller>(TYPE.Controller).to(DomainController).inSingletonScope().whenTargetNamed('DomainController'); 
-container.bind<interfaces.Controller>(TYPE.Controller).to(UserController).inSingletonScope().whenTargetNamed('UserController'); 
-container.bind<interfaces.Controller>(TYPE.Controller).to(PostController).inSingletonScope().whenTargetNamed('PostController'); 
-container.bind<interfaces.Controller>(TYPE.Controller).to(LoginController).inSingletonScope().whenTargetNamed('LoginController'); 
 
 //Repositories
 //Domain
@@ -86,5 +81,14 @@ container.bind<CreatePostsUseCaseInterface>(TYPES.CreatePostsUseCaseInterface).t
 container.bind<FindByIdPostsUseCaseInterface>(TYPES.FindByIdPostsUseCaseInterface).to(FindByIdPostsUseCaseImpl).inSingletonScope();
 container.bind<UpdatePostsUseCaseInterface>(TYPES.UpdatePostsUseCaseInterface).to(UpdatePostsUseCaseImpl).inSingletonScope();
 container.bind<DeletePostsUseCaseInterface>(TYPES.DeletePostsUseCaseInterface).to(DeletePostsUseCaseImpl).inSingletonScope();
+
+
+//Services
+container.bind<AuthService>(TYPES.AuthService).to(AuthServiceImpl).inSingletonScope();
+
+
+//Middlewares
+container.bind<AuthMiddleware>(TYPES.AuthMiddleware).to(AuthMiddleware).inSingletonScope();
+
 
 export default container;

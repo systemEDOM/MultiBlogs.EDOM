@@ -28,6 +28,14 @@ const TYPES = {
     FindByIdPostsUseCaseInterface: Symbol('FindByIdPostsUseCaseInterface'),
     UpdatePostsUseCaseInterface: Symbol('UpdatePostsUseCaseInterface'),
     DeletePostsUseCaseInterface: Symbol('DeletePostsUseCaseInterface'),
+
+
+    //Services
+    AuthService: Symbol('AuthService'),
+
+
+    //Middlewares
+    AuthMiddleware: Symbol('AuthMiddleware'),
 };
 
 export default TYPES;

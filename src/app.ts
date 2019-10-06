@@ -6,12 +6,19 @@ import {createConnection, useContainer, getConnectionManager, ConnectionManager}
 import container from "./inversify.config";
 import { InversifyExpressServer, interfaces, TYPE } from "inversify-express-utils";
 
+import './controllers/UserController';
+import './controllers/DomainController';
+import './controllers/PostController';
+import './controllers/LoginController';
+
+import {AuthProvider} from './providers/AuthProvider';
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded());
 
-let server =  new InversifyExpressServer(container, null, { rootPath: "/api" }, app);
+let server =  new InversifyExpressServer(container, null, { rootPath: "/api" }, app, AuthProvider);
 
 createConnection().then(async connection => {
     console.log("Connected to DB");
