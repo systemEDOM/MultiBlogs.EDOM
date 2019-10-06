@@ -46,6 +46,7 @@ import { FindByIdPostsUseCaseImpl } from './usecases/posts/FIndByIdPostsUseCaseI
 import { UpdatePostsUseCaseImpl } from './usecases/posts/UpdatePostsUseCaseImpl';
 import { DeletePostsUseCaseImpl } from './usecases/posts/DeletePostsUseCaseImpl';
 import { PostController } from './controllers/PostController';
+import { LoginController } from './controllers/LoginController';
 
 const container = new Container();
 
@@ -53,6 +54,7 @@ const container = new Container();
 container.bind<interfaces.Controller>(TYPE.Controller).to(DomainController).inSingletonScope().whenTargetNamed('DomainController'); 
 container.bind<interfaces.Controller>(TYPE.Controller).to(UserController).inSingletonScope().whenTargetNamed('UserController'); 
 container.bind<interfaces.Controller>(TYPE.Controller).to(PostController).inSingletonScope().whenTargetNamed('PostController'); 
+container.bind<interfaces.Controller>(TYPE.Controller).to(LoginController).inSingletonScope().whenTargetNamed('LoginController'); 
 
 //Repositories
 //Domain
