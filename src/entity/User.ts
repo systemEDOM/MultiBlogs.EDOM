@@ -1,5 +1,6 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, BaseEntity, Unique, OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, BaseEntity, Unique, OneToMany, ManyToOne} from "typeorm";
 import { Post } from "./Post";
+import { Role } from "./Role";
 
 export interface UserDTO {
     id?: number;
@@ -9,6 +10,7 @@ export interface UserDTO {
     photo: string;
     password?: string;
     posts: Post[];
+    role: Role;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -41,6 +43,12 @@ export class User implements UserDTO {
         eager: true,
     })
     posts: Post[];
+
+    @ManyToOne(type => Role, role => role.users, {
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+    })
+    role: Role;
 
     @CreateDateColumn({type: "timestamp"})
     createdAt: Date;
