@@ -5,34 +5,37 @@ import TYPES from '../types';
 
 import { UserRepositoryInterface } from '../repository/User/UserRepositoryInterface';
 import container from '../inversify.config';
+import { PermissionRepositoryInterface } from '../repository/Permission/PermissionRepositoryInterface';
+import { PermissionService } from '../services/PermissionService/PermissionService';
 
-@controller("/users")
-export class UserController extends BaseHttpController {
-    private domainRepository: UserRepositoryInterface;
+@controller("/permissions")
+export class PermissionController extends BaseHttpController {
+    private permissionRepo: PermissionRepositoryInterface;
+    private permissionService: PermissionService;
 
-    constructor(@inject(TYPES.DomainRepositoryInterface) domainRepository: UserRepositoryInterface) {
+    constructor(@inject(TYPES.PermissionRepositoryInterface) permissionRepo: PermissionRepositoryInterface,
+                @inject(TYPES.PermissionService) permissionService: PermissionService) {
         super();
-        this.domainRepository = domainRepository;
+        this.permissionRepo = permissionRepo;
+        this.permissionService = permissionService;
     }
 
     @httpGet("/", TYPES.AuthMiddleware)
     public async index (@request() req: express.Request, @response() res: express.Response) {
         try {
-            const domains = await this.getUsersUseCase.handle();
+            const domains = await this.permissionService.findAll();
             res.status(200).send(domains);
         } catch(error) {
             res.status(400).json(error);
         }
     }
 
-    @httpPost("/", TYPES.AuthMiddleware, UploadSingleFile.getInstance().uploadFile(UserController, './public/assets/img/avatars/', 'photo'))
+    @httpPost("/", TYPES.AuthMiddleware)
     public async store (@request() req: express.Request, @response() res: express.Response) {
         try {
-            req.body.photo = UserController.fileName;
-            const domain = await this.createUsersUseCase.handle(req.body);
+            const domain = await this.permissionService.create(req.body);
             res.status(200).send(domain);
         } catch(error) {
-            fs.unlinkSync('./public/assets/img/avatars/'+req.body.photo);
             res.status(400).json(error);
         }
     }
@@ -40,21 +43,19 @@ export class UserController extends BaseHttpController {
     @httpGet("/:id", TYPES.AuthMiddleware)
     public async show (@request() req: express.Request, @response() res: express.Response) {
         try {
-            const domain = await this.findByIdUsersUseCase.handle(Number(req.params.id));
+            const domain = await this.permissionService.findById(Number(req.params.id));
             res.status(200).send(domain);
         } catch(error) {
             res.status(400).json(error);
         }
     }
 
-    @httpPut("/:id", TYPES.AuthMiddleware, UploadSingleFile.getInstance().uploadFile(UserController, './public/assets/img/avatars/', 'photo'))
+    @httpPut("/:id", TYPES.AuthMiddleware)
     public async update (@request() req: express.Request, @response() res: express.Response) {
         try {
-            req.body.photo = UserController.fileName;
-            const domain = await this.updateUsersUseCase.handle(Number(req.params.id), req.body)
+            const domain = await this.permissionService.update(Number(req.params.id), req.body)
             res.status(200).send(domain);
         } catch(error) {
-            fs.unlinkSync('./public/assets/img/avatars/'+req.body.photo);
             res.status(400).json(error);
         }
     }
@@ -62,7 +63,7 @@ export class UserController extends BaseHttpController {
     @httpDelete("/:id", TYPES.AuthMiddleware)
     public async destroy (@request() req: express.Request, @response() res: express.Response) {
         try {
-            const domain = await this.deleteUsersUseCase.handle(Number(req.params.id));
+            const domain = await this.permissionService.delete(Number(req.params.id));
             res.status(200).send(domain);
         } catch(error) {
             res.status(400).json(error);

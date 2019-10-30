@@ -48,6 +48,10 @@ import { AuthMiddleware } from './middlewares/AuthMiddleware';
 
 import { AuthService } from './services/AuthService/AuthService';
 import { AuthServiceImpl } from './services/AuthService/AuthServiceImpl';
+import { PermissionRepositoryInterface } from './repository/Permission/PermissionRepositoryInterface';
+import { PermissionRepositoryImpl } from './repository/Permission/PermissionRepositoryImpl';
+import { PermissionService } from './services/PermissionService/PermissionService';
+import { PermissionServiceImpl } from './services/PermissionService/PermissionServiceImpl';
 
 const container = new Container();
 
@@ -56,6 +60,7 @@ const container = new Container();
 container.bind<DomainRepositoryInterface>(TYPES.DomainRepositoryInterface).to(DomainRepositoryImpl).inSingletonScope();
 container.bind<UserRepositoryInterface>(TYPES.UserRepositoryInterface).to(UserRepositoryImpl).inSingletonScope();
 container.bind<PostRepositoryInterface>(TYPES.PostRepositoryInterface).to(PostRepositoryImpl).inSingletonScope();
+container.bind<PermissionRepositoryInterface>(TYPES.PermissionRepositoryInterface).to(PermissionRepositoryImpl).inSingletonScope();
 
 
 
@@ -85,6 +90,7 @@ container.bind<DeletePostsUseCaseInterface>(TYPES.DeletePostsUseCaseInterface).t
 
 //Services
 container.bind<AuthService>(TYPES.AuthService).to(AuthServiceImpl).inSingletonScope();
+container.bind<PermissionService>(TYPES.PermissionService).to(PermissionServiceImpl).inSingletonScope();
 
 
 //Middlewares

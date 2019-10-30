@@ -3,9 +3,10 @@ const TYPES = {
     DomainRepositoryInterface: Symbol('DomainRepositoryInterface'),
     UserRepositoryInterface: Symbol('UserRepositoryInterface'),
     PostRepositoryInterface: Symbol('PostRepositoryInterface'),
+    PermissionRepositoryInterface: Symbol('PermissionRepositoryInterface'),
 
 
-    //usescases for domains
+    //use cases for domains
     GetDomainsUseCaseInterface: Symbol('GetDomainsUseCaseInterface'),
     CreateDomainsUseCaseInterface: Symbol('CreateDomainsUseCaseInterface'),
     FindByIdDomainsUseCaseInterface: Symbol('FindByIdDomainsUseCaseInterface'),
@@ -13,7 +14,7 @@ const TYPES = {
     DeleteDomainsUseCaseInterface: Symbol('DeleteDomainsUseCaseInterface'),
 
 
-    //usescases for users
+    //use cases for users
     GetUsersUseCaseInterface: Symbol('GetUsersUseCaseInterface'),
     CreateUsersUseCaseInterface: Symbol('CreateUsersUseCaseInterface'),
     FindByIdUsersUseCaseInterface: Symbol('FindByIdUsersUseCaseInterface'),
@@ -22,7 +23,7 @@ const TYPES = {
     DeleteUsersUseCaseInterface: Symbol('DeleteUsersUseCaseInterface'),
 
 
-    //usescases for posts
+    //use cases for posts
     GetPostsUseCaseInterface: Symbol('GetPostsUseCaseInterface'),
     CreatePostsUseCaseInterface: Symbol('CreatePostsUseCaseInterface'),
     FindByIdPostsUseCaseInterface: Symbol('FindByIdPostsUseCaseInterface'),
@@ -32,6 +33,7 @@ const TYPES = {
 
     //Services
     AuthService: Symbol('AuthService'),
+    PermissionService: Symbol('PermissionService'),
 
 
     //Middlewares

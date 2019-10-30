@@ -23,5 +23,5 @@ let server =  new InversifyExpressServer(container, null, { rootPath: "/api" }, 
 createConnection().then(async connection => {
     console.log("Connected to DB");
     let app = server.build();
-    let serve = app.listen(process.env.PORT || 3000, () => `App running on ${serve.address().port}`);
+    let serve = app.listen(process.env.PORT || 3000, () => console.log(`App running on ${serve.address().port}`));
 }).catch(error => console.log(error));
