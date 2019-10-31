@@ -10,6 +10,7 @@ import './controllers/UserController';
 import './controllers/DomainController';
 import './controllers/PostController';
 import './controllers/LoginController';
+import './controllers/PermissionController';
 
 import {AuthProvider} from './providers/AuthProvider';
 
