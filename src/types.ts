@@ -4,6 +4,7 @@ const TYPES = {
     UserRepositoryInterface: Symbol('UserRepositoryInterface'),
     PostRepositoryInterface: Symbol('PostRepositoryInterface'),
     PermissionRepositoryInterface: Symbol('PermissionRepositoryInterface'),
+    RoleRepositoryInterface: Symbol('RoleRepositoryInterface'),
 
 
     //use cases for domains
@@ -34,6 +35,7 @@ const TYPES = {
     //Services
     AuthService: Symbol('AuthService'),
     PermissionService: Symbol('PermissionService'),
+    RoleService: Symbol('RoleService'),
 
 
     //Middlewares

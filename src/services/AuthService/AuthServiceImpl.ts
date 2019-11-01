@@ -6,10 +6,11 @@ import * as bcrypt from 'bcryptjs';
 
 @injectable()
 export class AuthServiceImpl implements AuthService {
+
     public async login(password: string, user: User) {
         let passwordValid = await this.validatePassword(password, user.password);
         if (passwordValid) return { token: this.getToken(user) };
-        return { message: "Incorrect credetencials" };
+        return { message: "Incorrect credentials" };
     }
     
     public getToken(user: User) {
@@ -22,7 +23,6 @@ export class AuthServiceImpl implements AuthService {
         
         var token = jwt.sign(tokenData, 'APIBlogsEDOMSecret', {
             expiresIn: 60 * 60 * 24,
-            algorithm:  ["RS256"],
         });
 
         return token;
@@ -31,7 +31,6 @@ export class AuthServiceImpl implements AuthService {
     public getUser(token: string) {
         return jwt.verify(token, 'APIBlogsEDOMSecret', {
             expiresIn: 60 * 60 * 24,
-            algorithm:  ["RS256"],
         });
     }
 

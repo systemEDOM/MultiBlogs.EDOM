@@ -47,6 +47,7 @@ export class User implements UserDTO {
     @ManyToOne(type => Role, role => role.users, {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+        eager: true
     })
     role: Role;
 

@@ -11,6 +11,7 @@ import './controllers/DomainController';
 import './controllers/PostController';
 import './controllers/LoginController';
 import './controllers/PermissionController';
+import './controllers/RoleController';
 
 import {AuthProvider} from './providers/AuthProvider';
 

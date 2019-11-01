@@ -6,7 +6,6 @@ import { PermissionService } from "./PermissionService";
 import TYPES from "../../types";
 import { PermissionRepositoryInterface } from "../../repository/Permission/PermissionRepositoryInterface";
 
-@EntityRepository(Permission)
 @injectable()
 export class PermissionServiceImpl implements PermissionService {
     private permissionRepo: PermissionRepositoryInterface;

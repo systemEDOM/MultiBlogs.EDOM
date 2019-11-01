@@ -25,13 +25,25 @@ export class Role implements RoleDTO {
     @Column({length: 150, nullable: false})
     slug?: string;
 
-    @ManyToMany(type => Permission)
-    @JoinTable({name: "roles_permissions"})
+    @ManyToMany(type => Permission, permission => permission.roles, {
+        cascade: true,
+        eager: true
+    })
+    @JoinTable({
+        name: "roles_permissions",
+        joinColumn: {
+            name: "roleId",
+            referencedColumnName: "id"
+        },
+        inverseJoinColumn: {
+            name: "permissionId",
+            referencedColumnName: "id"
+        }
+    })
     permissions: Permission[];
 
     @OneToMany(type => User, user => user.role, {
         cascade: true,
-        eager: true,
     })
     users: User[];
 

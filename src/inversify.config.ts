@@ -52,15 +52,19 @@ import { PermissionRepositoryInterface } from './repository/Permission/Permissio
 import { PermissionRepositoryImpl } from './repository/Permission/PermissionRepositoryImpl';
 import { PermissionService } from './services/PermissionService/PermissionService';
 import { PermissionServiceImpl } from './services/PermissionService/PermissionServiceImpl';
+import { RoleRepositoryInterface } from './repository/Role/RoleRepositoryInterface';
+import { RoleRepositoryImpl } from './repository/Role/RoleRepositoryImpl';
+import { RoleServiceImpl } from './services/RoleService/RoleServiceImpl';
+import { RoleService } from './services/RoleService/RoleService';
 
 const container = new Container();
 
 //Repositories
-//Domain
 container.bind<DomainRepositoryInterface>(TYPES.DomainRepositoryInterface).to(DomainRepositoryImpl).inSingletonScope();
 container.bind<UserRepositoryInterface>(TYPES.UserRepositoryInterface).to(UserRepositoryImpl).inSingletonScope();
 container.bind<PostRepositoryInterface>(TYPES.PostRepositoryInterface).to(PostRepositoryImpl).inSingletonScope();
 container.bind<PermissionRepositoryInterface>(TYPES.PermissionRepositoryInterface).to(PermissionRepositoryImpl).inSingletonScope();
+container.bind<RoleRepositoryInterface>(TYPES.RoleRepositoryInterface).to(RoleRepositoryImpl).inSingletonScope();
 
 
 
@@ -91,6 +95,7 @@ container.bind<DeletePostsUseCaseInterface>(TYPES.DeletePostsUseCaseInterface).t
 //Services
 container.bind<AuthService>(TYPES.AuthService).to(AuthServiceImpl).inSingletonScope();
 container.bind<PermissionService>(TYPES.PermissionService).to(PermissionServiceImpl).inSingletonScope();
+container.bind<RoleService>(TYPES.RoleService).to(RoleServiceImpl).inSingletonScope();
 
 
 //Middlewares

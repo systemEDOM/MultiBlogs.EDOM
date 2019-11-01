@@ -29,7 +29,7 @@ export class PermissionRepositoryImpl implements PermissionRepositoryInterface {
 
     update(id: number, permission: Permission) {
         permission.slug = slugify(permission.name);
-        return this.permissionRepository.update(id, permission);
+        return this.permissionRepository.update(id, {...permission});
     }
 
     delete(id: number) {

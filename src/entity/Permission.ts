@@ -1,9 +1,11 @@
-import { Entity, Unique, CreateDateColumn, UpdateDateColumn, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Unique, CreateDateColumn, UpdateDateColumn, Column, PrimaryGeneratedColumn, ManyToMany } from "typeorm";
+import { Role } from "./Role";
 
 export interface PermissionDTO {
     id?: number;
     name: string;
     slug?: string;
+    roles: Role[];
     createdAt: Date;
     updatedAt: Date;
 }
@@ -20,6 +22,9 @@ export class Permission implements PermissionDTO {
 
     @Column({length: 150, nullable: false})
     slug?: string;
+
+    @ManyToMany(type => Role, role => role.permissions)
+    roles: Role[];
 
     @CreateDateColumn({type: "timestamp"})
     createdAt: Date;

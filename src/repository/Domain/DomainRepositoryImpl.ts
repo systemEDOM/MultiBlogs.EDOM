@@ -29,7 +29,7 @@ export class DomainRepositoryImpl implements DomainRepositoryInterface {
 
     update(id: number, domain: Domain) {
         domain.name = slugify(domain.name);
-        return this.domainRepository.update(id, domain);
+        return this.domainRepository.update(id, {...domain});
     }
 
     delete(id: number) {
