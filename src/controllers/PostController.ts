@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as fs from 'fs';
 import { injectable, inject } from 'inversify';
-import { interfaces, controller, httpGet, httpPost, request, response, httpPut, httpDelete } from "inversify-express-utils";
+import { interfaces, controller, httpGet, httpPost, request, response, httpPut, httpDelete, BaseHttpController } from "inversify-express-utils";
 import TYPES from '../types';
 
 
@@ -12,9 +12,10 @@ import { FindByIdPostsUseCaseInterface } from '../usecases/posts/contracts/FindB
 import { UpdatePostsUseCaseInterface } from '../usecases/posts/contracts/UpdatePostsUseCaseInterface';
 import { DeletePostsUseCaseInterface } from '../usecases/posts/contracts/DeletePostsUseCaseInterface';
 import { UploadSingleFile } from '../util/UploadSingleFile';
+import permit from '../middlewares/PermissionMiddleware';
 
 @controller("/posts")
-export class PostController implements interfaces.Controller {
+export class PostController extends BaseHttpController {
     private postRepository: PostRepositoryInterface;
 
     @inject(TYPES.GetPostsUseCaseInterface)
@@ -35,20 +36,21 @@ export class PostController implements interfaces.Controller {
     static fileName: string;
 
     constructor(@inject(TYPES.PostRepositoryInterface) postRepository: PostRepositoryInterface) {
+        super();
         this.postRepository = postRepository;
     }
 
-    @httpGet("/")
+    @httpGet("/", TYPES.AuthMiddleware, permit("get posts"))
     public async index (@request() req: express.Request, @response() res: express.Response) {
         try {
-            const Posts = await this.getPostsUseCase.handle();
-            res.status(200).send(Posts);
+            const posts = await this.getPostsUseCase.handle();
+            res.status(200).send(posts);
         } catch(error) {
             res.status(400).json(error);
         }
     }
 
-    @httpPost("/", TYPES.AuthMiddleware, UploadSingleFile.getInstance().uploadFile(PostController, './public/assets/img/blog/', 'image'))
+    @httpPost("/", TYPES.AuthMiddleware, permit("create posts"), UploadSingleFile.getInstance().uploadFile(PostController, './public/assets/img/blog/', 'image'))
     public async store (@request() req: express.Request, @response() res: express.Response) {
         try {
             req.body.image = PostController.fileName;
@@ -60,7 +62,7 @@ export class PostController implements interfaces.Controller {
         }
     }
 
-    @httpGet("/:id", TYPES.AuthMiddleware)
+    @httpGet("/:id", TYPES.AuthMiddleware, permit("show posts"))
     public async show (@request() req: express.Request, @response() res: express.Response) {
         try {
             const post = await this.findByIdPostsUseCase.handle(Number(req.params.id));
@@ -70,7 +72,7 @@ export class PostController implements interfaces.Controller {
         }
     }
 
-    @httpPut("/:id", TYPES.AuthMiddleware, UploadSingleFile.getInstance().uploadFile(PostController, './public/assets/img/blog/', 'image'))
+    @httpPut("/:id", TYPES.AuthMiddleware, permit("edit posts"), UploadSingleFile.getInstance().uploadFile(PostController, './public/assets/img/blog/', 'image'))
     public async update (@request() req: express.Request, @response() res: express.Response) {
         try {
             req.body.image = PostController.fileName;
@@ -82,7 +84,7 @@ export class PostController implements interfaces.Controller {
         }
     }
 
-    @httpDelete("/:id", TYPES.AuthMiddleware)
+    @httpDelete("/:id", TYPES.AuthMiddleware, permit("delete posts"))
     public async destroy (@request() req: express.Request, @response() res: express.Response) {
         try {
             const post = await this.deletePostsUseCase.handle(Number(req.params.id));

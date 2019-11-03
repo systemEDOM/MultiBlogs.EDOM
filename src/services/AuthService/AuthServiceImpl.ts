@@ -19,6 +19,7 @@ export class AuthServiceImpl implements AuthService {
             name: user.name,
             username: user.username,
             email: user.email,
+            //role: user.role,
         };
         
         var token = jwt.sign(tokenData, 'APIBlogsEDOMSecret', {

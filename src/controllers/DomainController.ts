@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { injectable, inject } from 'inversify';
-import { interfaces, controller, httpGet, httpPost, request, response, httpPut, httpDelete } from "inversify-express-utils";
+import { interfaces, controller, httpGet, httpPost, request, response, httpPut, httpDelete, BaseHttpController, injectHttpContext } from "inversify-express-utils";
 import { DomainRepositoryInterface } from '../repository/Domain/DomainRepositoryInterface';
 import TYPES from '../types';
 
@@ -9,9 +9,10 @@ import { CreateDomainsUseCaseInterface } from '../usecases/domains/contracts/Cre
 import { FindByIdDomainsUseCaseInterface } from '../usecases/domains/contracts/FindByIdDomainsUseCaseInterface';
 import { UpdateDomainsUseCaseInterface } from '../usecases/domains/contracts/UpdateDomainsUseCaseInterface';
 import { DeleteDomainsUseCaseInterface } from '../usecases/domains/contracts/DeleteDomainsUseCaseInterface';
+import permit from '../middlewares/PermissionMiddleware';
 
 @controller("/domains")
-export class DomainController implements interfaces.Controller {
+export class DomainController extends BaseHttpController {
     private domainRepository: DomainRepositoryInterface;
 
     @inject(TYPES.GetDomainsUseCaseInterface)
@@ -29,11 +30,14 @@ export class DomainController implements interfaces.Controller {
     @inject(TYPES.DeleteDomainsUseCaseInterface)
     deleteDomainsUseCase: DeleteDomainsUseCaseInterface;
 
+    @injectHttpContext public _httpContext: interfaces.HttpContext;
+
     constructor(@inject(TYPES.DomainRepositoryInterface) domainRepository: DomainRepositoryInterface) {
+        super();
         this.domainRepository = domainRepository;
     }
 
-    @httpGet("/", TYPES.AuthMiddleware)
+    @httpGet("/", TYPES.AuthMiddleware, permit("get domains"))
     public async index (@request() req: express.Request, @response() res: express.Response) {
         try {
             const domains = await this.getDomainsUseCase.handle();
@@ -43,7 +47,7 @@ export class DomainController implements interfaces.Controller {
         }
     }
 
-    @httpPost("/", TYPES.AuthMiddleware)
+    @httpPost("/", TYPES.AuthMiddleware, permit("create domains"))
     public async store (@request() req: express.Request, @response() res: express.Response) {
         try {
             const domain = await this.createDomainsUseCase.handle(req.body);
@@ -53,7 +57,7 @@ export class DomainController implements interfaces.Controller {
         }
     }
 
-    @httpGet("/:id", TYPES.AuthMiddleware)
+    @httpGet("/:id", TYPES.AuthMiddleware, permit("show domains"))
     public async show (@request() req: express.Request, @response() res: express.Response) {
         try {
             const domain = await this.findByIdDomainsUseCase.handle(Number(req.params.id));
@@ -63,7 +67,7 @@ export class DomainController implements interfaces.Controller {
         }
     }
 
-    @httpPut("/:id", TYPES.AuthMiddleware)
+    @httpPut("/:id", TYPES.AuthMiddleware, permit("edit domains"))
     public async update (@request() req: express.Request, @response() res: express.Response) {
         try {
             const domain = await this.updateDomainsUseCase.handle(Number(req.params.id), req.body)
@@ -73,7 +77,7 @@ export class DomainController implements interfaces.Controller {
         }
     }
 
-    @httpDelete("/:id", TYPES.AuthMiddleware)
+    @httpDelete("/:id", TYPES.AuthMiddleware, permit("delete domains"))
     public async destroy (@request() req: express.Request, @response() res: express.Response) {
         try {
             const domain = await this.deleteDomainsUseCase.handle(Number(req.params.id));

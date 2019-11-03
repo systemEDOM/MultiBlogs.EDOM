@@ -14,6 +14,7 @@ import { UserRepositoryInterface } from '../repository/User/UserRepositoryInterf
 import { FindByUsernameUsersUseCaseInterface } from '../usecases/users/contracts/FindByUsernameUsersUseCaseInterface';
 import { UploadSingleFile } from '../util/UploadSingleFile';
 import container from '../inversify.config';
+import permit from '../middlewares/PermissionMiddleware';
 
 @controller("/users")
 export class UserController extends BaseHttpController {
@@ -44,65 +45,65 @@ export class UserController extends BaseHttpController {
         this.domainRepository = domainRepository;
     }
 
-    @httpGet("/", TYPES.AuthMiddleware)
+    @httpGet("/", TYPES.AuthMiddleware, permit("get users"))
     public async index (@request() req: express.Request, @response() res: express.Response) {
         try {
-            const domains = await this.getUsersUseCase.handle();
-            res.status(200).send(domains);
+            const users = await this.getUsersUseCase.handle();
+            res.status(200).send(users);
         } catch(error) {
             res.status(400).json(error);
         }
     }
 
-    @httpPost("/", TYPES.AuthMiddleware, UploadSingleFile.getInstance().uploadFile(UserController, './public/assets/img/avatars/', 'photo'))
+    @httpPost("/", TYPES.AuthMiddleware, permit("create users"), UploadSingleFile.getInstance().uploadFile(UserController, './public/assets/img/avatars/', 'photo'))
     public async store (@request() req: express.Request, @response() res: express.Response) {
         try {
             req.body.photo = UserController.fileName;
-            const domain = await this.createUsersUseCase.handle(req.body);
-            res.status(200).send(domain);
+            const user = await this.createUsersUseCase.handle(req.body);
+            res.status(200).send(user);
         } catch(error) {
             fs.unlinkSync('./public/assets/img/avatars/'+req.body.photo);
             res.status(400).json(error);
         }
     }
 
-    @httpGet("/:id", TYPES.AuthMiddleware)
+    @httpGet("/:id", TYPES.AuthMiddleware, permit("show users"))
     public async show (@request() req: express.Request, @response() res: express.Response) {
         try {
-            const domain = await this.findByIdUsersUseCase.handle(Number(req.params.id));
-            res.status(200).send(domain);
+            const user = await this.findByIdUsersUseCase.handle(Number(req.params.id));
+            res.status(200).send(user);
         } catch(error) {
             res.status(400).json(error);
         }
     }
 
-    @httpGet("/by/:username", TYPES.AuthMiddleware)
+    @httpGet("/by/:username", TYPES.AuthMiddleware, permit("show users"))
     public async showByUsername (@request() req: express.Request, @response() res: express.Response) {
         try {
-            const domain = await this.findByUsernameUsersUseCase.handle(req.params.username);
-            res.status(200).send(domain);
+            const user = await this.findByUsernameUsersUseCase.handle(req.params.username);
+            res.status(200).send(user);
         } catch(error) {
             res.status(400).json(error);
         }
     }
 
-    @httpPut("/:id", TYPES.AuthMiddleware, UploadSingleFile.getInstance().uploadFile(UserController, './public/assets/img/avatars/', 'photo'))
+    @httpPut("/:id", TYPES.AuthMiddleware, permit("edit users"), UploadSingleFile.getInstance().uploadFile(UserController, './public/assets/img/avatars/', 'photo'))
     public async update (@request() req: express.Request, @response() res: express.Response) {
         try {
             req.body.photo = UserController.fileName;
-            const domain = await this.updateUsersUseCase.handle(Number(req.params.id), req.body)
-            res.status(200).send(domain);
+            const user = await this.updateUsersUseCase.handle(Number(req.params.id), req.body)
+            res.status(200).send(user);
         } catch(error) {
             fs.unlinkSync('./public/assets/img/avatars/'+req.body.photo);
             res.status(400).json(error);
         }
     }
 
-    @httpDelete("/:id", TYPES.AuthMiddleware)
+    @httpDelete("/:id", TYPES.AuthMiddleware, permit("delete users"))
     public async destroy (@request() req: express.Request, @response() res: express.Response) {
         try {
-            const domain = await this.deleteUsersUseCase.handle(Number(req.params.id));
-            res.status(200).send(domain);
+            const user = await this.deleteUsersUseCase.handle(Number(req.params.id));
+            res.status(200).send(user);
         } catch(error) {
             res.status(400).json(error);
         }

@@ -7,6 +7,7 @@ import { UserRepositoryInterface } from '../repository/User/UserRepositoryInterf
 import container from '../inversify.config';
 import { PermissionRepositoryInterface } from '../repository/Permission/PermissionRepositoryInterface';
 import { PermissionService } from '../services/PermissionService/PermissionService';
+import permit from '../middlewares/PermissionMiddleware';
 
 @controller("/permissions")
 export class PermissionController extends BaseHttpController {
@@ -20,17 +21,17 @@ export class PermissionController extends BaseHttpController {
         this.permissionService = permissionService;
     }
 
-    @httpGet("/", TYPES.AuthMiddleware)
+    @httpGet("/", TYPES.AuthMiddleware, permit("get permissions"))
     public async index (@request() req: express.Request, @response() res: express.Response) {
         try {
-            const domains = await this.permissionService.findAll();
-            res.status(200).send(domains);
+            const permissions = await this.permissionService.findAll();
+            res.status(200).send(permissions);
         } catch(error) {
             res.status(400).json(error);
         }
     }
 
-    @httpPost("/", TYPES.AuthMiddleware)
+    @httpPost("/", TYPES.AuthMiddleware, permit("create permissions"))
     public async store (@request() req: express.Request, @response() res: express.Response) {
         try {
             const permission = await this.permissionService.create(req.body);
@@ -40,7 +41,7 @@ export class PermissionController extends BaseHttpController {
         }
     }
 
-    @httpGet("/:id", TYPES.AuthMiddleware)
+    @httpGet("/:id", TYPES.AuthMiddleware, permit("show permissions"))
     public async show (@request() req: express.Request, @response() res: express.Response) {
         try {
             const permission = await this.permissionService.findById(Number(req.params.id));
@@ -50,7 +51,7 @@ export class PermissionController extends BaseHttpController {
         }
     }
 
-    @httpPut("/:id", TYPES.AuthMiddleware)
+    @httpPut("/:id", TYPES.AuthMiddleware, permit("edit permissions"))
     public async update (@request() req: express.Request, @response() res: express.Response) {
         try {
             const permission = await this.permissionService.update(Number(req.params.id), req.body)
@@ -60,7 +61,7 @@ export class PermissionController extends BaseHttpController {
         }
     }
 
-    @httpDelete("/:id", TYPES.AuthMiddleware)
+    @httpDelete("/:id", TYPES.AuthMiddleware, permit("delete permissions"))
     public async destroy (@request() req: express.Request, @response() res: express.Response) {
         try {
             const permission = await this.permissionService.delete(Number(req.params.id));

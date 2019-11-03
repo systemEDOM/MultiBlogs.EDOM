@@ -56,6 +56,7 @@ import { RoleRepositoryInterface } from './repository/Role/RoleRepositoryInterfa
 import { RoleRepositoryImpl } from './repository/Role/RoleRepositoryImpl';
 import { RoleServiceImpl } from './services/RoleService/RoleServiceImpl';
 import { RoleService } from './services/RoleService/RoleService';
+//import { PermissionMiddleware } from './middlewares/PermissionMiddleware';
 
 const container = new Container();
 

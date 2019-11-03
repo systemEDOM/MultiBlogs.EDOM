@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { injectable, inject } from 'inversify';
-import { interfaces, controller, httpGet, httpPost, request, response, httpPut, httpDelete } from "inversify-express-utils";
+import { interfaces, controller, httpGet, httpPost, request, response, httpPut, httpDelete, BaseHttpController } from "inversify-express-utils";
 import TYPES from '../types';
 
 
@@ -11,7 +11,7 @@ import { User } from '../entity/User';
 import { AuthService } from '../services/AuthService/AuthService';
 
 @controller("/auth")
-export class LoginController implements interfaces.Controller {
+export class LoginController extends BaseHttpController {
     private userRepository: UserRepositoryInterface;
 
     private authService: AuthService;
@@ -21,6 +21,7 @@ export class LoginController implements interfaces.Controller {
 
     constructor(@inject(TYPES.UserRepositoryInterface) userRepository: UserRepositoryInterface,
                 @inject(TYPES.AuthService) authService: AuthService) {
+        super();
         this.userRepository = userRepository;
         this.authService = authService;
     }
