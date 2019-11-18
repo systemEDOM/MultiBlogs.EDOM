@@ -1,8 +1,7 @@
 import TYPES from "../../types";
 import { inject, injectable } from "inversify";
 import { DeletePostsUseCaseInterface } from "./contracts/DeletePostsUseCaseInterface";
-import { PostRepositoryInterface } from "../../repository/post/PostRepositoryInterface";
-
+import { PostRepositoryInterface } from "../../repository/Post/PostRepositoryInterface";
 import * as fs from 'fs';
 
 @injectable()
