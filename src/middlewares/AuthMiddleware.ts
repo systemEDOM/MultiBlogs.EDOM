@@ -1,6 +1,5 @@
+import * as express from "express";
 import { injectable } from "inversify";
-import * as express from 'express';
-import * as jwt from 'jsonwebtoken';
 import { BaseMiddleware } from "inversify-express-utils";
 
 @injectable()

@@ -1,7 +1,9 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, BaseEntity, Unique, OneToMany, ManyToOne} from "typeorm";
+// tslint:disable-next-line:max-line-length
+import {BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn} from "typeorm";
 import { Post } from "./Post";
 import { Role } from "./Role";
 
+// tslint:disable-next-line:interface-name
 export interface UserDTO {
     id?: number;
     name: string;
@@ -15,45 +17,45 @@ export interface UserDTO {
     updatedAt: Date;
 }
 
-
 @Entity({name: "users"})
 @Unique(["username", "email"])
 export class User implements UserDTO {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Column({length: 100, nullable: false})
-    name: string;
+    public name: string;
 
     @Column({length: 150, nullable: false})
-    username?: string;
+    public username?: string;
 
     @Column({length: 150, nullable: false})
-    email: string;
+    public email: string;
 
     @Column({length: 200, nullable: false})
-    photo: string;
+    public photo: string;
 
     @Column({length: 150, nullable: false})
-    password: string;
+    public password: string;
 
-    @OneToMany(type => Post, post => post.user, {
+    @OneToMany((type) => Post, (post) => post.user, {
         cascade: true,
         eager: true,
     })
-    posts: Post[];
+    public posts: Post[];
 
-    @ManyToOne(type => Role, role => role.users, {
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        eager: true
+    @ManyToOne((type) => Role, (role) => role.users, {
+        onUpdate: "CASCADE",
+        // tslint:disable-next-line:object-literal-sort-keys
+        onDelete: "CASCADE",
+        eager: true,
     })
-    role: Role;
+    public role: Role;
 
     @CreateDateColumn({type: "timestamp"})
-    createdAt: Date;
+    public createdAt: Date;
 
     @UpdateDateColumn({type: "timestamp"})
-    updatedAt: Date;
+    public updatedAt: Date;
 }

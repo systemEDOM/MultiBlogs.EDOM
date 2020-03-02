@@ -1,10 +1,8 @@
-import TYPES from "../../types";
 import { inject, injectable } from "inversify";
-import { CreatePostsUseCaseInterface } from "./contracts/CreatePostsUseCaseInterface";
-import { PostRepositoryInterface } from "../../repository/Post/PostRepositoryInterface";
 import { Post } from "../../entity/Post";
-import * as multer from 'multer';
-import * as path from 'path';
+import { PostRepositoryInterface } from "../../repository/Post/PostRepositoryInterface";
+import TYPES from "../../types";
+import { CreatePostsUseCaseInterface } from "./contracts/CreatePostsUseCaseInterface";
 
 @injectable()
 export class CreatePostsUseCaseImpl implements CreatePostsUseCaseInterface {
@@ -13,7 +11,7 @@ export class CreatePostsUseCaseImpl implements CreatePostsUseCaseInterface {
     constructor(@inject(TYPES.PostRepositoryInterface) postRepository: PostRepositoryInterface) {
         this.postRepository = postRepository;
     }
-    
+
     public handle(post: Post) {
         return this.postRepository.create(post);
     }

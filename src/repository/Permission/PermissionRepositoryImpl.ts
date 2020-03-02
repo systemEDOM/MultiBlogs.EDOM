@@ -1,38 +1,40 @@
-import {EntityRepository, Repository, EntityManager, createConnection, Connection, ConnectionOptions, getRepository, getManager, getConnection} from "typeorm";
-import {Permission} from "../../entity/Permission";
+// tslint:disable-next-line:max-line-length
 import { injectable } from "inversify";
 import slugify from "slugify";
+// tslint:disable-next-line:max-line-length
+import {EntityRepository, getRepository, Repository} from "typeorm";
+import {Permission} from "../../entity/Permission";
 import { PermissionRepositoryInterface } from "./PermissionRepositoryInterface";
 
 @EntityRepository(Permission)
 @injectable()
 export class PermissionRepositoryImpl implements PermissionRepositoryInterface {
     private permissionRepository: Repository<Permission>;
-    
+
     constructor() {
         this.permissionRepository = getRepository(Permission);
     }
 
-    findAll() {
+    public findAll() {
         return this.permissionRepository.find();
     }
 
-    create(permission: Permission) {
+    public create(permission: Permission) {
         permission.slug = slugify(permission.name);
         const permissionObj = this.permissionRepository.create(permission);
         return this.permissionRepository.save(permissionObj);
     }
 
-    findById(id: number) {
+    public findById(id: number) {
         return this.permissionRepository.findOneOrFail(id);
     }
 
-    update(id: number, permission: Permission) {
+    public update(id: number, permission: Permission) {
         permission.slug = slugify(permission.name);
         return this.permissionRepository.update(id, {...permission});
     }
 
-    delete(id: number) {
+    public delete(id: number) {
         return this.permissionRepository.delete(id);
     }
 }

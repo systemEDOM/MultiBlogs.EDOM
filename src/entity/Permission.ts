@@ -1,6 +1,8 @@
-import { Entity, Unique, CreateDateColumn, UpdateDateColumn, Column, PrimaryGeneratedColumn, ManyToMany } from "typeorm";
+// tslint:disable-next-line:max-line-length
+import { Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 import { Role } from "./Role";
 
+// tslint:disable-next-line:interface-name
 export interface PermissionDTO {
     id?: number;
     name: string;
@@ -15,20 +17,20 @@ export interface PermissionDTO {
 export class Permission implements PermissionDTO {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Column({length: 100, nullable: false})
-    name: string;
+    public name: string;
 
     @Column({length: 150, nullable: false})
-    slug?: string;
+    public slug?: string;
 
-    @ManyToMany(type => Role, role => role.permissions)
-    roles: Role[];
+    @ManyToMany((type) => Role, (role) => role.permissions)
+    public roles: Role[];
 
     @CreateDateColumn({type: "timestamp"})
-    createdAt: Date;
+    public createdAt: Date;
 
     @UpdateDateColumn({type: "timestamp"})
-    updatedAt: Date;
+    public updatedAt: Date;
 }

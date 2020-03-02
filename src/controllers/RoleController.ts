@@ -1,11 +1,11 @@
-import * as express from 'express';
-import { inject } from 'inversify';
-import { controller, httpGet, httpPost, request, response, httpPut, httpDelete, BaseHttpController } from "inversify-express-utils";
-import TYPES from '../types';
+import * as express from "express";
+import { inject } from "inversify";
+import { BaseHttpController, controller, httpDelete, httpGet, httpPost, httpPut, request, response } from "inversify-express-utils";
+import TYPES from "../types";
 
-import { RoleRepositoryInterface } from '../repository/Role/RoleRepositoryInterface';
-import { RoleService } from '../services/RoleService/RoleService';
-import permit from '../middlewares/PermissionMiddleware';
+import permit from "../middlewares/PermissionMiddleware";
+import { RoleRepositoryInterface } from "../repository/Role/RoleRepositoryInterface";
+import { RoleService } from "../services/RoleService/RoleService";
 
 @controller("/roles")
 export class RoleController extends BaseHttpController {
@@ -20,53 +20,53 @@ export class RoleController extends BaseHttpController {
     }
 
     @httpGet("/", TYPES.AuthMiddleware, permit("get roles"))
-    public async index (@request() req: express.Request, @response() res: express.Response) {
+    public async index(@request() req: express.Request, @response() res: express.Response) {
         try {
             const roles = await this.roleService.findAll();
             res.status(200).send(roles);
-        } catch(error) {
+        } catch (error) {
             res.status(400).json(error);
         }
     }
 
     @httpPost("/", TYPES.AuthMiddleware, permit("create roles"))
-    public async store (@request() req: express.Request, @response() res: express.Response) {
+    public async store(@request() req: express.Request, @response() res: express.Response) {
         try {
-            req.body.permissions = req.body.permissions.split(',');
+            req.body.permissions = req.body.permissions.split(",");
             const role = await this.roleService.create(req.body);
             res.status(200).send(role);
-        } catch(error) {
+        } catch (error) {
             res.status(400).json(error);
         }
     }
 
     @httpGet("/:id", TYPES.AuthMiddleware, permit("show roles"))
-    public async show (@request() req: express.Request, @response() res: express.Response) {
+    public async show(@request() req: express.Request, @response() res: express.Response) {
         try {
             const role = await this.roleService.findById(Number(req.params.id));
             res.status(200).send(role);
-        } catch(error) {
+        } catch (error) {
             res.status(400).json(error);
         }
     }
 
     @httpPut("/:id", TYPES.AuthMiddleware, permit("edit roles"))
-    public async update (@request() req: express.Request, @response() res: express.Response) {
+    public async update(@request() req: express.Request, @response() res: express.Response) {
         try {
-            req.body.permissions = req.body.permissions.split(',');
-            const role = await this.roleService.update(Number(req.params.id), req.body)
+            req.body.permissions = req.body.permissions.split(",");
+            const role = await this.roleService.update(Number(req.params.id), req.body);
             res.status(200).send(role);
-        } catch(error) {
+        } catch (error) {
             res.status(400).json(error);
         }
     }
 
     @httpDelete("/:id", TYPES.AuthMiddleware, permit("delete roles"))
-    public async destroy (@request() req: express.Request, @response() res: express.Response) {
+    public async destroy(@request() req: express.Request, @response() res: express.Response) {
         try {
             const role = await this.roleService.delete(Number(req.params.id));
             res.status(200).send(role);
-        } catch(error) {
+        } catch (error) {
             res.status(400).json(error);
         }
     }

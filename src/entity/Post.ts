@@ -1,6 +1,8 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, BaseEntity, Unique, ManyToOne} from "typeorm";
+// tslint:disable-next-line:max-line-length
+import {BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn} from "typeorm";
 import { User } from "./User";
 
+// tslint:disable-next-line:interface-name
 export interface PostDTO {
     id?: number;
     name: string;
@@ -13,38 +15,38 @@ export interface PostDTO {
     updatedAt: Date;
 }
 
-
 @Entity({name: "posts"})
 @Unique(["name", "slug"])
 export class Post implements PostDTO {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Column({length: 100, nullable: false})
-    name: string;
+    public name: string;
 
     @Column({length: 150, nullable: false})
-    slug?: string;
+    public slug?: string;
 
     @Column({length: 150, nullable: false})
-    image: string;
+    public image: string;
 
     @Column({length: 150, nullable: false})
-    description?: string;
+    public description?: string;
 
     @Column({type: "text", nullable: false})
-    content?: string;
+    public content?: string;
 
-    @ManyToOne(type => User, user => user.posts, {
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+    @ManyToOne((type) => User, (user) => user.posts, {
+        onUpdate: "CASCADE",
+        // tslint:disable-next-line:object-literal-sort-keys
+        onDelete: "CASCADE",
     })
-    user: User;
+    public user: User;
 
     @CreateDateColumn({type: "timestamp"})
-    createdAt: Date;
+    public createdAt: Date;
 
     @UpdateDateColumn({type: "timestamp"})
-    updatedAt: Date;
+    public updatedAt: Date;
 }

@@ -1,5 +1,7 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, BaseEntity} from "typeorm";
+// tslint:disable-next-line:max-line-length
+import {BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
 
+// tslint:disable-next-line:interface-name
 export interface DomainDTO {
     id?: number;
     name: string;
@@ -9,25 +11,24 @@ export interface DomainDTO {
     updatedAt: Date;
 }
 
-
 @Entity({name: "domains"})
 export class Domain implements DomainDTO {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Column({length: 100, nullable: false})
-    name: string;
+    public name: string;
 
     @Column({length: 150, nullable: false})
-    slug?: string;
+    public slug?: string;
 
     @Column({length: 150, nullable: false})
-    url: string;
+    public url: string;
 
     @CreateDateColumn({type: "timestamp"})
-    createdAt: Date;
+    public createdAt: Date;
 
     @UpdateDateColumn({type: "timestamp"})
-    updatedAt: Date;
+    public updatedAt: Date;
 }

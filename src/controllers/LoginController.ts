@@ -1,23 +1,20 @@
-import * as express from 'express';
-import { injectable, inject } from 'inversify';
-import { interfaces, controller, httpGet, httpPost, request, response, httpPut, httpDelete, BaseHttpController } from "inversify-express-utils";
-import TYPES from '../types';
+import * as express from "express";
+import { inject, injectable } from "inversify";
+import { BaseHttpController, controller, httpDelete, httpGet, httpPost, httpPut, interfaces, request, response } from "inversify-express-utils";
+import TYPES from "../types";
 
-
-
-import { UserRepositoryInterface } from '../repository/User/UserRepositoryInterface';
-import { FindByUsernameUsersUseCaseInterface } from '../usecases/users/contracts/FindByUsernameUsersUseCaseInterface';
-import { User } from '../entity/User';
-import { AuthService } from '../services/AuthService/AuthService';
+import { UserRepositoryInterface } from "../repository/User/UserRepositoryInterface";
+import { AuthService } from "../services/AuthService/AuthService";
+import { FindByUsernameUsersUseCaseInterface } from "../usecases/users/contracts/FindByUsernameUsersUseCaseInterface";
 
 @controller("/auth")
 export class LoginController extends BaseHttpController {
+
+    @inject(TYPES.FindByUsernameUsersUseCaseInterface)
+    public findByUsernameUsersUseCase: FindByUsernameUsersUseCaseInterface;
     private userRepository: UserRepositoryInterface;
 
     private authService: AuthService;
-
-    @inject(TYPES.FindByUsernameUsersUseCaseInterface)
-    findByUsernameUsersUseCase: FindByUsernameUsersUseCaseInterface;
 
     constructor(@inject(TYPES.UserRepositoryInterface) userRepository: UserRepositoryInterface,
                 @inject(TYPES.AuthService) authService: AuthService) {
@@ -27,13 +24,14 @@ export class LoginController extends BaseHttpController {
     }
 
     @httpPost("/login")
-    public async login (@request() req: express.Request, @response() res: express.Response) {
+    public async login(@request() req: express.Request, @response() res: express.Response) {
         try {
-            await this.findByUsernameUsersUseCase.handle(req.body.username).then(async user => {
-                let response = await this.authService.login(req.body.password, user);
+            await this.findByUsernameUsersUseCase.handle(req.body.username).then(async (user) => {
+                // tslint:disable-next-line:no-shadowed-variable
+                const response = await this.authService.login(req.body.password, user);
                 return res.status(200).json(response);
             });
-        } catch(error) {
+        } catch (error) {
             res.status(400).json(error);
         }
     }

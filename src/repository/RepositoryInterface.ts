@@ -1,6 +1,4 @@
-import {EntityRepository, Repository, BaseEntity} from "typeorm";
-import { Domain } from "../entity/Domain";
-
+// tslint:disable-next-line:interface-name
 export interface RepositoryInterface {
     /**
      * Here i can add more methods for general use

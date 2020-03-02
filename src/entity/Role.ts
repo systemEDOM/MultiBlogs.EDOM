@@ -1,7 +1,9 @@
-import { Entity, Unique, CreateDateColumn, UpdateDateColumn, Column, PrimaryGeneratedColumn, JoinTable, ManyToMany, ManyToOne, OneToMany } from "typeorm";
+// tslint:disable-next-line:max-line-length
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 import { Permission } from "./Permission";
 import { User } from "./User";
 
+// tslint:disable-next-line:interface-name
 export interface RoleDTO {
     id?: number;
     name: string;
@@ -17,39 +19,40 @@ export interface RoleDTO {
 export class Role implements RoleDTO {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Column({length: 100, nullable: false})
-    name: string;
+    public name: string;
 
     @Column({length: 150, nullable: false})
-    slug?: string;
+    public slug?: string;
 
-    @ManyToMany(type => Permission, permission => permission.roles, {
+    @ManyToMany((type) => Permission, (permission) => permission.roles, {
         cascade: true,
-        eager: true
+        eager: true,
     })
     @JoinTable({
         name: "roles_permissions",
+        // tslint:disable-next-line:object-literal-sort-keys
         joinColumn: {
             name: "roleId",
-            referencedColumnName: "id"
+            referencedColumnName: "id",
         },
         inverseJoinColumn: {
             name: "permissionId",
-            referencedColumnName: "id"
-        }
+            referencedColumnName: "id",
+        },
     })
-    permissions: Permission[];
+    public permissions: Permission[];
 
-    @OneToMany(type => User, user => user.role, {
+    @OneToMany((type) => User, (user) => user.role, {
         cascade: true,
     })
-    users: User[];
+    public users: User[];
 
     @CreateDateColumn({type: "timestamp"})
-    createdAt: Date;
+    public createdAt: Date;
 
     @UpdateDateColumn({type: "timestamp"})
-    updatedAt: Date;
+    public updatedAt: Date;
 }

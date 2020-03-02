@@ -1,11 +1,9 @@
-import { EntityRepository, Repository, EntityManager, createConnection, Connection, ConnectionOptions, getRepository, getManager, getConnection } from "typeorm";
-import { Role } from "../../entity/Role";
-import { injectable, inject } from "inversify";
+import {inject, injectable} from "inversify";
+import {Role} from "../../entity/Role";
+import {PermissionRepositoryInterface} from "../../repository/Permission/PermissionRepositoryInterface";
+import {RoleRepositoryInterface} from "../../repository/Role/RoleRepositoryInterface";
 import TYPES from "../../types";
-import { RoleService } from "./RoleService";
-import { RoleRepositoryInterface } from "../../repository/Role/RoleRepositoryInterface";
-import { PermissionRepositoryInterface } from "../../repository/Permission/PermissionRepositoryInterface";
-import { Permission } from "../../entity/Permission";
+import {RoleService} from "./RoleService";
 
 @injectable()
 export class RoleServiceImpl implements RoleService {
@@ -13,20 +11,20 @@ export class RoleServiceImpl implements RoleService {
     private permissionRepo: PermissionRepositoryInterface;
 
     constructor(@inject(TYPES.RoleRepositoryInterface) roleRepo: RoleRepositoryInterface,
-        @inject(TYPES.PermissionRepositoryInterface) permissionRepo: PermissionRepositoryInterface, ) {
+                @inject(TYPES.PermissionRepositoryInterface) permissionRepo: PermissionRepositoryInterface,) {
         this.roleRepo = roleRepo;
         this.permissionRepo = permissionRepo;
     }
 
-    findAll() {
+    public findAll() {
         return this.roleRepo.findAll();
     }
 
-    async create(role: Role) {
+    public async create(role: Role) {
         if (role.permissions) {
-            var permissions = [];
-            for (let key in role.permissions) {
-                var permission = await this.permissionRepo.findById(Number(role.permissions[key]))
+            let permissions = [];
+            for (const key in role.permissions) {
+                const permission = await this.permissionRepo.findById(Number(role.permissions[key]))
                     .then((permission) => permission);
                 permissions.push(permission);
             }
@@ -35,17 +33,17 @@ export class RoleServiceImpl implements RoleService {
         return this.roleRepo.create(role);
     }
 
-    findById(id: number) {
+    public findById(id: number) {
         return this.roleRepo.findById(id);
     }
 
-    async update(id: number, role: Role) {
-        let roleFound = await this.roleRepo.findById(Number(id)).then(role => role);
+    public async update(id: number, role: Role) {
+        const roleFound = await this.roleRepo.findById(Number(id)).then(role => role);
         roleFound.name = role.name;
         if (role.permissions) {
-            var permissions = [];
-            for (let key in role.permissions) {
-                let permission = await this.permissionRepo.findById(Number(role.permissions[key]))
+            let permissions = [];
+            for (const key in role.permissions) {
+                const permission = await this.permissionRepo.findById(Number(role.permissions[key]))
                     .then((permission) => permission);
                 permissions.push(permission);
             }
@@ -54,7 +52,7 @@ export class RoleServiceImpl implements RoleService {
         return await this.roleRepo.create(roleFound);
     }
 
-    delete(id: number) {
+    public delete(id: number) {
         return this.roleRepo.delete(id);
     }
 }

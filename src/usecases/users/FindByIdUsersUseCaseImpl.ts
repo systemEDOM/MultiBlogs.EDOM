@@ -1,7 +1,7 @@
-import TYPES from "../../types";
 import { inject, injectable } from "inversify";
-import { FindByIdUsersUseCaseInterface } from "./contracts/FindByIdUsersUseCaseInterface";
 import { UserRepositoryInterface } from "../../repository/User/UserRepositoryInterface";
+import TYPES from "../../types";
+import { FindByIdUsersUseCaseInterface } from "./contracts/FindByIdUsersUseCaseInterface";
 
 @injectable()
 export class FindByIdUsersUseCaseImpl implements FindByIdUsersUseCaseInterface {
@@ -10,7 +10,7 @@ export class FindByIdUsersUseCaseImpl implements FindByIdUsersUseCaseInterface {
     constructor(@inject(TYPES.UserRepositoryInterface) userRepository: UserRepositoryInterface) {
         this.userRepository = userRepository;
     }
-    
+
     public handle(id: number) {
         return this.userRepository.findById(id);
     }

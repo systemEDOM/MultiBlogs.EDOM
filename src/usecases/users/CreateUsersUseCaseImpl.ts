@@ -1,8 +1,8 @@
-import TYPES from "../../types";
 import { inject, injectable } from "inversify";
-import { CreateUsersUseCaseInterface } from "./contracts/CreateUsersUseCaseInterface";
-import { UserRepositoryInterface } from "../../repository/User/UserRepositoryInterface";
 import { User } from "../../entity/User";
+import { UserRepositoryInterface } from "../../repository/User/UserRepositoryInterface";
+import TYPES from "../../types";
+import { CreateUsersUseCaseInterface } from "./contracts/CreateUsersUseCaseInterface";
 
 @injectable()
 export class CreateUsersUseCaseImpl implements CreateUsersUseCaseInterface {
@@ -11,7 +11,7 @@ export class CreateUsersUseCaseImpl implements CreateUsersUseCaseInterface {
     constructor(@inject(TYPES.UserRepositoryInterface) userRepository: UserRepositoryInterface) {
         this.userRepository = userRepository;
     }
-    
+
     public handle(user: User) {
         return this.userRepository.create(user);
     }

@@ -1,29 +1,47 @@
 import "reflect-metadata";
-import * as express from 'express';
-import * as bodyParser from 'body-parser';
-import * as methodOverride from 'method-override';
-import {createConnection, useContainer, getConnectionManager, ConnectionManager} from "typeorm";
+
+import * as bodyParser from "body-parser";
+import * as express from "express";
+import { InversifyExpressServer } from "inversify-express-utils";
+import { createConnection } from "typeorm";
 import container from "./inversify.config";
-import { InversifyExpressServer, interfaces, TYPE } from "inversify-express-utils";
 
-import './controllers/UserController';
-import './controllers/DomainController';
-import './controllers/PostController';
-import './controllers/LoginController';
-import './controllers/PermissionController';
-import './controllers/RoleController';
+import "./controllers/DomainController";
+import "./controllers/LoginController";
+import "./controllers/PermissionController";
+import "./controllers/PostController";
+import "./controllers/RoleController";
+import "./controllers/UserController";
 
-import {AuthProvider} from './providers/AuthProvider';
+import {AuthProvider} from "./providers/AuthProvider";
 
-const app = express();
+class App {
+    private app;
+    private server;
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.urlencoded());
+    constructor() {
+        this.initExpress();
+    }
 
-let server =  new InversifyExpressServer(container, null, { rootPath: "/api" }, app, AuthProvider);
+    public initExpress() {
+        this.app = express();
+        this.app.use(bodyParser.urlencoded({ extended: false }));
+        this.app.use(express.urlencoded());
 
-createConnection().then(async connection => {
-    console.log("Connected to DB");
-    let app = server.build();
-    let serve = app.listen(process.env.PORT || 3000, () => console.log(`App running on ${serve.address().port}`));
-}).catch(error => console.log(error));
+        this.server =  new InversifyExpressServer(container, null,
+            {
+                rootPath: "/api",
+            }, this.app, AuthProvider);
+        this.mount();
+    }
+
+    private mount() {
+        createConnection().then(async (connection) => {
+            console.log("Connected to DB");
+            const build = this.server.build();
+            const serveRunning = build.listen(process.env.PORT || 3000, () => console.log(`App running on ${serveRunning.address().port}`));
+        }).catch((error) => console.log(error));
+    }
+}
+
+export default new App();

@@ -1,39 +1,39 @@
-import {EntityRepository, Repository, EntityManager, createConnection, Connection, ConnectionOptions, getRepository, getManager, getConnection} from "typeorm";
-import {Permission} from "../../entity/Permission";
+// tslint:disable-next-line:max-line-length
 import { injectable } from "inversify";
 import slugify from "slugify";
-import { RoleRepositoryInterface } from "./RoleRepositoryInterface";
+import {EntityRepository, getRepository, Repository} from "typeorm";
 import { Role } from "../../entity/Role";
+import { RoleRepositoryInterface } from "./RoleRepositoryInterface";
 
 @EntityRepository(Role)
 @injectable()
 export class RoleRepositoryImpl implements RoleRepositoryInterface {
     private roleRepository: Repository<Role>;
-    
+
     constructor() {
         this.roleRepository = getRepository(Role);
     }
 
-    findAll() {
+    public findAll() {
         return this.roleRepository.find();
     }
 
-    create(role: Role) {
+    public create(role: Role) {
         role.slug = slugify(role.name);
         const roleObj = this.roleRepository.create(role);
         return this.roleRepository.save(roleObj);
     }
 
-    findById(id: number) {
+    public findById(id: number) {
         return this.roleRepository.findOneOrFail(id);
     }
 
-    update(id: number, role: Role) {
+    public update(id: number, role: Role) {
         role.slug = slugify(role.name);
         return this.roleRepository.update(id, {...role});
     }
 
-    delete(id: number) {
+    public delete(id: number) {
         return this.roleRepository.delete(id);
     }
 }
