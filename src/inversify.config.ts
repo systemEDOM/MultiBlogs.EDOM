@@ -61,11 +61,19 @@ import { RoleService } from './application/services/interfaces/RoleService';
 const container = new Container();
 
 //Repositories
+<<<<<<< Updated upstream
 container.bind<DomainRepository>(TYPES.DomainRepositoryInterface).to(DomainRepositoryImpl).inSingletonScope();
 container.bind<UserRepository>(TYPES.UserRepositoryInterface).to(UserRepositoryImpl).inSingletonScope();
 container.bind<PostRepository>(TYPES.PostRepositoryInterface).to(PostRepositoryImpl).inSingletonScope();
 container.bind<PermissionRepository>(TYPES.PermissionRepositoryInterface).to(PermissionRepositoryImpl).inSingletonScope();
 container.bind<RoleRepository>(TYPES.RoleRepositoryInterface).to(RoleRepositoryImpl).inSingletonScope();
+=======
+container.getAll().bind<DomainRepositoryInterface>(TYPES.DomainRepositoryInterface).to(DomainRepositoryImpl).inSingletonScope();
+container.bind<UserRepositoryInterface>(TYPES.UserRepositoryInterface).to(UserRepositoryImpl).inSingletonScope();
+container.bind<PostRepositoryInterface>(TYPES.PostRepositoryInterface).to(PostRepositoryImpl).inSingletonScope();
+container.bind<PermissionRepositoryInterface>(TYPES.PermissionRepositoryInterface).to(PermissionRepositoryImpl).inSingletonScope();
+container.bind<RoleRepositoryInterface>(TYPES.RoleRepositoryInterface).to(RoleRepositoryImpl).inSingletonScope();
+>>>>>>> Stashed changes
 
 
 
