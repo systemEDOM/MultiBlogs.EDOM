@@ -1,8 +1,8 @@
 import { inject, injectable } from "inversify";
 import { Domain } from "../../domain/entity/Domain";
-import { DomainRepository } from "../../../domain/interfaces/DomainRepository";
+import { DomainRepository } from "../../../core/domain/interfaces/DomainRepository";
 import TYPES from "../../../types";
-import { UpdateDomainsUseCase } from "../../../application/usecases/domains/UpdateDomainsUseCase";
+import { UpdateDomainsUseCase } from "../../../core/application/usecases/domains/UpdateDomainsUseCase";
 
 @injectable()
 export class UpdateDomainsUseCaseImpl implements UpdateDomainsUseCase {

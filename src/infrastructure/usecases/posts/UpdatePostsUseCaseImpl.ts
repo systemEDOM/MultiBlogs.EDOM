@@ -1,9 +1,9 @@
 import * as fs from "fs";
 import { inject, injectable } from "inversify";
 import { Post } from "../../domain/entity/Post";
-import { PostRepository } from "../../../domain/interfaces/PostRepository";
+import { PostRepository } from "../../../core/domain/interfaces/PostRepository";
 import TYPES from "../../../types";
-import { UpdatePostUseCase } from "../../../application/usecases/posts/UpdatePostUseCase";
+import { UpdatePostUseCase } from "../../../core/application/usecases/posts/UpdatePostUseCase";
 
 @injectable()
 export class UpdatePostsUseCaseImpl implements UpdatePostUseCase {

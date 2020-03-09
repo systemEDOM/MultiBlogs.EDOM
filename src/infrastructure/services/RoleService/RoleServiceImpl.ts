@@ -1,9 +1,9 @@
 import {inject, injectable} from "inversify";
 import {Role} from "../../domain/entity/Role";
-import {PermissionRepository} from "../../../domain/interfaces/PermissionRepository";
-import {RoleRepository} from "../../../domain/interfaces/RoleRepository";
+import {PermissionRepository} from "../../../core/domain/interfaces/PermissionRepository";
+import {RoleRepository} from "../../../core/domain/interfaces/RoleRepository";
 import TYPES from "../../../types";
-import {RoleService} from "../../../application/services/interfaces/RoleService";
+import {RoleService} from "../../../core/application/services/interfaces/RoleService";
 
 @injectable()
 export class RoleServiceImpl implements RoleService {

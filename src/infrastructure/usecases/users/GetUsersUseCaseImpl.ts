@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
-import { UserRepository } from "../../../domain/interfaces/UserRepository";
+import { UserRepository } from "../../../core/domain/interfaces/UserRepository";
 import TYPES from "../../../types";
-import { GetUsersUseCase } from "../../../application/usecases/users/GetUsersUseCase";
+import { GetUsersUseCase } from "../../../core/application/usecases/users/GetUsersUseCase";
 
 @injectable()
 export class GetUsersUseCaseImpl implements GetUsersUseCase {

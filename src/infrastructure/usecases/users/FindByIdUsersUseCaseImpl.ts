@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
-import { UserRepository } from "../../../domain/interfaces/UserRepository";
+import { UserRepository } from "../../../core/domain/interfaces/UserRepository";
 import TYPES from "../../../types";
-import { FindByIdUserUseCase } from "../../../application/usecases/users/FindByIdUserUseCase";
+import { FindByIdUserUseCase } from "../../../core/application/usecases/users/FindByIdUserUseCase";
 
 @injectable()
 export class FindByIdUsersUseCaseImpl implements FindByIdUserUseCase {

@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
-import { PostRepository } from "../../../domain/interfaces/PostRepository";
+import { PostRepository } from "../../../core/domain/interfaces/PostRepository";
 import TYPES from "../../../types";
-import { FindByIdPostUseCase } from "../../../application/usecases/posts/FindByIdPostUseCase";
+import { FindByIdPostUseCase } from "../../../core/application/usecases/posts/FindByIdPostUseCase";
 
 @injectable()
 export class FindByIdPostsUseCaseImpl implements FindByIdPostUseCase {

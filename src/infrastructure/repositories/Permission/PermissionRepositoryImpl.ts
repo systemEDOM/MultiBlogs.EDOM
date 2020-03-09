@@ -4,7 +4,7 @@ import slugify from "slugify";
 // tslint:disable-next-line:max-line-length
 import {EntityRepository, getRepository, Repository} from "typeorm";
 import {Permission} from "../../domain/entity/Permission";
-import { PermissionRepository } from "../../../domain/interfaces/PermissionRepository";
+import { PermissionRepository } from "../../../core/domain/interfaces/PermissionRepository";
 
 @EntityRepository(Permission)
 @injectable()

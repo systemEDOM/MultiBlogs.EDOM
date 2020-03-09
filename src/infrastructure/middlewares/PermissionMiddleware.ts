@@ -1,7 +1,7 @@
 import container from "../../inversify.config";
-import { SignInUseCase } from "../../application/usecases/auth/SignInUseCase";
+import { SignInUseCase } from "../../core/application/usecases/auth/SignInUseCase";
 import TYPES from "../../types";
-import { FindByIdUserUseCase } from "../../application/usecases/users/FindByIdUserUseCase";
+import { FindByIdUserUseCase } from "../../core/application/usecases/users/FindByIdUserUseCase";
 
 export default function permit(permission) {
     // return a middleware

@@ -6,12 +6,12 @@ import { InversifyExpressServer } from "inversify-express-utils";
 import { createConnection } from "typeorm";
 import container from "./inversify.config";
 
-import "./infrastructure/controllers/DomainController";
-import "./infrastructure/controllers/LoginController";
-import "./infrastructure/controllers/PermissionController";
-import "./infrastructure/controllers/PostController";
-import "./infrastructure/controllers/RoleController";
-import "./infrastructure/controllers/UserController";
+import "./presentation/api/controllers/DomainController";
+import "./presentation/api/controllers/LoginController";
+import "./presentation/api/controllers/PermissionController";
+import "./presentation/api/controllers/PostController";
+import "./presentation/api/controllers/RoleController";
+import "./presentation/api/controllers/UserController";
 
 import {AuthProvider} from "./infrastructure/providers/AuthProvider";
 

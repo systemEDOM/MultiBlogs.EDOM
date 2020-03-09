@@ -2,7 +2,7 @@ import * as bcrypt from "bcryptjs";
 import {injectable} from "inversify";
 import * as jwt from "jsonwebtoken";
 import {User} from "../../domain/entity/User";
-import {SignInUseCase} from "../../../application/usecases/auth/SignInUseCase";
+import {SignInUseCase} from "../../../core/application/usecases/auth/SignInUseCase";
 
 @injectable()
 export class AuthServiceImpl implements SignInUseCase {

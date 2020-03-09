@@ -1,8 +1,8 @@
 import { inject, injectable } from "inversify";
 import {Permission} from "../../domain/entity/Permission";
-import { PermissionRepository } from "../../../domain/interfaces/PermissionRepository";
+import { PermissionRepository } from "../../../core/domain/interfaces/PermissionRepository";
 import TYPES from "../../../types";
-import { PermissionService } from "../../../application/services/interfaces/PermissionService";
+import { PermissionService } from "../../../core/application/services/interfaces/PermissionService";
 
 @injectable()
 export class PermissionServiceImpl implements PermissionService {

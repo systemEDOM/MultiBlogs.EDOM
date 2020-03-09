@@ -2,15 +2,15 @@ import * as express from "express";
 import { inject, injectable } from "inversify";
 // tslint:disable-next-line:max-line-length
 import { BaseHttpController, controller, httpDelete, httpGet, httpPost, httpPut, injectHttpContext, interfaces, request, response } from "inversify-express-utils";
-import { DomainRepository } from "../../domain/interfaces/DomainRepository";
-import TYPES from "../../types";
+import { DomainRepository } from "../../../core/domain/interfaces/DomainRepository";
+import TYPES from "../../../types";
 
-import permit from "../middlewares/PermissionMiddleware";
-import { CreateDomainUseCase } from "../../application/usecases/domains/CreateDomainUseCase";
-import { DeleteDomainUseCase } from "../../application/usecases/domains/DeleteDomainUseCase";
-import { FindByIdDomainUseCase } from "../../application/usecases/domains/FindByIdDomainUseCase";
-import { GetDomainsUseCase } from "../../application/usecases/domains/GetDomainsUseCase";
-import { UpdateDomainsUseCase } from "../../application/usecases/domains/UpdateDomainsUseCase";
+import permit from "../../../infrastructure/middlewares/PermissionMiddleware";
+import { CreateDomainUseCase } from "../../../core/application/usecases/domains/CreateDomainUseCase";
+import { DeleteDomainUseCase } from "../../../core/application/usecases/domains/DeleteDomainUseCase";
+import { FindByIdDomainUseCase } from "../../../core/application/usecases/domains/FindByIdDomainUseCase";
+import { GetDomainsUseCase } from "../../../core/application/usecases/domains/GetDomainsUseCase";
+import { UpdateDomainsUseCase } from "../../../core/application/usecases/domains/UpdateDomainsUseCase";
 
 @controller("/domains")
 export class DomainController extends BaseHttpController {

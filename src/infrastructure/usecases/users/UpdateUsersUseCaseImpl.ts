@@ -1,10 +1,10 @@
 import * as fs from "fs";
 import { inject, injectable } from "inversify";
 import { User } from "../../domain/entity/User";
-import { RoleRepository } from "../../../domain/interfaces/RoleRepository";
-import { UserRepository } from "../../../domain/interfaces/UserRepository";
+import { RoleRepository } from "../../../core/domain/interfaces/RoleRepository";
+import { UserRepository } from "../../../core/domain/interfaces/UserRepository";
 import TYPES from "../../../types";
-import { UpdateUserUseCase } from "../../../application/usecases/users/UpdateUserUseCase";
+import { UpdateUserUseCase } from "../../../core/application/usecases/users/UpdateUserUseCase";
 
 @injectable()
 export class UpdateUsersUseCaseImpl implements UpdateUserUseCase {

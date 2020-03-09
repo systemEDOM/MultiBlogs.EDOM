@@ -2,18 +2,18 @@ import * as express from "express";
 import * as fs from "fs";
 import { inject, injectable } from "inversify";
 import { BaseHttpController, controller, httpDelete, httpGet, httpPost, httpPut, interfaces, request, response } from "inversify-express-utils";
-import TYPES from "../../types";
+import TYPES from "../../../types";
 
-import { CreateUserUseCase } from "../../application/usecases/users/CreateUserUseCase";
-import { DeleteUserUseCase } from "../../application/usecases/users/DeleteUserUseCase";
-import { FindByIdUserUseCase } from "../../application/usecases/users/FindByIdUserUseCase";
-import { GetUsersUseCase } from "../../application/usecases/users/GetUsersUseCase";
-import { UpdateUserUseCase } from "../../application/usecases/users/UpdateUserUseCase";
+import { CreateUserUseCase } from "../../../core/application/usecases/users/CreateUserUseCase";
+import { DeleteUserUseCase } from "../../../core/application/usecases/users/DeleteUserUseCase";
+import { FindByIdUserUseCase } from "../../../core/application/usecases/users/FindByIdUserUseCase";
+import { GetUsersUseCase } from "../../../core/application/usecases/users/GetUsersUseCase";
+import { UpdateUserUseCase } from "../../../core/application/usecases/users/UpdateUserUseCase";
 
-import permit from "../middlewares/PermissionMiddleware";
-import { UserRepository } from "../../domain/interfaces/UserRepository";
-import { FindByUsernameUserUseCase } from "../../application/usecases/users/FindByUsernameUserUseCase";
-import { UploadSingleFile } from "../../util/UploadSingleFile";
+import permit from "../../../infrastructure/middlewares/PermissionMiddleware";
+import { UserRepository } from "../../../core/domain/interfaces/UserRepository";
+import { FindByUsernameUserUseCase } from "../../../core/application/usecases/users/FindByUsernameUserUseCase";
+import { UploadSingleFile } from "../../../util/UploadSingleFile";
 
 @controller("/users")
 export class UserController extends BaseHttpController {

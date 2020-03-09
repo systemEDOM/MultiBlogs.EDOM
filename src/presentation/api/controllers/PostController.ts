@@ -2,16 +2,16 @@ import * as express from "express";
 import * as fs from "fs";
 import { inject, injectable } from "inversify";
 import { BaseHttpController, controller, httpDelete, httpGet, httpPost, httpPut, interfaces, request, response } from "inversify-express-utils";
-import TYPES from "../../types";
+import TYPES from "../../../types";
 
-import permit from "../middlewares/PermissionMiddleware";
-import { PostRepository } from "../../domain/interfaces/PostRepository";
-import { CreatePostUseCase } from "../../application/usecases/posts/CreatePostUseCase";
-import { DeletePostUseCase } from "../../application/usecases/posts/DeletePostUseCase";
-import { FindByIdPostUseCase } from "../../application/usecases/posts/FindByIdPostUseCase";
-import { GetPostUseCase } from "../../application/usecases/posts/GetPostsUseCase";
-import { UpdatePostUseCase } from "../../application/usecases/posts/UpdatePostUseCase";
-import { UploadSingleFile } from "../../util/UploadSingleFile";
+import permit from "../../../infrastructure/middlewares/PermissionMiddleware";
+import { PostRepository } from "../../../core/domain/interfaces/PostRepository";
+import { CreatePostUseCase } from "../../../core/application/usecases/posts/CreatePostUseCase";
+import { DeletePostUseCase } from "../../../core/application/usecases/posts/DeletePostUseCase";
+import { FindByIdPostUseCase } from "../../../core/application/usecases/posts/FindByIdPostUseCase";
+import { GetPostUseCase } from "../../../core/application/usecases/posts/GetPostsUseCase";
+import { UpdatePostUseCase } from "../../../core/application/usecases/posts/UpdatePostUseCase";
+import { UploadSingleFile } from "../../../util/UploadSingleFile";
 
 @controller("/posts")
 export class PostController extends BaseHttpController {

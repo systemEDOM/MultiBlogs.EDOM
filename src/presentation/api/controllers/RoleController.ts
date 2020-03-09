@@ -1,11 +1,11 @@
 import * as express from "express";
 import { inject } from "inversify";
 import { BaseHttpController, controller, httpDelete, httpGet, httpPost, httpPut, request, response } from "inversify-express-utils";
-import TYPES from "../../types";
+import TYPES from "../../../types";
 
-import permit from "../middlewares/PermissionMiddleware";
-import { RoleRepository } from "../../domain/interfaces/RoleRepository";
-import { RoleService } from "../../application/services/interfaces/RoleService";
+import permit from "../../../infrastructure/middlewares/PermissionMiddleware";
+import { RoleRepository } from "../../../core/domain/interfaces/RoleRepository";
+import { RoleService } from "../../core/application/services/interfaces/RoleService";
 
 @controller("/roles")
 export class RoleController extends BaseHttpController {

@@ -3,7 +3,7 @@ import { injectable } from "inversify";
 import slugify from "slugify";
 import {EntityRepository, getRepository, Repository} from "typeorm";
 import { Post } from "../../domain/entity/Post";
-import { PostRepository } from "../../../domain/interfaces/PostRepository";
+import { PostRepository } from "../../../core/domain/interfaces/PostRepository";
 
 @EntityRepository(Post)
 @injectable()

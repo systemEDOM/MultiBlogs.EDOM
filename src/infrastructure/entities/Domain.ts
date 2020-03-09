@@ -1,6 +1,6 @@
 // tslint:disable-next-line:max-line-length
 import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
-import {DomainDTO} from "../../domain/entities/DomainDTO";
+import {DomainDTO} from "../../core/domain/entities/DomainDTO";
 
 @Entity({name: "domains"})
 export class Domain {

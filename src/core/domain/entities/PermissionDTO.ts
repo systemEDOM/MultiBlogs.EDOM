@@ -8,4 +8,12 @@ export class PermissionDTO {
     public roles: RoleDTO[];
     public createdAt: Date;
     public updatedAt: Date;
+
+    constructor(id: number, name: string, slug: string, roles: RoleDTO[], createdAt: Date, updateAt: Date) {
+        this.id = id;
+        this.name = name;
+        this.roles = roles;
+        this.createdAt = createdAt;
+        this.updatedAt = updateAt;
+    }
 }

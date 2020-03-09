@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import { inject, injectable } from "inversify";
-import { UserRepository } from "../../../domain/interfaces/UserRepository";
+import { UserRepository } from "../../../core/domain/interfaces/UserRepository";
 import TYPES from "../../../types";
-import { DeleteUserUseCase } from "../../../application/usecases/users/DeleteUserUseCase";
+import { DeleteUserUseCase } from "../../../core/application/usecases/users/DeleteUserUseCase";
 
 @injectable()
 export class DeleteUsersUseCaseImpl implements DeleteUserUseCase {

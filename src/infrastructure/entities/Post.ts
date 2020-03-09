@@ -1,6 +1,6 @@
 // tslint:disable-next-line:max-line-length
 import {BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn} from "typeorm";
-import {PostDTO} from "../../domain/entities/PostDTO";
+import {PostDTO} from "../../core/domain/entities/PostDTO";
 import { User } from "./User";
 
 @Entity({name: "posts"})

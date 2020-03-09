@@ -1,11 +1,11 @@
 import * as express from "express";
 import { inject } from "inversify";
 import { BaseHttpController, controller, httpDelete, httpGet, httpPost, httpPut, request, response } from "inversify-express-utils";
-import TYPES from "../../types";
+import TYPES from "../../../types";
 
-import permit from "../middlewares/PermissionMiddleware";
-import { PermissionRepository } from "../../domain/interfaces/PermissionRepository";
-import { PermissionService } from "../../application/services/interfaces/PermissionService";
+import permit from "../../../infrastructure/middlewares/PermissionMiddleware";
+import { PermissionRepository } from "../../../core/domain/interfaces/PermissionRepository";
+import { PermissionService } from "../../core/application/services/interfaces/PermissionService";
 
 @controller("/permissions")
 export class PermissionController extends BaseHttpController {

@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import { inject, injectable } from "inversify";
-import { PostRepository } from "../../../domain/interfaces/PostRepository";
+import { PostRepository } from "../../../core/domain/interfaces/PostRepository";
 import TYPES from "../../../types";
-import { DeletePostUseCase } from "../../../application/usecases/posts/DeletePostUseCase";
+import { DeletePostUseCase } from "../../../core/application/usecases/posts/DeletePostUseCase";
 
 @injectable()
 export class DeletePostsUseCaseImpl implements DeletePostUseCase {

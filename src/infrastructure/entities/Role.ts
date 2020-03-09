@@ -1,6 +1,6 @@
 // tslint:disable-next-line:max-line-length
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
-import {RoleDTO} from "../../domain/entities/RoleDTO";
+import {RoleDTO} from "../../core/domain/entities/RoleDTO";
 import {Permission} from "./Permission";
 import { User } from "./User";
 

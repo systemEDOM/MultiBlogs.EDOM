@@ -3,16 +3,16 @@ import "reflect-metadata";
 import * as bcrypt from "bcryptjs";
 import slugify from "slugify";
 import * as typeorm from "typeorm";
-import { User } from "../../src/domain/entity/User";
+import { User } from "../../src/core/domain/entity/User";
 import container from "../../src/inversify.config";
-import { UserRepository } from "../../src/domain/interfaces/UserRepository";
+import { UserRepository } from "../../src/core/domain/interfaces/UserRepository";
 import TYPES from "../../src/types";
-import { CreateUserUseCase } from "../../src/application/usecases/users/CreateUserUseCase";
-import { DeleteUserUseCase } from "../../src/application/usecases/users/DeleteUserUseCase";
-import { FindByIdUserUseCase } from "../../src/application/usecases/users/FindByIdUserUseCase";
-import { FindByUsernameUserUseCase } from "../../src/application/usecases/users/FindByUsernameUserUseCase";
-import { GetUsersUseCase } from "../../src/application/usecases/users/GetUsersUseCase";
-import { UpdateUserUseCase } from "../../src/application/usecases/users/UpdateUserUseCase";
+import { CreateUserUseCase } from "../../src/core/application/usecases/users/CreateUserUseCase";
+import { DeleteUserUseCase } from "../../src/core/application/usecases/users/DeleteUserUseCase";
+import { FindByIdUserUseCase } from "../../src/core/application/usecases/users/FindByIdUserUseCase";
+import { FindByUsernameUserUseCase } from "../../src/core/application/usecases/users/FindByUsernameUserUseCase";
+import { GetUsersUseCase } from "../../src/core/application/usecases/users/GetUsersUseCase";
+import { UpdateUserUseCase } from "../../src/core/application/usecases/users/UpdateUserUseCase";
 
 describe("Unit Tests for UsersUseCases", () => {
     let userRepository: UserRepository;

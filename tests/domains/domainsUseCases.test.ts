@@ -2,15 +2,15 @@
 import "reflect-metadata";
 import slugify from "slugify";
 import * as typeorm from "typeorm";
-import { Domain } from "../../src/domain/entity/Domain";
+import { Domain } from "../../src/core/domain/entity/Domain";
 import container from "../../src/inversify.config";
-import { DomainRepository } from "../../src/domain/interfaces/DomainRepository";
+import { DomainRepository } from "../../src/core/domain/interfaces/DomainRepository";
 import TYPES from "../../src/types";
-import { CreateDomainUseCase } from "../../src/application/usecases/domains/CreateDomainUseCase";
-import { DeleteDomainUseCase } from "../../src/application/usecases/domains/DeleteDomainUseCase";
-import { FindByIdDomainUseCase } from "../../src/application/usecases/domains/FindByIdDomainUseCase";
-import { GetDomainsUseCase } from "../../src/application/usecases/domains/GetDomainsUseCase";
-import { UpdateDomainsUseCase } from "../../src/application/usecases/domains/UpdateDomainsUseCase";
+import { CreateDomainUseCase } from "../../src/core/application/usecases/domains/CreateDomainUseCase";
+import { DeleteDomainUseCase } from "../../src/core/application/usecases/domains/DeleteDomainUseCase";
+import { FindByIdDomainUseCase } from "../../src/core/application/usecases/domains/FindByIdDomainUseCase";
+import { GetDomainsUseCase } from "../../src/core/application/usecases/domains/GetDomainsUseCase";
+import { UpdateDomainsUseCase } from "../../src/core/application/usecases/domains/UpdateDomainsUseCase";
 
 describe("Unit Tests for DomainsUseCases", () => {
     let domainRepository: DomainRepository;

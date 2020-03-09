@@ -1,11 +1,11 @@
 import * as express from "express";
 import { inject, injectable } from "inversify";
 import { BaseHttpController, controller, httpDelete, httpGet, httpPost, httpPut, interfaces, request, response } from "inversify-express-utils";
-import TYPES from "../../types";
+import TYPES from "../../../types";
 
-import { UserRepository } from "../../domain/interfaces/UserRepository";
-import { SignInUseCase } from "../../application/usecases/auth/SignInUseCase";
-import { FindByUsernameUserUseCase } from "../../application/usecases/users/FindByUsernameUserUseCase";
+import { UserRepository } from "../../../core/domain/interfaces/UserRepository";
+import { SignInUseCase } from "../../../core/application/usecases/auth/SignInUseCase";
+import { FindByUsernameUserUseCase } from "../../../core/application/usecases/users/FindByUsernameUserUseCase";
 
 @controller("/auth")
 export class LoginController extends BaseHttpController {

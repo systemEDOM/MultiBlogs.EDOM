@@ -1,6 +1,6 @@
 import {inject, injectable} from "inversify";
 import {interfaces} from "inversify-express-utils";
-import {SignInUseCase} from "../../application/usecases/auth/SignInUseCase";
+import {SignInUseCase} from "../../core/application/usecases/auth/SignInUseCase";
 
 import * as express from "express";
 import TYPES from "../../types";

@@ -1,6 +1,6 @@
 // tslint:disable-next-line:max-line-length
 import { Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
-import {PermissionDTO} from "../../domain/entities/PermissionDTO";
+import {PermissionDTO} from "../../core/domain/entities/PermissionDTO";
 import { Role } from "./Role";
 
 @Entity({name: "permissions"})

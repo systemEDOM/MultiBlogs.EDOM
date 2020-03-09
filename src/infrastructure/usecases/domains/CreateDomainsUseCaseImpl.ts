@@ -1,18 +1,18 @@
 import { inject, injectable } from "inversify";
-import { Domain } from "../../domain/entity/Domain";
-import { DomainRepository } from "../../../domain/interfaces/DomainRepository";
+import { CreateDomainUseCase } from "../../../core/application/usecases/domains/CreateDomainUseCase";
+import {DomainDTO} from "../../../core/domain/entities/DomainDTO";
+import { DomainRepository } from "../../../core/domain/interfaces/DomainRepository";
 import TYPES from "../../../types";
-import { CreateDomainUseCase } from "../../../application/usecases/domains/CreateDomainUseCase";
 
 @injectable()
-export class CreateDomainsUseCaseImpl implements CreateDomainUseCase {
+export class CreateDomainsUseCaseImpl implements CreateDomainUseCase<DomainDTO> {
     private domainRepository: DomainRepository;
 
     constructor(@inject(TYPES.DomainRepositoryInterface) domainRepository: DomainRepository) {
         this.domainRepository = domainRepository;
     }
 
-    public handle(domain: Domain) {
-        return this.domainRepository.create(domain);
+    public execute(entity: DomainDTO): Promise<DomainDTO> {
+        return this.domainRepository.create(entity);
     }
 }

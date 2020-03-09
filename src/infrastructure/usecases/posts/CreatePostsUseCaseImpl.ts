@@ -1,8 +1,8 @@
 import { inject, injectable } from "inversify";
 import { Post } from "../../domain/entity/Post";
-import { PostRepository } from "../../../domain/interfaces/PostRepository";
+import { PostRepository } from "../../../core/domain/interfaces/PostRepository";
 import TYPES from "../../../types";
-import { CreatePostUseCase } from "../../../application/usecases/posts/CreatePostUseCase";
+import { CreatePostUseCase } from "../../../core/application/usecases/posts/CreatePostUseCase";
 
 @injectable()
 export class CreatePostsUseCaseImpl implements CreatePostUseCase {
