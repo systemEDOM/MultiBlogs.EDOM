@@ -7,12 +7,11 @@ import { DomainRepository } from "../../../core/domain/interfaces/DomainReposito
 import TYPES from "../../../types";
 import {Domain} from "../../entities/Domain";
 import {GenericRepositoryImpl} from "../GenericRepositoryImpl";
-import {DomainDataMapperImpl} from "./DomainDataMapperImpl";
 
 @EntityRepository(Domain)
 @injectable()
 export class DomainRepositoryImpl extends GenericRepositoryImpl<DomainDTO, Domain> implements DomainRepository {
-    constructor(@inject(TYPES.DomainRepositoryInterface) repository: TypeOrmRepository<DomainDTO>) {
-        super(repository, new DomainDataMapperImpl());
+    constructor(@inject(TYPES.DomainRepositoryInterface) repository: TypeOrmRepository<Domain>) {
+        super(repository);
     }
 }

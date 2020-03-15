@@ -1,11 +1,20 @@
 // tslint:disable-next-line:max-line-length
-import { Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    EntitySchema,
+    ManyToMany,
+    PrimaryGeneratedColumn,
+    Unique,
+    UpdateDateColumn,
+} from "typeorm";
 import {PermissionDTO} from "../../core/domain/entities/PermissionDTO";
 import { Role } from "./Role";
 
 @Entity({name: "permissions"})
 @Unique(["name", "slug"])
-export class Permission {
+export class Permission extends EntitySchema<PermissionDTO> {
     @PrimaryGeneratedColumn()
     public id: number;
 

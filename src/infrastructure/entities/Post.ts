@@ -1,11 +1,23 @@
 // tslint:disable-next-line:max-line-length
-import {BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn} from "typeorm";
+import {
+    BaseEntity,
+    BeforeInsert,
+    BeforeUpdate,
+    Column,
+    CreateDateColumn,
+    Entity,
+    EntitySchema,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+    Unique,
+    UpdateDateColumn,
+} from "typeorm";
 import {PostDTO} from "../../core/domain/entities/PostDTO";
 import { User } from "./User";
 
 @Entity({name: "posts"})
 @Unique(["name", "slug"])
-export class Post {
+export class Post extends EntitySchema<PostDTO> {
     @PrimaryGeneratedColumn()
     public id: number;
 

@@ -1,12 +1,22 @@
 // tslint:disable-next-line:max-line-length
-import {BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn} from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    EntitySchema,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    Unique,
+    UpdateDateColumn,
+} from "typeorm";
 import {UserDTO} from "../../core/domain/entities/UserDTO";
 import { Post } from "./Post";
 import { Role } from "./Role";
 
 @Entity({name: "users"})
 @Unique(["username", "email"])
-export class User {
+export class User extends EntitySchema<UserDTO> {
     @PrimaryGeneratedColumn()
     public id: number;
 
