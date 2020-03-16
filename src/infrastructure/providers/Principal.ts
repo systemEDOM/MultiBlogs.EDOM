@@ -1,8 +1,8 @@
 import { interfaces } from "inversify-express-utils";
 
 export class Principal implements interfaces.Principal {
-    public details: any;                        
-    
+    public details: any;
+
     public constructor(details: any) {
         this.details = details;
     }

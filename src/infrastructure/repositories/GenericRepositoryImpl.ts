@@ -5,34 +5,33 @@ import {Repository} from "../../core/domain/interfaces/Repository";
 @injectable()
 export class GenericRepositoryImpl<EntityDTO, EntityORM> implements Repository<EntityDTO> {
 
-    private readonly repository: TypeOrmRepository<EntityORM>;
+    public readonly repository: TypeOrmRepository<EntityORM>;
 
     public constructor(@unmanaged() repository: TypeOrmRepository<EntityORM>) {
         this.repository = repository;
     }
 
-    public async create(entity: EntityDTO): Promise<EntityDTO> {
+    public async create(entity: EntityDTO): Promise<EntityORM> {
         const model = await this.repository.create(entity);
-        await this.repository.save(model);
-        return model;
+        return await this.repository.save(model);
     }
 
-    public async delete(id: number): Promise<EntityDTO> {
+    public async delete(id: number): Promise<EntityORM> {
         const entity = await this.repository.findOneOrFail(id);
         await this.repository.delete(id);
-        return this.dataMapper.toDomain(entity);
+        return entity;
     }
 
-    public async findAll(): Promise<EntityDTO[]> {
-        const entities = await this.repository.find();
+    public async findAll(): Promise<EntityORM[]> {
+        return await this.repository.find();
     }
 
-    public async findById(id: number): Promise<EntityDTO> {
-        const entity = await this.repository.findOneOrFail(id);
+    public async findById(id: number): Promise<EntityORM> {
+        return await this.repository.findOneOrFail(id);
     }
 
-    public async update(id: number, entity: EntityDTO): Promise<EntityDTO> {
+    public async update(id: number, entity: EntityDTO): Promise<EntityORM> {
         await this.repository.update(id, entity);
-        const entityORM = await this.repository.findOneOrFail(id);
+        return await this.repository.findOneOrFail(id);
     }
 }

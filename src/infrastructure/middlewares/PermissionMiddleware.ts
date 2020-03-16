@@ -1,15 +1,15 @@
 import container from "../../inversify.config";
-import { SignInUseCase } from "../../core/application/usecases/auth/SignInUseCase";
+import { SignInUseCase } from "../../core/application/usecases/auth/Contracts/SignInUseCase";
 import TYPES from "../../types";
-import { FindByIdUserUseCase } from "../../core/application/usecases/users/FindByIdUserUseCase";
+import { FindByIdUserUseCase } from "../../core/application/usecases/users/Contracts/FindByIdUserUseCase";
 
 export default function permit(permission) {
     // return a middleware
     return async (request, response, next) => {
         // tslint:disable-next-line:variable-name
-        const _authService = container.get<SignInUseCase>(TYPES.AuthService);
+        const _authService = container.get<SignInUseCase<any>>(TYPES.AuthService);
         // tslint:disable-next-line:variable-name
-        const _findUserByIdUseCase = container.get<FindByIdUserUseCase>(TYPES.FindByIdUsersUseCaseInterface);
+        const _findUserByIdUseCase = container.get<FindByIdUserUseCase<any>>(TYPES.FindByIdUsersUseCaseInterface);
 
         let token = request.headers.authorization;
         if (token) {
@@ -18,7 +18,7 @@ export default function permit(permission) {
             const user = _authService.getUser(token);
 
             // tslint:disable-next-line:no-shadowed-variable
-            const permissions = await _findUserByIdUseCase.handle(user.id).then( (user) => user.role.permissions);
+            const permissions = await _findUserByIdUseCase.execute(1).then( (user) => user.role.permissions);
             for (const key in permissions) {
                 if (permission === permissions[key].name) {
                     return next();

@@ -3,7 +3,7 @@ import {Column, CreateDateColumn, Entity, EntitySchema, PrimaryGeneratedColumn, 
 import {DomainDTO} from "../../core/domain/entities/DomainDTO";
 
 @Entity({name: "domains"})
-export class Domain extends EntitySchema<DomainDTO>{
+export class Domain extends EntitySchema<DomainDTO> {
     @PrimaryGeneratedColumn()
     public id: number;
 

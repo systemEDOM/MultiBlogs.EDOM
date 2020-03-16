@@ -7,12 +7,12 @@ import { User } from "../../src/core/domain/entity/User";
 import container from "../../src/inversify.config";
 import { UserRepository } from "../../src/core/domain/interfaces/UserRepository";
 import TYPES from "../../src/types";
-import { CreateUserUseCase } from "../../src/core/application/usecases/users/CreateUserUseCase";
-import { DeleteUserUseCase } from "../../src/core/application/usecases/users/DeleteUserUseCase";
-import { FindByIdUserUseCase } from "../../src/core/application/usecases/users/FindByIdUserUseCase";
-import { FindByUsernameUserUseCase } from "../../src/core/application/usecases/users/FindByUsernameUserUseCase";
-import { GetUsersUseCase } from "../../src/core/application/usecases/users/GetUsersUseCase";
-import { UpdateUserUseCase } from "../../src/core/application/usecases/users/UpdateUserUseCase";
+import { CreateUserUseCase } from "../../src/core/application/usecases/users/Contracts/CreateUserUseCase";
+import { DeleteUserUseCase } from "../../src/core/application/usecases/users/Contracts/DeleteUserUseCase";
+import { FindByIdUserUseCase } from "../../src/core/application/usecases/users/Contracts/FindByIdUserUseCase";
+import { FindByUsernameUserUseCase } from "../../src/core/application/usecases/users/Contracts/FindByUsernameUserUseCase";
+import { GetUsersUseCase } from "../../src/core/application/usecases/users/Contracts/GetUsersUseCase";
+import { UpdateUserUseCase } from "../../src/core/application/usecases/users/Contracts/UpdateUserUseCase";
 
 describe("Unit Tests for UsersUseCases", () => {
     let userRepository: UserRepository;

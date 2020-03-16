@@ -1,114 +1,87 @@
-import TYPES from './types';
+import TYPES from "./types";
 
-import {Container} from 'inversify';
-import { interfaces, TYPE } from 'inversify-express-utils';
+import {Container} from "inversify";
 
-import { DomainRepositoryImpl } from './infrastructure/repository/Domain/DomainRepositoryImpl';
-import { DomainRepository } from './core/domain/interfaces/DomainRepository';
+import { DomainRepository } from "./core/domain/interfaces/DomainRepository";
+import { DomainRepositoryImpl } from "./infrastructure/repositories/Domain/DomainRepositoryImpl";
 
-import { GetDomainsUseCase } from './core/application/usecases/domains/GetDomainsUseCase';
-import { GetDomainsUseCaseImpl } from './infrastructure/usecases/domains/GetDomainsUseCaseImpl';
-import { CreateDomainsUseCaseImpl } from './infrastructure/usecases/domains/CreateDomainsUseCaseImpl';
-import { CreateDomainUseCase } from './core/application/usecases/domains/CreateDomainUseCase';
-import { FindByIdDomainUseCase } from './core/application/usecases/domains/FindByIdDomainUseCase';
-import { UpdateDomainsUseCase } from './core/application/usecases/domains/UpdateDomainsUseCase';
-import { DeleteDomainUseCase } from './core/application/usecases/domains/DeleteDomainUseCase';
-import { FindByIdDomainsUseCaseImpl } from './infrastructure/usecases/domains/FindByIdDomainsUseCaseImpl';
-import { UpdateDomainsUseCaseImpl } from './infrastructure/usecases/domains/UpdateDomainsUseCaseImpl';
-import { DeleteDomainsUseCaseImpl } from './infrastructure/usecases/domains/DeleteDomainsUseCaseImpl';
+import { CreateDomainUseCase } from "./core/application/usecases/domains/Contracts/CreateDomainUseCase";
+import { DeleteDomainUseCase } from "./core/application/usecases/domains/Contracts/DeleteDomainUseCase";
+import { FindByIdDomainUseCase } from "./core/application/usecases/domains/Contracts/FindByIdDomainUseCase";
+import { GetDomainsUseCase } from "./core/application/usecases/domains/Contracts/GetDomainsUseCase";
+import { UpdateDomainsUseCase } from "./core/application/usecases/domains/Contracts/UpdateDomainsUseCase";
+import { CreateDomainUseCaseImpl } from "./core/application/usecases/domains/CreateDomainUseCaseImpl";
+import { DeleteDomainUseCaseImpl } from "./core/application/usecases/domains/DeleteDomainUseCaseImpl";
+import { FindByIdDomainUseCaseImpl } from "./core/application/usecases/domains/FindByIdDomainUseCaseImpl";
+import { GetDomainsUseCaseImpl } from "./core/application/usecases/domains/GetDomainsUseCaseImpl";
+import { UpdateDomainUseCaseImpl } from "./core/application/usecases/domains/UpdateDomainUseCaseImpl";
 
-import { UserRepositoryImpl } from './infrastructure/repository/User/UserRepositoryImpl';
-import { UserRepository } from './core/domain/interfaces/UserRepository';
-import { GetUsersUseCase } from './core/application/usecases/users/GetUsersUseCase';
-import { GetUsersUseCaseImpl } from './infrastructure/usecases/users/GetUsersUseCaseImpl';
-import { CreateUserUseCase } from './core/application/usecases/users/CreateUserUseCase';
-import { CreateUsersUseCaseImpl } from './infrastructure/usecases/users/CreateUsersUseCaseImpl';
-import { FindByIdUserUseCase } from './core/application/usecases/users/FindByIdUserUseCase';
-import { UpdateUserUseCase } from './core/application/usecases/users/UpdateUserUseCase';
-import { UpdateUsersUseCaseImpl } from './infrastructure/usecases/users/UpdateUsersUseCaseImpl';
-import { DeleteUserUseCase } from './core/application/usecases/users/DeleteUserUseCase';
-import { DeleteUsersUseCaseImpl } from './infrastructure/usecases/users/DeleteUsersUseCaseImpl';
-import { FindByUsernameUsersUseCaseImpl } from './infrastructure/usecases/users/FindByUsernameUsersUseCaseImpl';
-import { FindByUsernameUserUseCase } from './core/application/usecases/users/FindByUsernameUserUseCase';
-import { FindByIdUsersUseCaseImpl } from './infrastructure/usecases/users/FindByIdUsersUseCaseImpl';
-import { PostRepository } from './core/domain/interfaces/PostRepository';
-import { PostRepositoryImpl } from './infrastructure/repository/Post/PostRepositoryImpl';
-import { GetPostUseCase } from './core/application/usecases/posts/GetPostsUseCase';
-import { CreatePostUseCase } from './core/application/usecases/posts/CreatePostUseCase';
-import { FindByIdPostUseCase } from './core/application/usecases/posts/FindByIdPostUseCase';
-import { UpdatePostUseCase } from './core/application/usecases/posts/UpdatePostUseCase';
-import { DeletePostUseCase } from './core/application/usecases/posts/DeletePostUseCase';
-import { GetPostsUseCaseImpl } from './infrastructure/usecases/posts/GetPostsUseCaseImpl';
-import { CreatePostsUseCaseImpl } from './infrastructure/usecases/posts/CreatePostsUseCaseImpl';
-import { FindByIdPostsUseCaseImpl } from './infrastructure/usecases/posts/FIndByIdPostsUseCaseImpl';
-import { UpdatePostsUseCaseImpl } from './infrastructure/usecases/posts/UpdatePostsUseCaseImpl';
-import { DeletePostsUseCaseImpl } from './infrastructure/usecases/posts/DeletePostsUseCaseImpl';
+import { CreatePostUseCase } from "./core/application/usecases/posts/Contracts/CreatePostUseCase";
+import { DeletePostUseCase } from "./core/application/usecases/posts/Contracts/DeletePostUseCase";
+import { FindByIdPostUseCase } from "./core/application/usecases/posts/Contracts/FindByIdPostUseCase";
+import { GetPostsUseCase } from "./core/application/usecases/posts/Contracts/GetPostsUseCase";
+import { UpdatePostUseCase } from "./core/application/usecases/posts/Contracts/UpdatePostUseCase";
+import { CreatePostUseCaseImpl } from "./core/application/usecases/posts/CreatePostUseCaseImpl";
+import { DeletePostUseCaseImpl } from "./core/application/usecases/posts/DeletePostUseCaseImpl";
+import { FIndByIdPostUseCaseImpl } from "./core/application/usecases/posts/FIndByIdPostUseCaseImpl";
+import { GetPostsUseCaseImpl } from "./core/application/usecases/posts/GetPostsUseCaseImpl";
+import { UpdatePostUseCaseImpl } from "./core/application/usecases/posts/UpdatePostUseCaseImpl";
+import { CreateUserUseCase } from "./core/application/usecases/users/Contracts/CreateUserUseCase";
+import { DeleteUserUseCase } from "./core/application/usecases/users/Contracts/DeleteUserUseCase";
+import { FindByIdUserUseCase } from "./core/application/usecases/users/Contracts/FindByIdUserUseCase";
+import { FindByUsernameUserUseCase } from "./core/application/usecases/users/Contracts/FindByUsernameUserUseCase";
+import { GetUsersUseCase } from "./core/application/usecases/users/Contracts/GetUsersUseCase";
+import { UpdateUserUseCase } from "./core/application/usecases/users/Contracts/UpdateUserUseCase";
+import { CreateUserUseCaseImpl } from "./core/application/usecases/users/CreateUserUseCaseImpl";
+import { DeleteUserUseCaseImpl } from "./core/application/usecases/users/DeleteUserUseCaseImpl";
+import { FindByIdUserUseCaseImpl } from "./core/application/usecases/users/FindByIdUserUseCaseImpl";
+import { FindByUsernameUserUseCaseImpl } from "./core/application/usecases/users/FindByUsernameUserUseCaseImpl";
+import { GetUsersUseCaseImpl } from "./core/application/usecases/users/GetUsersUseCaseImpl";
+import { UpdateUserUseCaseImpl } from "./core/application/usecases/users/UpdateUserUseCaseImpl";
+import { PostRepository } from "./core/domain/interfaces/PostRepository";
+import { UserRepository } from "./core/domain/interfaces/UserRepository";
+import { PostRepositoryImpl } from "./infrastructure/repositories/Post/PostRepositoryImpl";
+import { UserRepositoryImpl } from "./infrastructure/repositories/User/UserRepositoryImpl";
 
-import { AuthMiddleware } from './infrastructure/middlewares/AuthMiddleware';
+import { AuthMiddleware } from "./infrastructure/middlewares/AuthMiddleware";
 
-import { SignInUseCase } from './core/application/usecases/auth/SignInUseCase';
-import { AuthServiceImpl } from './infrastructure/services/AuthService/AuthServiceImpl';
-import { PermissionRepository } from './core/domain/interfaces/PermissionRepository';
-import { PermissionRepositoryImpl } from './infrastructure/repository/Permission/PermissionRepositoryImpl';
-import { PermissionService } from './core/application/services/interfaces/PermissionService';
-import { PermissionServiceImpl } from './infrastructure/services/PermissionService/PermissionServiceImpl';
-import { RoleRepository } from './core/domain/interfaces/RoleRepository';
-import { RoleRepositoryImpl } from './infrastructure/repository/Role/RoleRepositoryImpl';
-import { RoleServiceImpl } from './infrastructure/services/RoleService/RoleServiceImpl';
-import { RoleService } from './core/application/services/interfaces/RoleService';
-//import { PermissionMiddleware } from './middlewares/PermissionMiddleware';
+import { SignInUseCase } from "./core/application/usecases/auth/Contracts/SignInUseCase";
+import {SignInUseCaseImpl} from "./core/application/usecases/auth/SignInUseCaseImpl";
+import { PermissionRepository } from "./core/domain/interfaces/PermissionRepository";
+import { RoleRepository } from "./core/domain/interfaces/RoleRepository";
+import { PermissionRepositoryImpl } from "./infrastructure/repositories/Permission/PermissionRepositoryImpl";
+import { RoleRepositoryImpl } from "./infrastructure/repositories/Role/RoleRepositoryImpl";
 
 const container = new Container();
 
-//Repositories
-<<<<<<< Updated upstream
 container.bind<DomainRepository>(TYPES.DomainRepositoryInterface).to(DomainRepositoryImpl).inSingletonScope();
 container.bind<UserRepository>(TYPES.UserRepositoryInterface).to(UserRepositoryImpl).inSingletonScope();
 container.bind<PostRepository>(TYPES.PostRepositoryInterface).to(PostRepositoryImpl).inSingletonScope();
+// tslint:disable-next-line:max-line-length
 container.bind<PermissionRepository>(TYPES.PermissionRepositoryInterface).to(PermissionRepositoryImpl).inSingletonScope();
 container.bind<RoleRepository>(TYPES.RoleRepositoryInterface).to(RoleRepositoryImpl).inSingletonScope();
-=======
-container.getAll().bind<DomainRepositoryInterface>(TYPES.DomainRepositoryInterface).to(DomainRepositoryImpl).inSingletonScope();
-container.bind<UserRepositoryInterface>(TYPES.UserRepositoryInterface).to(UserRepositoryImpl).inSingletonScope();
-container.bind<PostRepositoryInterface>(TYPES.PostRepositoryInterface).to(PostRepositoryImpl).inSingletonScope();
-container.bind<PermissionRepositoryInterface>(TYPES.PermissionRepositoryInterface).to(PermissionRepositoryImpl).inSingletonScope();
-container.bind<RoleRepositoryInterface>(TYPES.RoleRepositoryInterface).to(RoleRepositoryImpl).inSingletonScope();
->>>>>>> Stashed changes
 
+container.bind<GetDomainsUseCase<any>>(TYPES.GetDomainsUseCaseInterface).to(GetDomainsUseCaseImpl).inSingletonScope();
+container.bind<CreateDomainUseCase<any>>(TYPES.CreateDomainsUseCaseInterface).to(CreateDomainUseCaseImpl).inSingletonScope();
+container.bind<FindByIdDomainUseCase<any>>(TYPES.FindByIdDomainsUseCaseInterface).to(FindByIdDomainUseCaseImpl).inSingletonScope();
+container.bind<UpdateDomainsUseCase<any>>(TYPES.UpdateDomainsUseCaseInterface).to(UpdateDomainUseCaseImpl).inSingletonScope();
+container.bind<DeleteDomainUseCase<any>>(TYPES.DeleteDomainsUseCaseInterface).to(DeleteDomainUseCaseImpl).inSingletonScope();
 
+container.bind<GetUsersUseCase<any>>(TYPES.GetUsersUseCaseInterface).to(GetUsersUseCaseImpl).inSingletonScope();
+container.bind<CreateUserUseCase<any>>(TYPES.CreateUsersUseCaseInterface).to(CreateUserUseCaseImpl).inSingletonScope();
+container.bind<FindByIdUserUseCase<any>>(TYPES.FindByIdUsersUseCaseInterface).to(FindByIdUserUseCaseImpl).inSingletonScope();
+container.bind<FindByUsernameUserUseCase<any>>(TYPES.FindByUsernameUsersUseCaseInterface).to(FindByUsernameUserUseCaseImpl).inSingletonScope();
+container.bind<UpdateUserUseCase<any>>(TYPES.UpdateUsersUseCaseInterface).to(UpdateUserUseCaseImpl).inSingletonScope();
+container.bind<DeleteUserUseCase<any>>(TYPES.DeleteUsersUseCaseInterface).to(DeleteUserUseCaseImpl).inSingletonScope();
 
-//Usescase
-//Domains
-container.bind<GetDomainsUseCase>(TYPES.GetDomainsUseCaseInterface).to(GetDomainsUseCaseImpl).inSingletonScope();
-container.bind<CreateDomainUseCase>(TYPES.CreateDomainsUseCaseInterface).to(CreateDomainsUseCaseImpl).inSingletonScope();
-container.bind<FindByIdDomainUseCase>(TYPES.FindByIdDomainsUseCaseInterface).to(FindByIdDomainsUseCaseImpl).inSingletonScope();
-container.bind<UpdateDomainsUseCase>(TYPES.UpdateDomainsUseCaseInterface).to(UpdateDomainsUseCaseImpl).inSingletonScope();
-container.bind<DeleteDomainUseCase>(TYPES.DeleteDomainsUseCaseInterface).to(DeleteDomainsUseCaseImpl).inSingletonScope();
+container.bind<GetPostsUseCase<any>>(TYPES.GetPostsUseCaseInterface).to(GetPostsUseCaseImpl).inSingletonScope();
+container.bind<CreatePostUseCase<any>>(TYPES.CreatePostsUseCaseInterface).to(CreatePostUseCaseImpl).inSingletonScope();
+container.bind<FindByIdPostUseCase<any>>(TYPES.FindByIdPostsUseCaseInterface).to(FIndByIdPostUseCaseImpl).inSingletonScope();
+container.bind<UpdatePostUseCase<any>>(TYPES.UpdatePostsUseCaseInterface).to(UpdatePostUseCaseImpl).inSingletonScope();
+container.bind<DeletePostUseCase<any>>(TYPES.DeletePostsUseCaseInterface).to(DeletePostUseCaseImpl).inSingletonScope();
 
-//Users
-container.bind<GetUsersUseCase>(TYPES.GetUsersUseCaseInterface).to(GetUsersUseCaseImpl).inSingletonScope();
-container.bind<CreateUserUseCase>(TYPES.CreateUsersUseCaseInterface).to(CreateUsersUseCaseImpl).inSingletonScope();
-container.bind<FindByIdUserUseCase>(TYPES.FindByIdUsersUseCaseInterface).to(FindByIdUsersUseCaseImpl).inSingletonScope();
-container.bind<FindByUsernameUserUseCase>(TYPES.FindByUsernameUsersUseCaseInterface).to(FindByUsernameUsersUseCaseImpl).inSingletonScope();
-container.bind<UpdateUserUseCase>(TYPES.UpdateUsersUseCaseInterface).to(UpdateUsersUseCaseImpl).inSingletonScope();
-container.bind<DeleteUserUseCase>(TYPES.DeleteUsersUseCaseInterface).to(DeleteUsersUseCaseImpl).inSingletonScope();
+container.bind<SignInUseCase<any>>(TYPES.AuthService).to(SignInUseCaseImpl).inSingletonScope();
 
-//Posts
-container.bind<GetPostUseCase>(TYPES.GetPostsUseCaseInterface).to(GetPostsUseCaseImpl).inSingletonScope();
-container.bind<CreatePostUseCase>(TYPES.CreatePostsUseCaseInterface).to(CreatePostsUseCaseImpl).inSingletonScope();
-container.bind<FindByIdPostUseCase>(TYPES.FindByIdPostsUseCaseInterface).to(FindByIdPostsUseCaseImpl).inSingletonScope();
-container.bind<UpdatePostUseCase>(TYPES.UpdatePostsUseCaseInterface).to(UpdatePostsUseCaseImpl).inSingletonScope();
-container.bind<DeletePostUseCase>(TYPES.DeletePostsUseCaseInterface).to(DeletePostsUseCaseImpl).inSingletonScope();
-
-
-//Services
-container.bind<SignInUseCase>(TYPES.AuthService).to(AuthServiceImpl).inSingletonScope();
-container.bind<PermissionService>(TYPES.PermissionService).to(PermissionServiceImpl).inSingletonScope();
-container.bind<RoleService>(TYPES.RoleService).to(RoleServiceImpl).inSingletonScope();
-
-
-//Middlewares
 container.bind<AuthMiddleware>(TYPES.AuthMiddleware).to(AuthMiddleware).inSingletonScope();
-
 
 export default container;

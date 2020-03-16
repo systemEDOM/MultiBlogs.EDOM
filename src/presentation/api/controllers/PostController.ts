@@ -6,11 +6,11 @@ import TYPES from "../../../types";
 
 import permit from "../../../infrastructure/middlewares/PermissionMiddleware";
 import { PostRepository } from "../../../core/domain/interfaces/PostRepository";
-import { CreatePostUseCase } from "../../../core/application/usecases/posts/CreatePostUseCase";
-import { DeletePostUseCase } from "../../../core/application/usecases/posts/DeletePostUseCase";
-import { FindByIdPostUseCase } from "../../../core/application/usecases/posts/FindByIdPostUseCase";
-import { GetPostUseCase } from "../../../core/application/usecases/posts/GetPostsUseCase";
-import { UpdatePostUseCase } from "../../../core/application/usecases/posts/UpdatePostUseCase";
+import { CreatePostUseCase } from "../../../core/application/usecases/posts/Contracts/CreatePostUseCase";
+import { DeletePostUseCase } from "../../../core/application/usecases/posts/Contracts/DeletePostUseCase";
+import { FindByIdPostUseCase } from "../../../core/application/usecases/posts/Contracts/FindByIdPostUseCase";
+import { GetPostUseCase } from "../../../core/application/usecases/posts/Contracts/GetPostsUseCase";
+import { UpdatePostUseCase } from "../../../core/application/usecases/posts/Contracts/UpdatePostUseCase";
 import { UploadSingleFile } from "../../../util/UploadSingleFile";
 
 @controller("/posts")
