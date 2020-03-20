@@ -34,7 +34,7 @@ export class PostController extends BaseHttpController {
     public deletePostsUseCase: DeletePostUseCase;
     private postRepository: PostRepository;
 
-    constructor(@inject(TYPES.PostRepositoryInterface) postRepository: PostRepository) {
+    public constructor(@inject(TYPES.PostRepositoryInterface) postRepository: PostRepository) {
         super();
         this.postRepository = postRepository;
     }

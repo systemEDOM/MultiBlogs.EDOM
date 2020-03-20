@@ -12,10 +12,11 @@ export class Principal implements interfaces.Principal {
     }
 
     public isResourceOwner(resourceId: any): Promise<boolean> {
-        let permissions = this.details.role.permissions;
-        for (let key in permissions) {
-            if (resourceId === permissions[key].name)
-            return Promise.resolve(true)
+        const permissions = this.details.role.permissions;
+        for (const key of permissions) {
+            if (resourceId === key.name) {
+                return Promise.resolve(true);
+            }
         }
         return Promise.resolve(false);
     }

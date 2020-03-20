@@ -12,8 +12,8 @@ export class RoleController extends BaseHttpController {
     private roleRepo: RoleRepository;
     private roleService: RoleService;
 
-    constructor(@inject(TYPES.RoleRepositoryInterface) roleRepo: RoleRepository,
-                @inject(TYPES.RoleService) roleService: RoleService) {
+    public constructor(@inject(TYPES.RoleRepositoryInterface) roleRepo: RoleRepository,
+        @inject(TYPES.RoleService) roleService: RoleService) {
         super();
         this.roleRepo = roleRepo;
         this.roleService = roleService;

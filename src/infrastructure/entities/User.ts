@@ -9,10 +9,15 @@ import {
     PrimaryGeneratedColumn,
     Unique,
     UpdateDateColumn,
+    BeforeInsert,
+    AfterLoad,
+    BeforeUpdate,
 } from "typeorm";
 import {UserDTO} from "../../core/domain/entities/UserDTO";
 import { Post } from "./Post";
 import { Role } from "./Role";
+import slugify from "slugify";
+import * as bcrypt from "bcrypt";
 
 @Entity({name: "users"})
 @Unique(["username", "email"])
@@ -35,13 +40,13 @@ export class User extends EntitySchema<UserDTO> {
     @Column({length: 150, nullable: false})
     public password: string;
 
-    @OneToMany((type) => Post, (post) => post.user, {
+    @OneToMany( type => Post, post => post.user, {
         cascade: true,
         eager: true,
     })
     public posts: Post[];
 
-    @ManyToOne((type) => Role, (role) => role.users, {
+    @ManyToOne( type => Role, role => role.users, {
         onUpdate: "CASCADE",
         // tslint:disable-next-line:object-literal-sort-keys
         onDelete: "CASCADE",
@@ -54,4 +59,10 @@ export class User extends EntitySchema<UserDTO> {
 
     @UpdateDateColumn({type: "timestamp"})
     public updatedAt: Date;
+
+    @BeforeInsert()
+    public generateUsername = () => this.username = slugify(this.username);
+
+    @BeforeInsert()
+    public generatePasswordHash = () => bcrypt.hash(this.password, 10).then( result => this.password = result);
 }

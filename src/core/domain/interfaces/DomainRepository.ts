@@ -1,8 +1,8 @@
 import {DomainDTO} from "../entities/DomainDTO";
-import {Repository} from "./Repository";
+import {GenericRepository} from "./GenericRepository";
 
-// tslint:disable-next-line:interface-name no-empty-interface
-export interface DomainRepository extends Repository<DomainDTO> {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface DomainRepository extends GenericRepository<DomainDTO> {
     /**
      * Here i can add more methods for specific use
      */

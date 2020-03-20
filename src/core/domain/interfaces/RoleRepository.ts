@@ -1,8 +1,8 @@
 import {RoleDTO} from "../entities/RoleDTO";
-import {Repository} from "./Repository";
+import {GenericRepository} from "./GenericRepository";
 
-// tslint:disable-next-line:interface-name no-empty-interface
-export interface RoleRepository extends Repository<RoleDTO> {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RoleRepository extends GenericRepository<RoleDTO> {
     /**
      * Here i can add more methods for specific use
      */

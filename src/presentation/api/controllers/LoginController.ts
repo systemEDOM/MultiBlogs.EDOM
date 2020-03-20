@@ -4,20 +4,21 @@ import { BaseHttpController, controller, httpDelete, httpGet, httpPost, httpPut,
 import TYPES from "../../../types";
 
 import { UserRepository } from "../../../core/domain/interfaces/UserRepository";
-import { SignInUseCase } from "../../../core/application/usecases/auth/Contracts/SignInUseCase";
-import { FindByUsernameUserUseCase } from "../../../core/application/usecases/users/Contracts/FindByUsernameUserUseCase";
+import { FindByUsernameUserUseCase } from "../../../core/application/usecases/users/FindByUsernameUserUseCase";
+import { User } from "../../../infrastructure/entities/User";
+import { SignInUseCase } from "../../../core/application/usecases/auth/SignInUseCase";
 
 @controller("/auth")
 export class LoginController extends BaseHttpController {
 
-    @inject(TYPES.FindByUsernameUsersUseCaseInterface)
-    public findByUsernameUsersUseCase: FindByUsernameUserUseCase<any>;
+    @inject(TYPES.FindByUsernameUserUseCase)
+    public findByUsernameUsersUseCase: FindByUsernameUserUseCase;
     private userRepository: UserRepository;
 
-    private authService: SignInUseCase<any>;
+    private authService: SignInUseCase;
 
-    constructor(@inject(TYPES.UserRepositoryInterface) userRepository: UserRepository,
-                @inject(TYPES.AuthService) authService: SignInUseCase<any>) {
+    public constructor(@inject(TYPES.UserRepositoryInterface) userRepository: UserRepository,
+        @inject(TYPES.SignInUseCase) authService: SignInUseCase) {
         super();
         this.userRepository = userRepository;
         this.authService = authService;
@@ -26,10 +27,9 @@ export class LoginController extends BaseHttpController {
     @httpPost("/login")
     public async login(@request() req: express.Request, @response() res: express.Response) {
         try {
-            await this.findByUsernameUsersUseCase.execute(req.body.username).then(async (user) => {
-                // tslint:disable-next-line:no-shadowed-variable
-                const response = await this.authService.login(req.body.password, user);
-                return res.status(200).json(response);
+            await this.findByUsernameUsersUseCase.execute(req.body.username).then(async user => {
+                const responseLogin = await this.authService.login(req.body.password, user);
+                return res.status(200).json(responseLogin);
             });
         } catch (error) {
             res.status(400).json(error);

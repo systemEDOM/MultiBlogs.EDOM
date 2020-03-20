@@ -1,4 +1,3 @@
-// tslint:disable-next-line:max-line-length
 import {
     Column,
     CreateDateColumn,
@@ -24,7 +23,7 @@ export class Permission extends EntitySchema<PermissionDTO> {
     @Column({length: 150, nullable: false})
     public slug: string;
 
-    @ManyToMany((type) => Role, (role) => role.permissions)
+    @ManyToMany( type => Role, role => role.permissions)
     public roles: Role[];
 
     @CreateDateColumn({type: "timestamp"})

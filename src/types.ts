@@ -1,45 +1,42 @@
 const TYPES = {
-    //repositories
-    DomainRepositoryInterface: Symbol('DomainRepositoryInterface'),
-    UserRepositoryInterface: Symbol('UserRepositoryInterface'),
-    PostRepositoryInterface: Symbol('PostRepositoryInterface'),
-    PermissionRepositoryInterface: Symbol('PermissionRepositoryInterface'),
-    RoleRepositoryInterface: Symbol('RoleRepositoryInterface'),
+    // repositories
+    GenericRepository: Symbol("GenericRepository"),
+
+    DomainRepositoryInterface: Symbol("DomainRepositoryInterface"),
+    UserRepositoryInterface: Symbol("UserRepositoryInterface"),
+    PostRepositoryInterface: Symbol("PostRepositoryInterface"),
+    PermissionRepositoryInterface: Symbol("PermissionRepositoryInterface"),
+    RoleRepositoryInterface: Symbol("RoleRepositoryInterface"),
 
 
-    //use cases for domains
-    GetDomainsUseCaseInterface: Symbol('GetDomainsUseCaseInterface'),
-    CreateDomainsUseCaseInterface: Symbol('CreateDomainsUseCaseInterface'),
-    FindByIdDomainsUseCaseInterface: Symbol('FindByIdDomainsUseCaseInterface'),
-    UpdateDomainsUseCaseInterface: Symbol('UpdateDomainsUseCaseInterface'),
-    DeleteDomainsUseCaseInterface: Symbol('DeleteDomainsUseCaseInterface'),
+    // use cases for domains
+    GetDomainsUseCase: Symbol("GetDomainsUseCase"),
+    CreateDomainUseCase: Symbol("CreateDomainUseCase"),
+    FindByIdDomainUseCase: Symbol("FindByIdDomainUseCase"),
+    UpdateDomainUseCase: Symbol("UpdateDomainUseCase"),
+    DeleteDomainUseCase: Symbol("DeleteDomainUseCase"),
 
 
-    //use cases for users
-    GetUsersUseCaseInterface: Symbol('GetUsersUseCaseInterface'),
-    CreateUsersUseCaseInterface: Symbol('CreateUsersUseCaseInterface'),
-    FindByIdUsersUseCaseInterface: Symbol('FindByIdUsersUseCaseInterface'),
-    FindByUsernameUsersUseCaseInterface: Symbol('FindByUsernameUsersUseCaseInterface'),
-    UpdateUsersUseCaseInterface: Symbol('UpdateUsersUseCaseInterface'),
-    DeleteUsersUseCaseInterface: Symbol('DeleteUsersUseCaseInterface'),
+    // use cases for users
+    GetUsersUseCase: Symbol("GetUsersUseCase"),
+    CreateUserUseCase: Symbol("CreateUserUseCase"),
+    FindByIdUserUseCase: Symbol("FindByIdUserUseCase"),
+    FindByUsernameUserUseCase: Symbol("FindByUsernameUserUseCase"),
+    UpdateUserUseCase: Symbol("UpdateUserUseCase"),
+    DeleteUserUseCase: Symbol("DeleteUserUseCase"),
 
 
-    //use cases for posts
-    GetPostsUseCaseInterface: Symbol('GetPostsUseCaseInterface'),
-    CreatePostsUseCaseInterface: Symbol('CreatePostsUseCaseInterface'),
-    FindByIdPostsUseCaseInterface: Symbol('FindByIdPostsUseCaseInterface'),
-    UpdatePostsUseCaseInterface: Symbol('UpdatePostsUseCaseInterface'),
-    DeletePostsUseCaseInterface: Symbol('DeletePostsUseCaseInterface'),
+    // use cases for posts
+    GetPostsUseCase: Symbol("GetPostsUseCase"),
+    CreatePostUseCase: Symbol("CreatePostUseCase"),
+    FindByIdPostUseCase: Symbol("FindByIdPostUseCase"),
+    UpdatePostUseCase: Symbol("UpdatePostUseCase"),
+    DeletePostUseCase: Symbol("DeletePostUseCase"),
 
+    SignInUseCase: Symbol("SignInUseCase"),
 
-    //Services
-    AuthService: Symbol('AuthService'),
-    PermissionService: Symbol('PermissionService'),
-    RoleService: Symbol('RoleService'),
-
-
-    //Middlewares
-    AuthMiddleware: Symbol('AuthMiddleware'),
+    // Middlewares
+    AuthMiddleware: Symbol("AuthMiddleware"),
 };
 
 export default TYPES;

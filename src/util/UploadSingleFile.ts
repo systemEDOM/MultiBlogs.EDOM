@@ -1,8 +1,13 @@
 import * as multer from "multer";
 
 export class UploadSingleFile {
+    private static instance: UploadSingleFile;
 
-    public static getInstance() {
+    private constructor() {
+        //
+    }
+
+    public static getInstance(): UploadSingleFile {
         if (this.instance == null) {
             this.instance = new UploadSingleFile();
         }
@@ -10,12 +15,7 @@ export class UploadSingleFile {
         return this.instance;
     }
 
-    private static instance: UploadSingleFile;
-
-    private constructor() {
-    }
-
-    public uploadFile(instance, path, field) {
+    public uploadFile(instance, path, field): multer {
         const config = multer.diskStorage({
             destination: (req, file, cb) => {
                 cb(null, path);

@@ -12,8 +12,8 @@ export class PermissionController extends BaseHttpController {
     private permissionRepo: PermissionRepository;
     private permissionService: PermissionService;
 
-    constructor(@inject(TYPES.PermissionRepositoryInterface) permissionRepo: PermissionRepository,
-                @inject(TYPES.PermissionService) permissionService: PermissionService) {
+    public constructor(@inject(TYPES.PermissionRepositoryInterface) permissionRepo: PermissionRepository,
+        @inject(TYPES.PermissionService) permissionService: PermissionService) {
         super();
         this.permissionRepo = permissionRepo;
         this.permissionService = permissionService;

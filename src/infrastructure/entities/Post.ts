@@ -1,4 +1,3 @@
-// tslint:disable-next-line:max-line-length
 import {
     BaseEntity,
     BeforeInsert,
@@ -36,9 +35,8 @@ export class Post extends EntitySchema<PostDTO> {
     @Column({type: "text", nullable: false})
     public content: string;
 
-    @ManyToOne((type) => User, (user) => user.posts, {
+    @ManyToOne( type => User, user => user.posts, {
         onUpdate: "CASCADE",
-        // tslint:disable-next-line:object-literal-sort-keys
         onDelete: "CASCADE",
     })
     public user: User;

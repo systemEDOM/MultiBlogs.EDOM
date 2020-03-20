@@ -1,7 +1,5 @@
-// tslint:disable-next-line:interface-name
 import {UserDTO} from "./UserDTO";
 
-// tslint:disable-next-line:interface-name
 export interface PostDTO {
     id: number;
     name: string;

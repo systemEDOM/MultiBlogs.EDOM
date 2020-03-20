@@ -1,8 +1,8 @@
 import {PermissionDTO} from "../entities/PermissionDTO";
-import {Repository} from "./Repository";
+import {GenericRepository} from "./GenericRepository";
 
-// tslint:disable-next-line:interface-name no-empty-interface
-export interface PermissionRepository extends Repository<PermissionDTO> {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface PermissionRepository extends GenericRepository<PermissionDTO> {
     /**
      * Here i can add more methods for specific use
      */

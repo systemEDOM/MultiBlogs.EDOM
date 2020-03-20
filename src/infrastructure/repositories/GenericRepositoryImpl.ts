@@ -1,18 +1,19 @@
 import {injectable, unmanaged} from "inversify";
-import {Repository as TypeOrmRepository} from "typeorm";
-import {Repository} from "../../core/domain/interfaces/Repository";
+import {Repository} from "typeorm";
+import {GenericRepository} from "../../core/domain/interfaces/GenericRepository";
+
 
 @injectable()
-export class GenericRepositoryImpl<EntityDTO, EntityORM> implements Repository<EntityDTO> {
+export class GenericRepositoryImpl<EntityDTO, EntityORM> implements GenericRepository<EntityDTO> {
 
-    public readonly repository: TypeOrmRepository<EntityORM>;
+    public readonly repository: Repository<EntityORM>;
 
-    public constructor(@unmanaged() repository: TypeOrmRepository<EntityORM>) {
+    public constructor(@unmanaged() repository: Repository<EntityORM>) {
         this.repository = repository;
     }
 
     public async create(entity: EntityDTO): Promise<EntityORM> {
-        const model = await this.repository.create(entity);
+        const model = this.repository.create(entity);
         return await this.repository.save(model);
     }
 

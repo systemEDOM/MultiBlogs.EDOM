@@ -1,8 +1,7 @@
 import {UserDTO} from "../entities/UserDTO";
-import {Repository} from "./Repository";
+import {GenericRepository} from "./GenericRepository";
 
-// tslint:disable-next-line:interface-name
-export interface UserRepository extends Repository<UserDTO> {
+export interface UserRepository extends GenericRepository<UserDTO> {
     /**
      * Here i can add more methods for specific use
      */

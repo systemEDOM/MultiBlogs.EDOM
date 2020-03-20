@@ -1,40 +1,38 @@
 import * as express from "express";
-import { inject, injectable } from "inversify";
-// tslint:disable-next-line:max-line-length
+import { inject } from "inversify";
 import { BaseHttpController, controller, httpDelete, httpGet, httpPost, httpPut, injectHttpContext, interfaces, request, response } from "inversify-express-utils";
 import { DomainRepository } from "../../../core/domain/interfaces/DomainRepository";
 import TYPES from "../../../types";
 
 import permit from "../../../infrastructure/middlewares/PermissionMiddleware";
-import { CreateDomainUseCase } from "../../../core/application/usecases/domains/Contracts/CreateDomainUseCase";
-import { DeleteDomainUseCase } from "../../../core/application/usecases/domains/Contracts/DeleteDomainUseCase";
-import { FindByIdDomainUseCase } from "../../../core/application/usecases/domains/Contracts/FindByIdDomainUseCase";
-import { GetDomainsUseCase } from "../../../core/application/usecases/domains/Contracts/GetDomainsUseCase";
-import { UpdateDomainsUseCase } from "../../../core/application/usecases/domains/Contracts/UpdateDomainsUseCase";
+import { GetDomainsUseCase } from "../../../core/application/usecases/domains/GetDomainsUseCase";
+import { CreateDomainUseCase } from "../../../core/application/usecases/domains/CreateDomainUseCase";
+import { FindByIdDomainUseCase } from "../../../core/application/usecases/domains/FindByIdDomainUseCase";
+import { UpdateDomainUseCase } from "../../../core/application/usecases/domains/UpdateDomainUseCase";
+import { DeleteDomainUseCase } from "../../../core/application/usecases/domains/DeleteDomainUseCase";
 
 @controller("/domains")
 export class DomainController extends BaseHttpController {
 
-    @inject(TYPES.GetDomainsUseCaseInterface)
-    public getDomainsUseCase: GetDomainsUseCase<any>;
+    @inject(TYPES.GetDomainsUseCase)
+    public getDomainsUseCase: GetDomainsUseCase;
 
-    @inject(TYPES.CreateDomainsUseCaseInterface)
-    public createDomainsUseCase: CreateDomainUseCase<any>;
+    @inject(TYPES.CreateDomainUseCase)
+    public createDomainsUseCase: CreateDomainUseCase;
 
-    @inject(TYPES.FindByIdDomainsUseCaseInterface)
-    public findByIdDomainsUseCase: FindByIdDomainUseCase<any>;
+    @inject(TYPES.FindByIdDomainUseCase)
+    public findByIdDomainsUseCase: FindByIdDomainUseCase;
 
-    @inject(TYPES.UpdateDomainsUseCaseInterface)
-    public updateDomainsUseCase: UpdateDomainsUseCase<any>;
+    @inject(TYPES.UpdateDomainUseCase)
+    public updateDomainsUseCase: UpdateDomainUseCase;
 
-    @inject(TYPES.DeleteDomainsUseCaseInterface)
-    public deleteDomainsUseCase: DeleteDomainUseCase<any>;
+    @inject(TYPES.DeleteDomainUseCase)
+    public deleteDomainsUseCase: DeleteDomainUseCase;
 
-    // tslint:disable-next-line:variable-name
     @injectHttpContext public _httpContext: interfaces.HttpContext;
     private domainRepository: DomainRepository;
 
-    constructor(@inject(TYPES.DomainRepositoryInterface) domainRepository: DomainRepository) {
+    public constructor(@inject(TYPES.DomainRepositoryInterface) domainRepository: DomainRepository) {
         super();
         this.domainRepository = domainRepository;
     }

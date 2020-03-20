@@ -1,4 +1,3 @@
-// tslint:disable-next-line:max-line-length
 import {
     Column,
     CreateDateColumn,
@@ -27,7 +26,7 @@ export class Role extends EntitySchema<RoleDTO> {
     @Column({length: 150, nullable: false})
     public slug?: string;
 
-    @ManyToMany((type) => Permission, (permission) => permission.roles, {
+    @ManyToMany( type => Permission, permission => permission.roles, {
         cascade: true,
         eager: true,
     })
@@ -45,7 +44,7 @@ export class Role extends EntitySchema<RoleDTO> {
     })
     public permissions: Permission[];
 
-    @OneToMany((type) => User, (user) => user.role, {
+    @OneToMany( type => User, user => user.role, {
         cascade: true,
     })
     public users: User[];
