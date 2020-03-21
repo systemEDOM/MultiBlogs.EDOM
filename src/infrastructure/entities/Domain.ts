@@ -3,7 +3,7 @@ import { DomainDTO } from "../../core/domain/entities/DomainDTO";
 import slugify from "slugify";
 
 @Entity({ name: "domains" })
-export class Domain extends EntitySchema<DomainDTO> {
+export class Domain {
     @PrimaryGeneratedColumn()
     public id: number;
 
