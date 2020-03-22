@@ -6,7 +6,6 @@ import TYPES from "../../../types";
 
 
 import permit from "../../../infrastructure/middlewares/PermissionMiddleware";
-import { UserRepository } from "../../../core/domain/interfaces/UserRepository";
 import { UploadSingleFile } from "../../../util/UploadSingleFile";
 import { GetUsersUseCase } from "../../../core/application/usecases/users/GetUsersUseCase";
 import { CreateUserUseCase } from "../../../core/application/usecases/users/CreateUserUseCase";
@@ -20,28 +19,24 @@ export class UserController extends BaseHttpController {
 
     public static fileName: string;
 
-    @inject(TYPES.GetUsersUseCase)
     public getUsersUseCase: GetUsersUseCase;
-
-    @inject(TYPES.CreateUserUseCase)
     public createUsersUseCase: CreateUserUseCase;
-
-    @inject(TYPES.FindByIdUserUseCase)
     public findByIdUsersUseCase: FindByIdUserUseCase;
-
-    @inject(TYPES.FindByUsernameUserUseCase)
     public findByUsernameUsersUseCase: FindByUsernameUserUseCase;
-
-    @inject(TYPES.UpdateUserUseCase)
     public updateUsersUseCase: UpdateUserUseCase;
-
-    @inject(TYPES.DeleteUserUseCase)
     public deleteUsersUseCase: DeleteUserUseCase;
-    private domainRepository: UserRepository;
 
-    public constructor(@inject(TYPES.DomainRepositoryInterface) domainRepository: UserRepository) {
+    public constructor(@inject(TYPES.GetUsersUseCase) getUsersUseCase: GetUsersUseCase,
+        @inject(TYPES.CreateUserUseCase) createUserUseCase: CreateUserUseCase,
+        @inject(TYPES.FindByIdUserUseCase) findByIdUserUseCase: FindByIdUserUseCase,
+        @inject(TYPES.UpdateUserUseCase) updateUserUseCase: UpdateUserUseCase,
+        @inject(TYPES.DeleteUserUseCase) deleteUserUseCase: DeleteUserUseCase) {
         super();
-        this.domainRepository = domainRepository;
+        this.getUsersUseCase = getUsersUseCase;
+        this.createUsersUseCase = createUserUseCase;
+        this.findByIdUsersUseCase = findByIdUserUseCase;
+        this.updateUsersUseCase = updateUserUseCase;
+        this.deleteUsersUseCase = deleteUserUseCase;
     }
 
     @httpGet("/", TYPES.AuthMiddleware, permit("get users"))

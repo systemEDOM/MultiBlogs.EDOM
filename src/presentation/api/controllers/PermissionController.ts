@@ -4,25 +4,37 @@ import { BaseHttpController, controller, httpDelete, httpGet, httpPost, httpPut,
 import TYPES from "../../../types";
 
 import permit from "../../../infrastructure/middlewares/PermissionMiddleware";
-import { PermissionRepository } from "../../../core/domain/interfaces/PermissionRepository";
-import { PermissionService } from "../../core/application/services/interfaces/PermissionService";
+import { CreatePermissionUseCase } from "../../../core/application/usecases/permissions/CreatePermissionUseCase";
+import { GetPermissionsUseCase } from "../../../core/application/usecases/permissions/GetPermissionsUseCase";
+import { FindByIdPermissionUseCase } from "../../../core/application/usecases/permissions/FindByIdPermissionUseCase";
+import { UpdatePermissionUseCase } from "../../../core/application/usecases/permissions/UpdatePermissionUseCase";
+import { DeletePermissionUseCase } from "../../../core/application/usecases/permissions/DeletePermissionUseCase";
 
 @controller("/permissions")
 export class PermissionController extends BaseHttpController {
-    private permissionRepo: PermissionRepository;
-    private permissionService: PermissionService;
+    private getPermissionsUseCase: GetPermissionsUseCase;
+    private createPermissionUseCase: CreatePermissionUseCase;
+    private findByIdPermissionUseCase: FindByIdPermissionUseCase;
+    private updatePermissionUseCase: UpdatePermissionUseCase;
+    private deletePermissionUseCase: DeletePermissionUseCase;
 
-    public constructor(@inject(TYPES.PermissionRepositoryInterface) permissionRepo: PermissionRepository,
-        @inject(TYPES.PermissionService) permissionService: PermissionService) {
+    public constructor(@inject(TYPES.GetPermissionsUseCase) getPermissionsUseCase: GetPermissionsUseCase,
+        @inject(TYPES.CreatePermissionUseCase) createPermissionUseCase: CreatePermissionUseCase,
+        @inject(TYPES.FindByIdPermissionUseCase) findByIdPermissionUseCase: FindByIdPermissionUseCase,
+        @inject(TYPES.UpdatePermissionUseCase) updatePermissionUseCase: UpdatePermissionUseCase,
+        @inject(TYPES.DeletePermissionUseCase) deletePermissionUseCase: DeletePermissionUseCase) {
         super();
-        this.permissionRepo = permissionRepo;
-        this.permissionService = permissionService;
+        this.getPermissionsUseCase = getPermissionsUseCase;
+        this.createPermissionUseCase = createPermissionUseCase;
+        this.findByIdPermissionUseCase = findByIdPermissionUseCase;
+        this.updatePermissionUseCase = updatePermissionUseCase;
+        this.deletePermissionUseCase = deletePermissionUseCase;
     }
 
     @httpGet("/", TYPES.AuthMiddleware, permit("get permissions"))
     public async index(@request() req: express.Request, @response() res: express.Response) {
         try {
-            const permissions = await this.permissionService.findAll();
+            const permissions = await this.getPermissionsUseCase.execute();
             res.status(200).send(permissions);
         } catch (error) {
             res.status(400).json(error);
@@ -32,7 +44,7 @@ export class PermissionController extends BaseHttpController {
     @httpPost("/", TYPES.AuthMiddleware, permit("create permissions"))
     public async store(@request() req: express.Request, @response() res: express.Response) {
         try {
-            const permission = await this.permissionService.create(req.body);
+            const permission = await this.createPermissionUseCase.execute(req.body);
             res.status(200).send(permission);
         } catch (error) {
             res.status(400).json(error);
@@ -42,7 +54,7 @@ export class PermissionController extends BaseHttpController {
     @httpGet("/:id", TYPES.AuthMiddleware, permit("show permissions"))
     public async show(@request() req: express.Request, @response() res: express.Response) {
         try {
-            const permission = await this.permissionService.findById(Number(req.params.id));
+            const permission = await this.findByIdPermissionUseCase.execute(Number(req.params.id));
             res.status(200).send(permission);
         } catch (error) {
             res.status(400).json(error);
@@ -52,7 +64,7 @@ export class PermissionController extends BaseHttpController {
     @httpPut("/:id", TYPES.AuthMiddleware, permit("edit permissions"))
     public async update(@request() req: express.Request, @response() res: express.Response) {
         try {
-            const permission = await this.permissionService.update(Number(req.params.id), req.body);
+            const permission = await this.updatePermissionUseCase.execute(Number(req.params.id), req.body);
             res.status(200).send(permission);
         } catch (error) {
             res.status(400).json(error);
@@ -62,7 +74,7 @@ export class PermissionController extends BaseHttpController {
     @httpDelete("/:id", TYPES.AuthMiddleware, permit("delete permissions"))
     public async destroy(@request() req: express.Request, @response() res: express.Response) {
         try {
-            const permission = await this.permissionService.delete(Number(req.params.id));
+            const permission = await this.deletePermissionUseCase.execute(Number(req.params.id));
             res.status(200).send(permission);
         } catch (error) {
             res.status(400).json(error);

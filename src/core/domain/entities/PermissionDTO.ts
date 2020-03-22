@@ -4,7 +4,7 @@ export interface PermissionDTO {
     id: number;
     name: string;
     slug: string;
-    roles: RoleDTO[];
+    roles: any[];
     createdAt: Date;
     updatedAt: Date;
 }

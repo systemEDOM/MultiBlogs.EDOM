@@ -5,24 +5,37 @@ import TYPES from "../../../types";
 
 import permit from "../../../infrastructure/middlewares/PermissionMiddleware";
 import { RoleRepository } from "../../../core/domain/interfaces/RoleRepository";
-import { RoleService } from "../../core/application/services/interfaces/RoleService";
+import { GetRolesUseCase } from "../../../core/application/usecases/roles/GetRolesUseCase";
+import { FindByIdRoleUseCase } from "../../../core/application/usecases/roles/FindByIdRoleUseCase";
+import { CreateRoleUseCase } from "../../../core/application/usecases/roles/CreateRoleUseCase";
+import { UpdateRoleUseCase } from "../../../core/application/usecases/roles/UpdateRoleUseCase";
+import { DeleteRoleUseCase } from "../../../core/application/usecases/roles/DeleteRoleUseCase";
 
 @controller("/roles")
 export class RoleController extends BaseHttpController {
-    private roleRepo: RoleRepository;
-    private roleService: RoleService;
+    private getRolesUseCase: GetRolesUseCase;
+    private createRoleUseCase: CreateRoleUseCase;
+    private findByIdRoleUseCase: FindByIdRoleUseCase;
+    private updateRoleUseCase: UpdateRoleUseCase;
+    private deleteRoleUseCase: DeleteRoleUseCase;
 
-    public constructor(@inject(TYPES.RoleRepositoryInterface) roleRepo: RoleRepository,
-        @inject(TYPES.RoleService) roleService: RoleService) {
+    public constructor(@inject(TYPES.GetRolesUseCase) getRolesUseCase: GetRolesUseCase,
+        @inject(TYPES.GetRolesUseCase) createRoleUseCase: CreateRoleUseCase,
+        @inject(TYPES.GetRolesUseCase) findByIdRoleUseCase: FindByIdRoleUseCase,
+        @inject(TYPES.GetRolesUseCase) updateRoleUseCase: UpdateRoleUseCase,
+        @inject(TYPES.GetRolesUseCase) deleteRoleUseCase: DeleteRoleUseCase) {
         super();
-        this.roleRepo = roleRepo;
-        this.roleService = roleService;
+        this.getRolesUseCase = getRolesUseCase;
+        this.createRoleUseCase = createRoleUseCase;
+        this.findByIdRoleUseCase = findByIdRoleUseCase;
+        this.updateRoleUseCase = updateRoleUseCase;
+        this.deleteRoleUseCase = deleteRoleUseCase;
     }
 
     @httpGet("/", TYPES.AuthMiddleware, permit("get roles"))
     public async index(@request() req: express.Request, @response() res: express.Response) {
         try {
-            const roles = await this.roleService.findAll();
+            const roles = await this.getRolesUseCase.execute();
             res.status(200).send(roles);
         } catch (error) {
             res.status(400).json(error);
@@ -33,7 +46,7 @@ export class RoleController extends BaseHttpController {
     public async store(@request() req: express.Request, @response() res: express.Response) {
         try {
             req.body.permissions = req.body.permissions.split(",");
-            const role = await this.roleService.create(req.body);
+            const role = await this.createRoleUseCase.execute(req.body);
             res.status(200).send(role);
         } catch (error) {
             res.status(400).json(error);
@@ -43,7 +56,7 @@ export class RoleController extends BaseHttpController {
     @httpGet("/:id", TYPES.AuthMiddleware, permit("show roles"))
     public async show(@request() req: express.Request, @response() res: express.Response) {
         try {
-            const role = await this.roleService.findById(Number(req.params.id));
+            const role = await this.findByIdRoleUseCase.execute(Number(req.params.id));
             res.status(200).send(role);
         } catch (error) {
             res.status(400).json(error);
@@ -54,7 +67,7 @@ export class RoleController extends BaseHttpController {
     public async update(@request() req: express.Request, @response() res: express.Response) {
         try {
             req.body.permissions = req.body.permissions.split(",");
-            const role = await this.roleService.update(Number(req.params.id), req.body);
+            const role = await this.updateRoleUseCase.execute(Number(req.params.id), req.body);
             res.status(200).send(role);
         } catch (error) {
             res.status(400).json(error);
@@ -64,7 +77,7 @@ export class RoleController extends BaseHttpController {
     @httpDelete("/:id", TYPES.AuthMiddleware, permit("delete roles"))
     public async destroy(@request() req: express.Request, @response() res: express.Response) {
         try {
-            const role = await this.roleService.delete(Number(req.params.id));
+            const role = await this.deleteRoleUseCase.execute(Number(req.params.id));
             res.status(200).send(role);
         } catch (error) {
             res.status(400).json(error);

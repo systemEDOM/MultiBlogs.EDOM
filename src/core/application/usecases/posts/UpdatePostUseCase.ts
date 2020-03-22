@@ -13,7 +13,7 @@ export class UpdatePostUseCase {
     }
 
     public async execute(id: number, post: PostDTO): Promise<PostDTO> {
-        this.postRepository.findById(id).then( postDTO => {
+        await this.postRepository.findById(id).then( postDTO => {
             if (postDTO.image !== null) {
                 fs.unlinkSync("./public/assets/img/blog/" + postDTO.image);
             }

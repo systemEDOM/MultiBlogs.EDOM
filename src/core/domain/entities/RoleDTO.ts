@@ -6,7 +6,7 @@ export interface RoleDTO {
     name: string;
     slug: string;
     permissions: PermissionDTO[];
-    users: UserDTO[];
+    users: any[];
     createdAt: Date;
     updatedAt: Date;
 }

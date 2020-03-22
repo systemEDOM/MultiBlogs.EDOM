@@ -7,7 +7,7 @@ export interface PostDTO {
     image: string;
     description: string;
     content: string;
-    user: UserDTO;
+    user: any;
     createdAt: Date;
     updatedAt: Date;
 }

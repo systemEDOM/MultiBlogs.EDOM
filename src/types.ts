@@ -33,6 +33,20 @@ const TYPES = {
     UpdatePostUseCase: Symbol("UpdatePostUseCase"),
     DeletePostUseCase: Symbol("DeletePostUseCase"),
 
+    // use cases for permissions
+    GetPermissionsUseCase: Symbol("GetPermissionsUseCase"),
+    CreatePermissionUseCase: Symbol("CreatePermissionUseCase"),
+    FindByIdPermissionUseCase: Symbol("FindByIdPermissionUseCase"),
+    UpdatePermissionUseCase: Symbol("UpdatePermissionUseCase"),
+    DeletePermissionUseCase: Symbol("DeletePermissionUseCase"),
+
+    // use cases for roles
+    GetRolesUseCase: Symbol("GetRolesUseCase"),
+    CreateRoleUseCase: Symbol("CreateRoleUseCase"),
+    FindByIdRoleUseCase: Symbol("FindByIdRoleUseCase"),
+    UpdateRoleUseCase: Symbol("UpdateRoleUseCase"),
+    DeleteRoleUseCase: Symbol("DeleteRoleUseCase"),
+
     SignInUseCase: Symbol("SignInUseCase"),
 
     // Middlewares

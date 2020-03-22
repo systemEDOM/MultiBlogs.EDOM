@@ -1,3 +1,4 @@
+import * as fs from "fs";
 import { inject, injectable } from "inversify";
 import TYPES from "../../../../types";
 import {PostDTO} from "../../../domain/entities/PostDTO";

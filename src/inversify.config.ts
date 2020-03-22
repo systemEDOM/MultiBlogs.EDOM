@@ -36,6 +36,16 @@ import { PermissionRepositoryImpl } from "./infrastructure/repositories/Permissi
 import { RoleRepositoryImpl } from "./infrastructure/repositories/Role/RoleRepositoryImpl";
 import { GenericRepositoryImpl } from "./infrastructure/repositories/GenericRepositoryImpl";
 import { GenericRepository } from "./core/domain/interfaces/GenericRepository";
+import { GetPermissionsUseCase } from "./core/application/usecases/permissions/GetPermissionsUseCase";
+import { CreatePermissionUseCase } from "./core/application/usecases/permissions/CreatePermissionUseCase";
+import { DeletePermissionUseCase } from "./core/application/usecases/permissions/DeletePermissionUseCase";
+import { FindByIdPermissionUseCase } from "./core/application/usecases/permissions/FindByIdPermissionUseCase";
+import { UpdatePermissionUseCase } from "./core/application/usecases/permissions/UpdatePermissionUseCase";
+import { CreateRoleUseCase } from "./core/application/usecases/roles/CreateRoleUseCase";
+import { FindByIdRoleUseCase } from "./core/application/usecases/roles/FindByIdRoleUseCase";
+import { UpdateRoleUseCase } from "./core/application/usecases/roles/UpdateRoleUseCase";
+import { DeleteRoleUseCase } from "./core/application/usecases/roles/DeleteRoleUseCase";
+import { GetRolesUseCase } from "./core/application/usecases/roles/GetRolesUseCase";
 
 const container = new Container();
 
@@ -65,6 +75,18 @@ container.bind<CreatePostUseCase>(TYPES.CreatePostUseCase).to(CreatePostUseCase)
 container.bind<FindByIdPostUseCase>(TYPES.FindByIdPostUseCase).to(FindByIdPostUseCase).inSingletonScope();
 container.bind<UpdatePostUseCase>(TYPES.UpdatePostUseCase).to(UpdatePostUseCase).inSingletonScope();
 container.bind<DeletePostUseCase>(TYPES.DeletePostUseCase).to(DeletePostUseCase).inSingletonScope();
+
+container.bind<GetPermissionsUseCase>(TYPES.GetPermissionsUseCase).to(GetPermissionsUseCase).inSingletonScope();
+container.bind<CreatePermissionUseCase>(TYPES.CreatePermissionUseCase).to(CreatePermissionUseCase).inSingletonScope();
+container.bind<FindByIdPermissionUseCase>(TYPES.FindByIdPermissionUseCase).to(FindByIdPermissionUseCase).inSingletonScope();
+container.bind<UpdatePermissionUseCase>(TYPES.UpdatePermissionUseCase).to(UpdatePermissionUseCase).inSingletonScope();
+container.bind<DeletePermissionUseCase>(TYPES.DeletePermissionUseCase).to(DeletePermissionUseCase).inSingletonScope();
+
+container.bind<GetRolesUseCase>(TYPES.GetRolesUseCase).to(GetRolesUseCase).inSingletonScope();
+container.bind<CreateRoleUseCase>(TYPES.CreateRoleUseCase).to(CreateRoleUseCase).inSingletonScope();
+container.bind<FindByIdRoleUseCase>(TYPES.FindByIdRoleUseCase).to(FindByIdRoleUseCase).inSingletonScope();
+container.bind<UpdateRoleUseCase>(TYPES.UpdateRoleUseCase).to(UpdateRoleUseCase).inSingletonScope();
+container.bind<DeleteRoleUseCase>(TYPES.DeleteRoleUseCase).to(DeleteRoleUseCase).inSingletonScope();
 
 container.bind<SignInUseCase>(TYPES.SignInUseCase).to(SignInUseCase).inSingletonScope();
 

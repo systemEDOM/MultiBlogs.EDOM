@@ -8,8 +8,8 @@ export interface UserDTO {
     email: string;
     photo: string;
     password: string;
-    posts: PostDTO[];
-    role: RoleDTO;
+    posts: any[];
+    role: any;
     createdAt: Date;
     updatedAt: Date;
 }

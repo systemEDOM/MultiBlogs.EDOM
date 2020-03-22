@@ -6,7 +6,7 @@ import {PermissionDTO} from "../../../domain/entities/PermissionDTO";
 import {PermissionRepository} from "../../../domain/interfaces/PermissionRepository";
 
 @injectable()
-export class FIndByIdPermissionUseCase {
+export class FindByIdPermissionUseCase {
     private permissionRepository: PermissionRepository;
 
     public constructor(@inject(TYPES.PermissionRepositoryInterface) permissionRepository: PermissionRepository) {

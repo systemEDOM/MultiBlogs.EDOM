@@ -32,7 +32,6 @@ export class Role extends EntitySchema<RoleDTO> {
     })
     @JoinTable({
         name: "roles_permissions",
-        // tslint:disable-next-line:object-literal-sort-keys
         joinColumn: {
             name: "roleId",
             referencedColumnName: "id",
