@@ -1,4 +1,4 @@
-# Awesome Project Build with TypeORM
+# Project to manage posts/blogs by domains.
 
 Steps to run this project:
 
