@@ -20,10 +20,10 @@ export class RoleController extends BaseHttpController {
     private deleteRoleUseCase: DeleteRoleUseCase;
 
     public constructor(@inject(TYPES.GetRolesUseCase) getRolesUseCase: GetRolesUseCase,
-        @inject(TYPES.GetRolesUseCase) createRoleUseCase: CreateRoleUseCase,
-        @inject(TYPES.GetRolesUseCase) findByIdRoleUseCase: FindByIdRoleUseCase,
-        @inject(TYPES.GetRolesUseCase) updateRoleUseCase: UpdateRoleUseCase,
-        @inject(TYPES.GetRolesUseCase) deleteRoleUseCase: DeleteRoleUseCase) {
+        @inject(TYPES.CreateRoleUseCase) createRoleUseCase: CreateRoleUseCase,
+        @inject(TYPES.FindByIdRoleUseCase) findByIdRoleUseCase: FindByIdRoleUseCase,
+        @inject(TYPES.UpdateRoleUseCase) updateRoleUseCase: UpdateRoleUseCase,
+        @inject(TYPES.DeleteRoleUseCase) deleteRoleUseCase: DeleteRoleUseCase) {
         super();
         this.getRolesUseCase = getRolesUseCase;
         this.createRoleUseCase = createRoleUseCase;

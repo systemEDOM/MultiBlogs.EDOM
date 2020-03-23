@@ -22,19 +22,21 @@ export class UserController extends BaseHttpController {
     public getUsersUseCase: GetUsersUseCase;
     public createUsersUseCase: CreateUserUseCase;
     public findByIdUsersUseCase: FindByIdUserUseCase;
-    public findByUsernameUsersUseCase: FindByUsernameUserUseCase;
+    public findByUsernameUserUseCase: FindByUsernameUserUseCase;
     public updateUsersUseCase: UpdateUserUseCase;
     public deleteUsersUseCase: DeleteUserUseCase;
 
     public constructor(@inject(TYPES.GetUsersUseCase) getUsersUseCase: GetUsersUseCase,
         @inject(TYPES.CreateUserUseCase) createUserUseCase: CreateUserUseCase,
         @inject(TYPES.FindByIdUserUseCase) findByIdUserUseCase: FindByIdUserUseCase,
+        @inject(TYPES.FindByUsernameUserUseCase) findByUsernameUserUseCase: FindByUsernameUserUseCase,
         @inject(TYPES.UpdateUserUseCase) updateUserUseCase: UpdateUserUseCase,
         @inject(TYPES.DeleteUserUseCase) deleteUserUseCase: DeleteUserUseCase) {
         super();
         this.getUsersUseCase = getUsersUseCase;
         this.createUsersUseCase = createUserUseCase;
         this.findByIdUsersUseCase = findByIdUserUseCase;
+        this.findByUsernameUserUseCase = findByUsernameUserUseCase;
         this.updateUsersUseCase = updateUserUseCase;
         this.deleteUsersUseCase = deleteUserUseCase;
     }
@@ -74,14 +76,13 @@ export class UserController extends BaseHttpController {
     @httpGet("/by/:username", TYPES.AuthMiddleware, permit("show users"))
     public async showByUsername(@request() req: express.Request, @response() res: express.Response) {
         try {
-            const user = await this.findByUsernameUsersUseCase.execute(req.params.username);
+            const user = await this.findByUsernameUserUseCase.execute(req.params.username);
             res.status(200).send(user);
         } catch (error) {
             res.status(400).json(error);
         }
     }
 
-    // tslint:disable-next-line:max-line-length
     @httpPut("/:id", TYPES.AuthMiddleware, permit("edit users"), UploadSingleFile.getInstance().uploadFile(UserController, "./public/assets/img/avatars/", "photo"))
     public async update(@request() req: express.Request, @response() res: express.Response) {
         try {

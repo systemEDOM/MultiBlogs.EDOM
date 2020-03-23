@@ -9,10 +9,12 @@ import {
     PrimaryGeneratedColumn,
     Unique,
     UpdateDateColumn,
+    BeforeInsert,
 } from "typeorm";
 import {RoleDTO} from "../../core/domain/entities/RoleDTO";
 import {Permission} from "./Permission";
 import { User } from "./User";
+import slugify from "slugify";
 
 @Entity({name: "roles"})
 @Unique(["name", "slug"])
@@ -53,4 +55,7 @@ export class Role extends EntitySchema<RoleDTO> {
 
     @UpdateDateColumn({type: "timestamp"})
     public updatedAt: Date;
+
+    @BeforeInsert()
+    public generateSlug = () => this.slug = slugify(this.name);
 }

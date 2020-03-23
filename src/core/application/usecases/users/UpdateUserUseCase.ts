@@ -4,6 +4,8 @@ import TYPES from "../../../../types";
 import { UserDTO } from "../../../domain/entities/UserDTO";
 import { RoleRepository } from "../../../domain/interfaces/RoleRepository";
 import { UserRepository } from "../../../domain/interfaces/UserRepository";
+import slugify from "slugify";
+import * as bcrypt from "bcrypt";
 
 @injectable()
 export class UpdateUserUseCase {
@@ -27,9 +29,9 @@ export class UpdateUserUseCase {
             userObj.role = await this.roleRepository.findById(Number(user.role)).then( role => role);
         }
         userObj.name = user.name;
-        userObj.username = user.username;
+        userObj.username = slugify(user.username);
         userObj.email = user.email;
-        userObj.password = user.password;
+        userObj.password = await bcrypt.hash(user.password, 10).then( result => result);
         userObj.photo = user.photo;
         return this.userRepository.create(userObj);
     }

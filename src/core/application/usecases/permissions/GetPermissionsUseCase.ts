@@ -7,7 +7,7 @@ import {PermissionRepository} from "../../../domain/interfaces/PermissionReposit
 export class GetPermissionsUseCase {
     private permissionRepository: PermissionRepository;
 
-    public constructor(@inject(TYPES.PostRepositoryInterface) permissionRepository: PermissionRepository) {
+    public constructor(@inject(TYPES.PermissionRepositoryInterface) permissionRepository: PermissionRepository) {
         this.permissionRepository = permissionRepository;
     }
 

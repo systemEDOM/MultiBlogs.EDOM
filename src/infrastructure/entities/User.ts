@@ -41,14 +41,14 @@ export class User extends EntitySchema<UserDTO> {
     public password: string;
 
     @OneToMany( type => Post, post => post.user, {
-        cascade: true,
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
         eager: true,
     })
     public posts: Post[];
 
     @ManyToOne( type => Role, role => role.users, {
         onUpdate: "CASCADE",
-        // tslint:disable-next-line:object-literal-sort-keys
         onDelete: "CASCADE",
         eager: true,
     })

@@ -13,11 +13,11 @@ export default function permit(permission) {
             token = token.replace("Bearer ", "");
 
             const user = authUseCase.getUser(token);
-
-            const permissions = await findUserByIdUseCase.execute(1).then( userDTO => userDTO.role.permissions);
+            const idUser = (await user).id;
+            const permissions = await findUserByIdUseCase.execute(idUser).then( userDTO => userDTO.role.permissions);
             for (const key of permissions) {
                 if (permission === key.name) {
-                    next();
+                    return next();
                 }
             }
             return response.status(401).json({message: "User unauthorized"});

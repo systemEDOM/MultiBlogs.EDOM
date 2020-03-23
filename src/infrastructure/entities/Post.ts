@@ -13,6 +13,7 @@ import {
 } from "typeorm";
 import {PostDTO} from "../../core/domain/entities/PostDTO";
 import { User } from "./User";
+import slugify from "slugify";
 
 @Entity({name: "posts"})
 @Unique(["name", "slug"])
@@ -46,4 +47,7 @@ export class Post extends EntitySchema<PostDTO> {
 
     @UpdateDateColumn({type: "timestamp"})
     public updatedAt: Date;
+
+    @BeforeInsert()
+    public generateSlug = () => this.slug = slugify(this.name);
 }

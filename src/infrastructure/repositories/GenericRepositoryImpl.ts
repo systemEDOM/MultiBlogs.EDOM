@@ -1,6 +1,7 @@
 import {injectable, unmanaged} from "inversify";
 import {Repository} from "typeorm";
 import {GenericRepository} from "../../core/domain/interfaces/GenericRepository";
+import slugify from "slugify";
 
 
 @injectable()
@@ -32,7 +33,13 @@ export class GenericRepositoryImpl<EntityDTO, EntityORM> implements GenericRepos
     }
 
     public async update(id: number, entity: EntityDTO): Promise<EntityORM> {
-        await this.repository.update(id, entity);
-        return await this.repository.findOneOrFail(id);
+        const e = await this.repository.findOneOrFail(id);
+        Object.keys(entity).forEach(key => {
+            e[key] = entity[key];
+            if (key == "name") {
+                e["slug"] = slugify(entity[key]);
+            }
+        });
+        return await this.repository.save(e);
     }
 }

@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, EntitySchema, PrimaryGeneratedColumn, UpdateDateColumn, BeforeInsert } from "typeorm";
+import { Column, CreateDateColumn, Entity, EntitySchema, PrimaryGeneratedColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate } from "typeorm";
 import { DomainDTO } from "../../core/domain/entities/DomainDTO";
 import slugify from "slugify";
 
@@ -23,5 +23,6 @@ export class Domain extends EntitySchema<DomainDTO> {
     public updatedAt: Date;
 
     @BeforeInsert()
+    @BeforeUpdate()
     public generateSlug = () => this.slug = slugify(this.name);
 }
