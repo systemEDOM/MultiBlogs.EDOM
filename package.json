@@ -46,6 +46,6 @@
       "mysql2": "^1.7.0",
       "reflect-metadata": "^0.1.13",
       "slugify": "^1.3.5",
-      "typeorm": "0.2.19"
+      "typeorm": "0.2.25"
    }
 }
